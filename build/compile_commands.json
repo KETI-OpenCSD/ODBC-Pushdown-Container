@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build",
+  "command": "/usr/bin/g++ -DCARES_STATICLIB -I/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build -isystem /include -g -std=gnu++11 -o CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o -c /root/workspace/test/ODBC-Pushdown-Process-Container_40k/build/snippet_sample.grpc.pb.cc",
+  "file": "/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build/snippet_sample.grpc.pb.cc"
+},
+{
+  "directory": "/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build",
+  "command": "/usr/bin/g++ -DCARES_STATICLIB -I/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build -isystem /include -g -std=gnu++11 -o CMakeFiles/ss_grpc_proto.dir/snippet_sample.pb.cc.o -c /root/workspace/test/ODBC-Pushdown-Process-Container_40k/build/snippet_sample.pb.cc",
+  "file": "/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build/snippet_sample.pb.cc"
+},
+{
+  "directory": "/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build",
+  "command": "/usr/bin/g++ -DCARES_STATICLIB -I/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build -isystem /include -g -std=gnu++11 -o CMakeFiles/storage_engine_instance.dir/StorageEngineInputInterface.cc.o -c /root/workspace/test/ODBC-Pushdown-Process-Container_40k/StorageEngineInputInterface.cc",
+  "file": "/root/workspace/test/ODBC-Pushdown-Process-Container_40k/StorageEngineInputInterface.cc"
+}
+]
