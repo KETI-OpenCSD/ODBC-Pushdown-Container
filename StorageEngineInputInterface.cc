@@ -609,6 +609,7 @@ int main(int argc, char const *argv[]) {
 
 void testrun(string dirname){
   // cout << "[Storage Engine Input Interface] Start gRPC Server" << endl;
+  tblManager.init_TableManager();
   time_t st = time(0);
   queue<SnippetStruct> snippetqueue;
   // cout << dirname << endl;
@@ -618,9 +619,9 @@ void testrun(string dirname){
     tmpstring = "0" + tmpstring;
   }
   // SnippetStructQueue tmpque;
-  
+  cout << "-----------------------------------:: STEP 2 ::-----------------------------------" << endl;
   // for(int i = 0; i < 13; i++){
-    cout << dirname << endl;
+    // cout << dirname << endl;
     int filecount = 0;
   for(const auto & file : filesystem::directory_iterator(dirname)){
     filecount++;
@@ -630,7 +631,7 @@ void testrun(string dirname){
     // string filename = "newtestsnippet/tpch05-" + to_string(i) + ".json";
     string filename = dirname + "/tpch" + tmpstring + "-" +to_string(i) + ".json";
     // cout << filename << endl;
-    cout << "[Storage Engine Input Interface] Recived Snippet" << tmpstring << "-" << i + 1 << endl;
+    cout << "[Storage Engine Input Interface] Recived Snippet" << tmpstring << "-" << i << endl;
     int json_fd;
 	  string json = "";
     json_fd = open(filename.c_str(),O_RDONLY);

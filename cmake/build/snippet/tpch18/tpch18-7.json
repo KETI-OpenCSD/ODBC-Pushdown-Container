@@ -30,7 +30,7 @@
       "o_orderkey",
       "o_orderdate",
       "o_totalprice",
-      "sum_lquantity"
+      "l_quantity"
     ],
     "columnProjection": [
       {
@@ -59,7 +59,7 @@
           "valueType": [10]
       },
       {
-          "selectType": 1,
+          "selectType": 0,
           "value": ["l_quantity"],
           "valueType": [10]
       }

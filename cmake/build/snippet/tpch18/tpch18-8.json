@@ -48,8 +48,8 @@
           "valueType": [10]
       },
       {
-          "selectType": 0,
-          "value": ["sum_lquantity"],
+          "selectType": 1,
+          "value": ["l_quantity"],
           "valueType": [10]
       }
     ],

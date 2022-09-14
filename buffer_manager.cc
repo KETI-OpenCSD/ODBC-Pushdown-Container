@@ -460,7 +460,7 @@ TableData BufferManager::GetTableData(int qid, string tname){
 //이건 MQM에서 연산한 결과 테이블 전체 저장할 때
 int BufferManager::SaveTableData(int qid, string tname, unordered_map<string,vector<vectortype>> table_data_){
     cout << "[Buffer Manager] Saved Table, Table Name : "  << tname << endl;
-    // cout << table_data_.size() << endl;
+    cout << table_data_.size() << endl;
     for(auto it = table_data_.begin(); it != table_data_.end(); it++){
     pair<string,vector<vectortype>> pair;
     pair = *it;

@@ -4,60 +4,55 @@
   {
     "queryID":4,
     "workID":5,
-    "tableName": ["nation"],
+    "tableName": ["region"],
     "tableCol":[
-      "n_nationkey",  
-      "n_name",
-      "n_regionkey",
-      "n_comment"
+      "r_regionkey",  
+      "r_name",
+      "r_comment"
     ],
-    "tableFilter":[],
+    "tableFilter":[
+      {
+        "LV": {
+            "type": [10],
+            "value": ["r_name"]
+        },
+        "Operator" : 5, 
+        "RV" : {
+            "type": [9],
+            "value": ["MIDDLE EAST"]
+        }
+      }      
+    ],
     "tableOffset":[
       0,
       4,
-      29,
-      33
+      29
     ],
     "tableOfflen":[
       4,
       25,
-      4,
       152
     ],
     "tableDatatype":[
       3,
       254,
-      3,
       15
     ],
     "tableAlias": "snippet4-5",
     "columnAlias": [
-        "n_nationkey",
-        "n_name",
-        "n_regionkey"
-    ],
+        "r_regionkey"
+      ],
     "columnProjection": [
       {
         "selectType": 0,
-        "value": ["n_nationkey"],
-        "valueType": [10]
-      },
-      {
-        "selectType": 0,
-        "value": ["n_name"],
-        "valueType": [10]
-      },
-      {
-        "selectType": 0,
-        "value": ["n_regionkey"],
+        "value": ["r_regionkey"],
         "valueType": [10]
       }
     ],
     "columnFiltering": [
-        "n_nationkey",
-        "n_name",
-        "n_regionkey"
-    ],
+        "r_regionkey"
+      ],
     "groupBy": []
   }
+
 }

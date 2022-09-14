@@ -9,6 +9,9 @@
 #include <typeinfo>
 #include <ctime>
 
+#include <boost/thread.hpp>
+#include <boost/asio.hpp>
+
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -140,6 +143,40 @@ struct StackType{
 };
 
 
+class FilterClass{
+    public:
+        void FilterThreadRun(int start, int finish, unordered_map<string,vector<vectortype>> tablelist, SnippetStruct& snippet,vector<vector<string>> tablenamelist);
+        void insertTable(string tablename, vectortype data){
+            tablemutex.lock();
+            savedmap_[tablename].push_back(data);
+            tablemutex.unlock();
+        };
+        unordered_map<string,vector<vectortype>> returntable(){
+            return savedmap_;
+        };
+    private:
+        unordered_map<string,vector<vectortype>> savedmap_;
+        mutex tablemutex;
+};
+
+
+class joinclass{
+    public:
+        void JoinThreadRun(int start, int finish, unordered_map<string,vector<vectortype>> tablelist, SnippetStruct& snippet,vector<vector<string>> tablenamelist);
+        void insertTable(string tablename, vectortype data){
+            tablemutex.lock();
+            savedmap_[tablename].push_back(data);
+            tablemutex.unlock();
+        };
+        unordered_map<string,vector<vectortype>> returntable(){
+            return savedmap_;
+        };
+    private:
+        unordered_map<string,vector<vectortype>> savedmap_;
+        mutex tablemutex;
+};
+
+
 class sortclass{
     public:
         unordered_map<string,vectortype> value;
@@ -237,6 +274,11 @@ void SaveTable();
 void makeTable(SnippetStruct& snippet);
 
 void JoinTable(SnippetStruct& snippet, BufferManager &buff);
+
+void JoinThread(SnippetStruct& snippet, BufferManager &buff);
+
+void Storage_Filter_Thread(SnippetStruct& snippet, BufferManager &buff);
+
 
 
 

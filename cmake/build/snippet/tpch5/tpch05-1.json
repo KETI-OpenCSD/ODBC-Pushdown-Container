@@ -79,8 +79,7 @@
         "tableAlias": "snippet4-1",
         "columnAlias": [
             "o_orderkey", 
-            "o_custkey",
-            "o_orderdate"
+            "o_custkey"
         ],
         "columnProjection": [
             {
@@ -91,11 +90,6 @@
             {
                 "selectType": 0,
                 "value": ["o_custkey"],
-                "valueType": [10]
-            },
-            {
-                "selectType": 0,
-                "value": ["o_orderdate"],
                 "valueType": [10]
             }
         ],

@@ -28,7 +28,8 @@
       "nation",
       "l_extendedprice",
       "l_discount",
-      "l_quantity"
+      "l_quantity",
+      "l_suppkey"
     ],
     "columnProjection": [
       {
@@ -62,6 +63,15 @@
         "selectType": 0,
         "value": [
           "l_quantity"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "l_suppkey"
         ],
         "valueType": [
           10

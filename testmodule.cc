@@ -299,6 +299,7 @@ void get_data_and_filter(SnippetStruct snippet, BufferManager &bufma){
     bufma.SaveTableData(snippet.query_id,snippet.tableAlias,savedmap);
     //  Aggregation(snippet,bufma,0);
     if(snippet.table_filter.size() > 0){
-        Storage_Filter(snippet,bufma);
+        // Storage_Filter(snippet,bufma);
+        Storage_Filter_Thread(snippet,bufma);
     }
 }

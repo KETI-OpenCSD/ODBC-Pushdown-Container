@@ -152,6 +152,7 @@ class Scheduler{
         unordered_map<string,string> sstcsd_; //csd의 sst파일 보유 내용 <sstname, csdlist>
         vector<string> csdpair_;
         unordered_map<string,string> csdreaplicamap_;
+        vector<vector<string>> csdlist_;
         // CSDManager &csdmanager_;
         int blockcount_;
 };

@@ -1,63 +1,48 @@
 {
-  "type" : 0,
+  "type" : 2,
   "snippet":
   {
     "queryID":4,
     "workID":6,
-    "tableName": ["region"],
-    "tableCol":[
-      "r_regionkey",  
-      "r_name",
-      "r_comment"
-    ],
+    "tableName": ["snippet4-5", "snippet4-4"],
+    "tableCol":[],
     "tableFilter":[
       {
         "LV": {
             "type": [10],
-            "value": ["r_name"]
+            "value": ["r_regionkey"]
         },
         "Operator" : 5, 
         "RV" : {
-            "type": [9],
-            "value": ["MIDDLE EAST"]
+            "type": [10],
+            "value": ["n_regionkey"]
         }
-      }      
+      }
     ],
-    "tableOffset":[
-      0,
-      4,
-      29
-    ],
-    "tableOfflen":[
-      4,
-      25,
-      152
-    ],
-    "tableDatatype":[
-      3,
-      254,
-      15
-    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
     "tableAlias": "snippet4-6",
     "columnAlias": [
-        "r_regionkey",
-        "r_name"
-      ],
+        "n_nationkey",
+        "n_name"
+    ],
     "columnProjection": [
       {
         "selectType": 0,
-        "value": ["r_regionkey"],
+        "value": ["n_nationkey"],
         "valueType": [10]
       },
       {
         "selectType": 0,
-        "value": ["r_name"],
+        "value": ["n_name"],
         "valueType": [10]
       }
     ],
     "columnFiltering": [
-        "r_regionkey"
-      ],
+        "n_nationkey",
+        "n_name"
+    ],
     "groupBy": []
   }
 

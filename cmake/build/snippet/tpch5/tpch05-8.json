@@ -4,51 +4,58 @@
   {
     "queryID":4,
     "workID":8,
-    "tableName": ["snippet4-7", "snippet4-4"],
+    "tableName": ["snippet4-1", "snippet4-0"],
     "tableCol":[],
     "tableFilter":[
       {
+
         "LV": {
-            "type": [10],
-            "value": ["s_nationkey"]
+          "type": [10],
+          "value": ["c_custkey"]
         },
         "Operator" : 5, 
         "RV" : {
             "type": [10],
-            "value": ["n_nationkey"]
+            "value": ["o_custkey"]
         }
-      }      
+      }        
     ],
     "tableOffset":[],
     "tableOfflen":[],
     "tableDatatype":[],
     "tableAlias": "snippet4-8",
     "columnAlias": [
-        "n_name",
-        "s_suppkey",
-        "s_nationkey"
+        "o_orderkey",
+        "o_custkey",
+        "c_custkey",
+        "c_nationkey"
       ],
     "columnProjection": [
       {
         "selectType": 0,
-        "value": ["n_name"],
+        "value": ["o_orderkey"],
         "valueType": [10]
       },
       {
         "selectType": 0,
-        "value": ["s_suppkey"],
+        "value": ["o_custkey"],
         "valueType": [10]
       },
       {
         "selectType": 0,
-        "value": ["s_nationkey"],
+        "value": ["c_custkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["c_nationkey"],
         "valueType": [10]
       }
     ],
     "columnFiltering": [
         "n_name",
         "s_suppkey",
-        "s_nationkey"
+        "c_custkey"
       ],
     "groupBy": []
   }

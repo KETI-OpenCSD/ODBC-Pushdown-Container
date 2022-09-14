@@ -11,6 +11,7 @@ struct CSDInfo{
     string CSDReplica;
     int CSDWorkingBlock;
     vector<string> SSTList;
+    vector<string> CSDList;
 };
 
 class CSDManager{

@@ -4,19 +4,18 @@
   {
     "queryID":4,
     "workID":9,
-    "tableName": ["snippet4-1", "snippet4-0"],
+    "tableName": ["snippet4-7", "snippet4-2"],
     "tableCol":[],
     "tableFilter":[
       {
-
         "LV": {
           "type": [10],
-          "value": ["c_custkey"]
+          "value": ["s_suppkey"]
         },
         "Operator" : 5, 
         "RV" : {
-            "type": [10],
-            "value": ["o_custkey"]
+          "type": [10],
+          "value": ["l_suppkey"]
         }
       }        
     ],
@@ -25,38 +24,39 @@
     "tableDatatype":[],
     "tableAlias": "snippet4-9",
     "columnAlias": [
-        "o_orderkey",
-        "o_custkey",
-        "c_custkey",
-        "c_nationkey"
+        "l_orderkey",
+        "s_nationkey",
+        "revenue",
+        "n_name"
       ],
     "columnProjection": [
       {
         "selectType": 0,
-        "value": ["o_orderkey"],
+        "value": ["l_orderkey"],
         "valueType": [10]
       },
       {
         "selectType": 0,
-        "value": ["o_custkey"],
+        "value": ["s_nationkey"],
         "valueType": [10]
-      },
+      },  
       {
         "selectType": 0,
-        "value": ["c_custkey"],
+        "value": ["revenue"],
         "valueType": [10]
-      },
+      },  
       {
         "selectType": 0,
-        "value": ["c_nationkey"],
+        "value": ["n_name"],
         "valueType": [10]
       }
     ],
     "columnFiltering": [
-        "n_name",
-        "s_suppkey",
-        "c_custkey"
-      ],
+      "n_name",
+      "c_custkey",
+      "l_orderkey",
+      "revenue"
+    ],
     "groupBy": []
   }
 

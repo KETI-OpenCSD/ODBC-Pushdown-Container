@@ -89,8 +89,12 @@ void SnippetManager::NewQueryMain(SavedRet &snippetdata, BufferManager &buff,Tab
     int LQID = 0; //last query id
     string LTName; //last table name
     int snippetsize = snippetdata.GetSnippetSize();
+    // cout << "-----------------------------------:: STEP 3 ::-----------------------------------" << endl;
     for(int i = 0; i < snippetsize; i++){
-        cout << i << endl;
+        // if(i == 8 ){
+        //     cout << "-----------------------------------:: STEP 6 ::-----------------------------------" << endl;
+        // }
+        // cout << i << endl;
         // cout << snippetdata.GetSnippetSize() << endl;
         // if(i < 7){
         //     SnippetStruct snippet = snippetdata.Dequeue();
@@ -155,6 +159,7 @@ void SnippetManager::NewQueryMain(SavedRet &snippetdata, BufferManager &buff,Tab
     snippetdata.SetResult(buff.GetTableData(LQID,LTName).table_data);
     cout << "[Snippet Manager] End Query" << endl;
     cout << "[Snippet Manager] Send Query Result To DB Connector Instance" << endl;
+    cout << "-----------------------------------:: STEP 6 ::-----------------------------------" << endl;
     // snippetdata.unlockmutex();
 }
 
@@ -167,14 +172,17 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
     // buff.InitWork()
     // cout << snippet.tablename.size() << endl;
     if(snippet.tablename.size() > 1){
+        // cout << "-----------------------------------:: STEP 6 ::-----------------------------------" << endl;
         //se 작업
         buff.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,snippet.column_alias,snippet.return_datatype,snippet.table_offlen,0);
         if(snippet.snippetType == 2){
             //join 호출
             JoinTable(snippet, buff);
+            // JoinThread(snippet, buff);
             Aggregation(snippet,buff,0);
         }else if(snippet.snippetType == 0){
             //변수 삽입하는 스캔부분
+            sendToSnippetScheduler(snippet,buff,scheduler_,tableManager_,csdmanager);
         }else if(snippet.snippetType == 8){
             //그룹바이 이후 having 부분
             Storage_Filter(snippet,buff);
@@ -255,7 +263,7 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
             // cout << snippet.snippetType << endl;
             if(snippet.snippetType == BASIC_SNIPPET){
                 ReturnColumnType(snippet,buff);
-                get_data_and_filter(snippet,buff);
+
 
 
                 // if(GetWALTable(snippet)){
@@ -278,6 +286,7 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
                 
 
                 // vector<string> sstfilename;
+                // // cout << 111 << endl;
                 // for (int i = 0; i < reqdoc["REQ"]["Chunk List"].Size(); i ++){
                 //     sstfilename.push_back(reqdoc["REQ"]["Chunk List"][i]["filename"].GetString());
                 //     // cout << reqdoc["REQ"]["Chunk List"][i]["filename"].GetString() << endl;
@@ -297,7 +306,9 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
                 // cout << "[Snippet Manager] Get Data Block Address from LBA2PBA Query Agent" << endl;
 
                 // cout << "[Snippet Manager] File SST Size : " << scheduler_.snippetdata.block_info_list.Size() << endl;
+                // // cout << "[Snippet Manager] File SST Size : 8"  << endl;
                 // //이부분 수정 필요
+                // // vector<string> tmpsstfilelist
                 // scheduler_.snippetdata.query_id = snippet.query_id;
                 // scheduler_.snippetdata.work_id = snippet.work_id;
                 // scheduler_.snippetdata.table_offset = snippet.table_offset;
@@ -315,42 +326,46 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
                 // scheduler_.snippetdata.Order_By = snippet.orderBy;
                 // // cout << 1 << endl;
                 // buff.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,snippet.column_alias,snippet.return_datatype,snippet.return_offlen,count);
+                // // buff.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,snippet.column_alias,snippet.return_datatype,snippet.return_offlen,0);
                 // // cout << 2 << endl;
                 // boost::thread_group tg;
                 // cout << "[Snippet Manager] Send Snippet to Snippet Scheduler" << endl;
                 // for(int i = 0; i < sstfilename.size(); i++){
                 //     tg.create_thread(boost::bind(&Scheduler::sched,&scheduler_,i,csdmanager));
                 // }
+                // // for(int i = 0; i < 8; i++){
+                // //     tg.create_thread(boost::bind(&Scheduler::sched,&scheduler_,i,csdmanager));
+                // // }
                 // tg.join_all();
                 // scheduler_.threadblocknum.clear();
                 // scheduler_.blockvec.clear();
 
 
-
+                get_data_and_filter(snippet,buff);
 
                 if(snippet.columnProjection.size() > 0){
                     //어그리게이션 호출
-                    cout << "start agg" << endl;
+                    // cout << "start agg" << endl;
                     Aggregation(snippet,buff,0);
-                    cout << "end agg" << endl;
+                    // cout << "end agg" << endl;
                 }
             }else if(snippet.snippetType == AGGREGATION_SNIPPET){
                 if(snippet.groupBy.size() > 0){
                     //그룹바이 호출
-                    cout<<"start group by" << endl;
+                    // cout<<"start group by" << endl;
                     GroupBy(snippet,buff);
-                    cout << "end group by" << endl;
+                    // cout << "end group by" << endl;
                 }else if(snippet.columnProjection.size() > 0){
                     //어그리게이션 호출
-                    cout << "start aggregation" << endl;
+                    // cout << "start aggregation" << endl;
                     Aggregation(snippet,buff,1);
-                    cout << "end aggregation" << endl;
+                    // cout << "end aggregation" << endl;
                 }
                 if(snippet.orderBy.size() > 0){
                     //오더바이 호출
-                    cout << "start order by" << endl;
+                    // cout << "start order by" << endl;
                     OrderBy(snippet,buff);
-                    cout << "end order by" << endl;
+                    // cout << "end order by" << endl;
                 }
             }
 
