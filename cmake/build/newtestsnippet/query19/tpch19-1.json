@@ -1,0 +1,243 @@
+{
+    "type": 0,
+    "snippet": {
+      "queryID": 18,
+      "workID": 1,
+      "tableName": [
+        "lineitem"
+      ],
+      "tableCol": [],
+      "tableFilter": [
+        {
+          "Operator" : "("
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_quantity"]
+          },
+          "Operator" : 1, 
+          "RV" : {
+              "type": [2],
+              "value": ["4"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_quantity"]
+          },
+          "Operator" : 2, 
+          "RV" : {
+              "type": [2, 11, 2],
+              "value": ["4", "10", "+"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_shipmode"]
+          },
+          "Operator" : 9, 
+          "RV" : {
+              "type": [9, 9],
+              "value": ["AIR", "AIR REG"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_shipinstruct"]
+          },
+          "Operator" : 5, 
+          "RV" : {
+              "type": [9],
+              "value": ["DELIVER IN PERSON"]
+          }
+        },
+        {
+          "Operator" : ")"
+        },
+        {
+          "Operator" : 14
+        },
+        {
+          "Operator" : "("
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_quantity"]
+          },
+          "Operator" : 1, 
+          "RV" : {
+              "type": [2],
+              "value": ["18"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_quantity"]
+          },
+          "Operator" : 2, 
+          "RV" : {
+              "type": [2, 2, 11],
+              "value": ["18", "10", "+"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_shipmode"]
+          },
+          "Operator" : 9, 
+          "RV" : {
+              "type": [9, 9],
+              "value": ["AIR", "AIR REG"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_shipinstruct"]
+          },
+          "Operator" : 5, 
+          "RV" : {
+              "type": [9],
+              "value": ["DELIVER IN PERSON"]
+          }
+        },
+        {
+          "Operator" : ")"
+        },
+        {
+          "Operator" : 14
+        },
+        {
+          "Operator" : "("
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_quantity"]
+          },
+          "Operator" : 1, 
+          "RV" : {
+              "type": [2],
+              "value": ["29"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_quantity"]
+          },
+          "Operator" : 2, 
+          "RV" : {
+              "type": [2, 2, 11],
+              "value": ["29", "10", "+"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_shipmode"]
+          },
+          "Operator" : 9, 
+          "RV" : {
+              "type": [9, 9],
+              "value": ["AIR", "AIR REG"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["l_shipinstruct"]
+          },
+          "Operator" : 5, 
+          "RV" : {
+              "type": [9],
+              "value": ["DELIVER IN PERSON"]
+          }
+        },
+        {
+          "Operator" : ")"
+        }
+      ],
+      "tableOffset": [],
+      "tableOfflen": [],
+      "tableDatatype": [],
+      "tableAlias": "snippet18-1",
+      "columnAlias": [
+        "l_partkey",
+        "l_quantity",
+        "l_shipmode",
+        "l_shipinstruct",
+        "l_extendedprice",
+        "l_discount"
+      ],
+      "columnProjection": [
+        {
+            "selectType": 0,
+            "value": ["l_partkey"],
+            "valueType": [10]
+        },
+        {
+            "selectType": 0,
+            "value": ["l_quantity"],
+            "valueType": [10]
+        },
+        {
+            "selectType": 0,
+            "value": ["l_shipmode"],
+            "valueType": [10]
+        },
+        {
+            "selectType": 0,
+            "value": ["l_shipinstruct"],
+            "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["l_extendedprice"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["l_discount"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [],
+      "groupBy": [],
+      "orderBy": []
+    }
+  }

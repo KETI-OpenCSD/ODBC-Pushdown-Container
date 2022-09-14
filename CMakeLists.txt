@@ -66,7 +66,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 # set(SnippetScheduler "CSDScheduler.cc")
 # set(CSDManager "CSDManager.h" "CSDManager.cc")
 # set(MergeQueryManager "mergequerykmc.cc" "mergequerykmc.h" "buffer_manager.h" "keti_type.h")
-set(repidjson "/usr/include/rapidjson/prettywriter.h" "/usr/include/rapidjson/stringbuffer.h" "/usr/include/rapidjson/writer.h" "/usr/include/rapidjson/document.h")
+set(repidjson "/usr/local/include/rapidjson/prettywriter.h" "/usr/local/include/rapidjson/stringbuffer.h" "/usr/local/include/rapidjson/writer.h" "/usr/local/include/rapidjson/document.h")
 
 
 add_custom_command(
@@ -105,9 +105,14 @@ target_link_libraries(ss_grpc_proto
 #   ${_GRPC_GRPCPP}
 #   ${_PROTOBUF_LIBPROTOBUF})
 
+set(Casablanca_LIBRARIES "-lcrypto -lssl -lcpprest")
+set(LINKING_LIBRARIES ${Casablanca_LIBRARIES})
+
 # # Storage_Engine_Instance
 add_executable(storage_engine_instance "StorageEngineInputInterface.cc" 
-"SnippetManager.cc" "TableManager.cc" "buffer_manager.cc" "CSDScheduler.cc" "CSDManager.cc" "mergequerykmc.cc" "testmodule.cc")
+"SnippetManager.cc" "TableManager.cc" "buffer_manager.cc" "CSDScheduler.cc" "CSDManager.cc" "mergequerykmc.cc" 
+"testmodule.cc" 
+"WalManager.cc")
 
 
 target_link_libraries(storage_engine_instance
@@ -120,9 +125,11 @@ target_link_libraries(storage_engine_instance
   # ${CSDManager}
   ${Boost_PROGRAM_OPTIONS_LIBRARY}
   ${Boost_THREAD_LIBRARY}
+  ${Boost_LIBRARIES}
   ${repidjson}
   ${_REFLECTION}
   ${_GRPC_GRPCPP}
-  ${_PROTOBUF_LIBPROTOBUF} )
+  ${_PROTOBUF_LIBPROTOBUF}
+  ${LINKING_LIBRARIES} )
 
 # target_link_libraries(storage_engine_instance Boost::filesystem Boost::regex)

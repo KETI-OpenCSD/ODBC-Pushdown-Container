@@ -1,7 +1,7 @@
 CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
- /root/workspace/test/ODBC-Pushdown-Process-Container_40k/cmake/build/snippet_sample.grpc.pb.cc \
+ /root/workspace/kmc/ODBC-Pushdown-Process-Container_40k/cmake/build/snippet_sample.grpc.pb.cc \
  /usr/include/stdc-predef.h \
- /root/workspace/test/ODBC-Pushdown-Process-Container_40k/cmake/build/snippet_sample.pb.h \
+ /root/workspace/kmc/ODBC-Pushdown-Process-Container_40k/cmake/build/snippet_sample.pb.h \
  /usr/include/c++/11/limits \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -48,9 +48,7 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/c++/11/cstdint \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/types.h \
- /usr/include/x86_64-linux-gnu/bits/timesize.h \
  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
- /usr/include/x86_64-linux-gnu/bits/time64.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
  /usr/include/c++/11/bits/allocator.h \
@@ -61,9 +59,11 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++locale.h \
  /usr/include/c++/11/clocale /usr/include/locale.h \
  /usr/include/x86_64-linux-gnu/bits/locale.h /usr/include/c++/11/iosfwd \
- /usr/include/c++/11/cctype /usr/include/ctype.h \
+ /usr/include/c++/11/cctype /usr/include/ctype.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
- /usr/include/x86_64-linux-gnu/bits/endianness.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+ /usr/include/x86_64-linux-gnu/bits/byteswap-16.h \
+ /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
  /usr/include/c++/11/bits/ostream_insert.h \
  /usr/include/c++/11/bits/cxxabi_forced.h \
  /usr/include/c++/11/bits/stl_function.h \
@@ -78,7 +78,6 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
  /usr/include/x86_64-linux-gnu/bits/sched.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h \
  /usr/include/x86_64-linux-gnu/bits/cpu-set.h /usr/include/time.h \
  /usr/include/x86_64-linux-gnu/bits/time.h \
  /usr/include/x86_64-linux-gnu/bits/timex.h \
@@ -91,8 +90,6 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
  /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
- /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
- /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
  /usr/include/x86_64-linux-gnu/bits/setjmp.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/atomic_word.h \
  /usr/include/c++/11/ext/alloc_traits.h \
@@ -105,32 +102,30 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/c++/11/ext/string_conversions.h /usr/include/c++/11/cstdlib \
  /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
- /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/endian.h \
- /usr/include/x86_64-linux-gnu/bits/byteswap.h \
- /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+ /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/sys/select.h \
  /usr/include/x86_64-linux-gnu/bits/select.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
- /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+ /usr/include/x86_64-linux-gnu/sys/sysmacros.h \
+ /usr/include/x86_64-linux-gnu/bits/sysmacros.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/c++/11/bits/std_abs.h /usr/include/c++/11/cstdio \
- /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
- /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+ /usr/include/stdio.h /usr/include/x86_64-linux-gnu/bits/libio.h \
+ /usr/include/x86_64-linux-gnu/bits/_G_config.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
  /usr/include/c++/11/cerrno /usr/include/errno.h \
  /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
  /usr/include/c++/11/bits/charconv.h \
  /usr/include/c++/11/bits/basic_string.tcc \
- /include/google/protobuf/port_def.inc \
- /include/google/protobuf/port_undef.inc \
- /include/google/protobuf/io/coded_stream.h /usr/include/assert.h \
- /usr/include/c++/11/atomic /usr/include/c++/11/bits/atomic_base.h \
+ /usr/local/include/google/protobuf/port_def.inc \
+ /usr/local/include/google/protobuf/port_undef.inc \
+ /usr/local/include/google/protobuf/io/coded_stream.h \
+ /usr/include/assert.h /usr/include/c++/11/atomic \
+ /usr/include/c++/11/bits/atomic_base.h \
  /usr/include/c++/11/bits/atomic_lockfree_defines.h \
  /usr/include/c++/11/climits \
  /usr/lib/gcc/x86_64-linux-gnu/11/include/limits.h \
@@ -143,8 +138,8 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/uio_lim.h /usr/include/c++/11/cstddef \
  /usr/include/c++/11/cstring /usr/include/string.h /usr/include/strings.h \
  /usr/include/c++/11/utility /usr/include/c++/11/bits/stl_relops.h \
- /include/google/protobuf/stubs/common.h /usr/include/c++/11/algorithm \
- /usr/include/c++/11/bits/stl_algo.h \
+ /usr/local/include/google/protobuf/stubs/common.h \
+ /usr/include/c++/11/algorithm /usr/include/c++/11/bits/stl_algo.h \
  /usr/include/c++/11/bits/algorithmfwd.h \
  /usr/include/c++/11/bits/stl_heap.h \
  /usr/include/c++/11/bits/stl_tempbuf.h \
@@ -201,122 +196,133 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/c++/11/pstl/glue_memory_defs.h /usr/include/c++/11/set \
  /usr/include/c++/11/bits/stl_set.h \
  /usr/include/c++/11/bits/stl_multiset.h \
- /include/google/protobuf/stubs/macros.h \
- /include/google/protobuf/stubs/platform_macros.h \
- /include/google/protobuf/stubs/port.h /usr/include/c++/11/stdlib.h \
- /usr/include/byteswap.h /include/google/protobuf/stubs/stringpiece.h \
- /include/google/protobuf/stubs/hash.h /usr/include/c++/11/unordered_set \
+ /usr/local/include/google/protobuf/stubs/macros.h \
+ /usr/local/include/google/protobuf/stubs/platform_macros.h \
+ /usr/local/include/google/protobuf/stubs/port.h \
+ /usr/include/c++/11/stdlib.h /usr/include/byteswap.h \
+ /usr/local/include/google/protobuf/stubs/stringpiece.h \
+ /usr/local/include/google/protobuf/stubs/hash.h \
+ /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
- /include/google/protobuf/stubs/logging.h \
- /include/google/protobuf/stubs/status.h \
- /include/google/protobuf/stubs/strutil.h /include/google/protobuf/port.h \
- /include/google/protobuf/arena.h /include/google/protobuf/arena_impl.h \
- /include/google/protobuf/arenastring.h \
- /include/google/protobuf/generated_message_table_driven.h \
- /include/google/protobuf/map.h /usr/include/c++/11/iterator \
+ /usr/local/include/google/protobuf/stubs/logging.h \
+ /usr/local/include/google/protobuf/stubs/status.h \
+ /usr/local/include/google/protobuf/stubs/strutil.h \
+ /usr/local/include/google/protobuf/port.h \
+ /usr/local/include/google/protobuf/arena.h \
+ /usr/local/include/google/protobuf/arena_impl.h \
+ /usr/local/include/google/protobuf/arenastring.h \
+ /usr/local/include/google/protobuf/generated_message_table_driven.h \
+ /usr/local/include/google/protobuf/map.h /usr/include/c++/11/iterator \
  /usr/include/c++/11/bits/stream_iterator.h \
- /include/google/protobuf/generated_enum_util.h \
- /include/google/protobuf/message_lite.h \
- /include/google/protobuf/explicitly_constructed.h \
- /include/google/protobuf/metadata_lite.h \
- /include/google/protobuf/stubs/once.h /usr/include/c++/11/mutex \
- /usr/include/c++/11/chrono /usr/include/c++/11/ratio \
- /usr/include/c++/11/ctime /usr/include/c++/11/bits/parse_numbers.h \
+ /usr/local/include/google/protobuf/generated_enum_util.h \
+ /usr/local/include/google/protobuf/message_lite.h \
+ /usr/local/include/google/protobuf/explicitly_constructed.h \
+ /usr/local/include/google/protobuf/metadata_lite.h \
+ /usr/local/include/google/protobuf/stubs/once.h \
+ /usr/include/c++/11/mutex /usr/include/c++/11/chrono \
+ /usr/include/c++/11/ratio /usr/include/c++/11/ctime \
+ /usr/include/c++/11/bits/parse_numbers.h \
  /usr/include/c++/11/bits/std_mutex.h \
  /usr/include/c++/11/bits/unique_lock.h \
- /include/google/protobuf/map_type_handler.h \
- /include/google/protobuf/parse_context.h \
- /include/google/protobuf/io/zero_copy_stream.h \
- /include/google/protobuf/implicit_weak_message.h \
- /include/google/protobuf/repeated_field.h \
- /include/google/protobuf/repeated_ptr_field.h \
- /include/google/protobuf/inlined_string_field.h \
- /include/google/protobuf/wire_format_lite.h \
- /include/google/protobuf/stubs/casts.h \
- /include/google/protobuf/map_entry_lite.h \
- /include/google/protobuf/generated_message_util.h \
- /include/google/protobuf/any.h /include/google/protobuf/has_bits.h \
- /include/google/protobuf/map_field_lite.h \
- /include/google/protobuf/generated_message_reflection.h \
- /include/google/protobuf/descriptor.h \
- /include/google/protobuf/stubs/mutex.h \
- /include/google/protobuf/generated_enum_reflection.h \
- /include/google/protobuf/unknown_field_set.h \
- /include/google/protobuf/io/zero_copy_stream_impl_lite.h \
- /include/google/protobuf/stubs/callback.h \
- /include/google/protobuf/stubs/stl_util.h \
- /include/google/protobuf/message.h \
- /include/google/protobuf/extension_set.h /usr/include/c++/11/cassert \
- /include/google/protobuf/empty.pb.h \
- /include/google/protobuf/generated_message_bases.h \
- /include/google/protobuf/io/zero_copy_stream_impl.h \
- /root/workspace/test/ODBC-Pushdown-Process-Container_40k/cmake/build/snippet_sample.grpc.pb.h \
- /include/grpcpp/impl/codegen/async_generic_service.h \
- /include/grpc/impl/codegen/port_platform.h /usr/include/linux/version.h \
- /include/grpcpp/impl/codegen/async_stream.h \
- /include/grpcpp/impl/codegen/call.h \
- /include/grpc/impl/codegen/grpc_types.h \
- /include/grpc/impl/codegen/compression_types.h \
- /include/grpc/impl/codegen/gpr_types.h \
- /include/grpc/impl/codegen/slice.h \
- /include/grpc/impl/codegen/gpr_slice.h \
- /include/grpc/impl/codegen/status.h \
- /include/grpcpp/impl/codegen/call_hook.h \
- /include/grpcpp/impl/codegen/channel_interface.h \
- /include/grpc/impl/codegen/connectivity_state.h \
- /include/grpcpp/impl/codegen/status.h \
- /include/grpcpp/impl/codegen/config.h \
- /include/grpcpp/impl/codegen/status_code_enum.h \
- /include/grpcpp/impl/codegen/time.h \
- /include/grpcpp/impl/codegen/core_codegen_interface.h \
- /include/grpc/impl/codegen/byte_buffer.h \
- /include/grpc/impl/codegen/byte_buffer_reader.h \
- /include/grpc/impl/codegen/sync.h \
- /include/grpc/impl/codegen/sync_generic.h \
- /include/grpc/impl/codegen/atm.h \
- /include/grpc/impl/codegen/atm_gcc_atomic.h \
- /include/grpc/impl/codegen/sync_abseil.h \
- /include/grpcpp/impl/codegen/server_context.h \
- /include/grpcpp/impl/codegen/call_op_set.h \
- /include/grpcpp/impl/codegen/byte_buffer.h \
- /include/grpcpp/impl/codegen/serialization_traits.h \
- /include/grpcpp/impl/codegen/slice.h \
- /include/grpcpp/impl/codegen/string_ref.h \
- /include/grpcpp/impl/codegen/call_op_set_interface.h \
- /include/grpcpp/impl/codegen/completion_queue_tag.h \
- /include/grpcpp/impl/codegen/client_context.h \
- /include/grpc/impl/codegen/propagation_bits.h \
- /include/grpcpp/impl/codegen/client_interceptor.h \
- /include/grpcpp/impl/codegen/interceptor.h \
- /include/grpcpp/impl/codegen/metadata_map.h \
- /include/grpc/impl/codegen/log.h \
- /include/grpcpp/impl/codegen/rpc_method.h \
- /include/grpcpp/impl/codegen/create_auth_context.h \
- /include/grpcpp/impl/codegen/security/auth_context.h \
- /include/grpcpp/impl/codegen/sync.h \
- /include/absl/synchronization/mutex.h /include/absl/base/const_init.h \
- /include/absl/base/config.h /include/absl/base/options.h \
- /usr/include/c++/11/ciso646 /include/absl/base/policy_checks.h \
- /include/absl/base/internal/identity.h \
- /include/absl/base/internal/low_level_alloc.h \
- /include/absl/base/attributes.h /include/absl/base/port.h \
- /include/absl/base/optimization.h \
- /include/absl/base/internal/thread_identity.h /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
+ /usr/local/include/google/protobuf/map_type_handler.h \
+ /usr/local/include/google/protobuf/parse_context.h \
+ /usr/local/include/google/protobuf/io/zero_copy_stream.h \
+ /usr/local/include/google/protobuf/implicit_weak_message.h \
+ /usr/local/include/google/protobuf/repeated_field.h \
+ /usr/local/include/google/protobuf/repeated_ptr_field.h \
+ /usr/local/include/google/protobuf/inlined_string_field.h \
+ /usr/local/include/google/protobuf/wire_format_lite.h \
+ /usr/local/include/google/protobuf/stubs/casts.h \
+ /usr/local/include/google/protobuf/map_entry_lite.h \
+ /usr/local/include/google/protobuf/generated_message_util.h \
+ /usr/local/include/google/protobuf/any.h \
+ /usr/local/include/google/protobuf/has_bits.h \
+ /usr/local/include/google/protobuf/map_field_lite.h \
+ /usr/local/include/google/protobuf/generated_message_reflection.h \
+ /usr/local/include/google/protobuf/descriptor.h \
+ /usr/local/include/google/protobuf/stubs/mutex.h \
+ /usr/local/include/google/protobuf/generated_enum_reflection.h \
+ /usr/local/include/google/protobuf/unknown_field_set.h \
+ /usr/local/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+ /usr/local/include/google/protobuf/stubs/callback.h \
+ /usr/local/include/google/protobuf/stubs/stl_util.h \
+ /usr/local/include/google/protobuf/message.h \
+ /usr/local/include/google/protobuf/extension_set.h \
+ /usr/include/c++/11/cassert \
+ /usr/local/include/google/protobuf/empty.pb.h \
+ /usr/local/include/google/protobuf/generated_message_bases.h \
+ /usr/local/include/google/protobuf/io/zero_copy_stream_impl.h \
+ /root/workspace/kmc/ODBC-Pushdown-Process-Container_40k/cmake/build/snippet_sample.grpc.pb.h \
+ /usr/local/include/grpcpp/impl/codegen/async_generic_service.h \
+ /usr/local/include/grpc/impl/codegen/port_platform.h \
+ /usr/include/linux/version.h \
+ /usr/local/include/grpcpp/impl/codegen/async_stream.h \
+ /usr/local/include/grpcpp/impl/codegen/call.h \
+ /usr/local/include/grpc/impl/codegen/grpc_types.h \
+ /usr/local/include/grpc/impl/codegen/compression_types.h \
+ /usr/local/include/grpc/impl/codegen/gpr_types.h \
+ /usr/local/include/grpc/impl/codegen/slice.h \
+ /usr/local/include/grpc/impl/codegen/gpr_slice.h \
+ /usr/local/include/grpc/impl/codegen/status.h \
+ /usr/local/include/grpcpp/impl/codegen/call_hook.h \
+ /usr/local/include/grpcpp/impl/codegen/channel_interface.h \
+ /usr/local/include/grpc/impl/codegen/connectivity_state.h \
+ /usr/local/include/grpcpp/impl/codegen/status.h \
+ /usr/local/include/grpcpp/impl/codegen/config.h \
+ /usr/local/include/grpcpp/impl/codegen/status_code_enum.h \
+ /usr/local/include/grpcpp/impl/codegen/time.h \
+ /usr/local/include/grpcpp/impl/codegen/core_codegen_interface.h \
+ /usr/local/include/grpc/impl/codegen/byte_buffer.h \
+ /usr/local/include/grpc/impl/codegen/byte_buffer_reader.h \
+ /usr/local/include/grpc/impl/codegen/sync.h \
+ /usr/local/include/grpc/impl/codegen/sync_generic.h \
+ /usr/local/include/grpc/impl/codegen/atm.h \
+ /usr/local/include/grpc/impl/codegen/atm_gcc_atomic.h \
+ /usr/local/include/grpc/impl/codegen/sync_abseil.h \
+ /usr/local/include/grpcpp/impl/codegen/server_context.h \
+ /usr/local/include/grpcpp/impl/codegen/call_op_set.h \
+ /usr/local/include/grpcpp/impl/codegen/byte_buffer.h \
+ /usr/local/include/grpcpp/impl/codegen/serialization_traits.h \
+ /usr/local/include/grpcpp/impl/codegen/slice.h \
+ /usr/local/include/grpcpp/impl/codegen/string_ref.h \
+ /usr/local/include/grpcpp/impl/codegen/call_op_set_interface.h \
+ /usr/local/include/grpcpp/impl/codegen/completion_queue_tag.h \
+ /usr/local/include/grpcpp/impl/codegen/client_context.h \
+ /usr/local/include/grpc/impl/codegen/propagation_bits.h \
+ /usr/local/include/grpcpp/impl/codegen/client_interceptor.h \
+ /usr/local/include/grpcpp/impl/codegen/interceptor.h \
+ /usr/local/include/grpcpp/impl/codegen/metadata_map.h \
+ /usr/local/include/grpc/impl/codegen/log.h \
+ /usr/local/include/grpcpp/impl/codegen/rpc_method.h \
+ /usr/local/include/grpcpp/impl/codegen/create_auth_context.h \
+ /usr/local/include/grpcpp/impl/codegen/security/auth_context.h \
+ /usr/local/include/grpcpp/impl/codegen/sync.h \
+ /usr/local/include/absl/synchronization/mutex.h \
+ /usr/local/include/absl/base/const_init.h \
+ /usr/local/include/absl/base/config.h \
+ /usr/local/include/absl/base/options.h /usr/include/c++/11/ciso646 \
+ /usr/local/include/absl/base/policy_checks.h \
+ /usr/local/include/absl/base/internal/identity.h \
+ /usr/local/include/absl/base/internal/low_level_alloc.h \
+ /usr/local/include/absl/base/attributes.h \
+ /usr/local/include/absl/base/port.h \
+ /usr/local/include/absl/base/optimization.h \
+ /usr/local/include/absl/base/internal/thread_identity.h \
+ /usr/include/unistd.h /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /include/absl/base/internal/per_thread_tls.h \
- /include/absl/base/internal/tsan_mutex_interface.h \
- /include/absl/base/thread_annotations.h \
- /include/absl/base/internal/thread_annotations.h \
- /include/absl/synchronization/internal/kernel_timeout.h \
- /include/absl/base/internal/raw_logging.h \
- /include/absl/base/internal/atomic_hook.h \
- /include/absl/base/log_severity.h /include/absl/base/macros.h \
- /include/absl/time/clock.h /include/absl/time/time.h \
+ /usr/local/include/absl/base/internal/per_thread_tls.h \
+ /usr/local/include/absl/base/internal/tsan_mutex_interface.h \
+ /usr/local/include/absl/base/thread_annotations.h \
+ /usr/local/include/absl/base/internal/thread_annotations.h \
+ /usr/local/include/absl/synchronization/internal/kernel_timeout.h \
+ /usr/local/include/absl/base/internal/raw_logging.h \
+ /usr/local/include/absl/base/internal/atomic_hook.h \
+ /usr/local/include/absl/base/log_severity.h \
+ /usr/local/include/absl/base/macros.h \
+ /usr/local/include/absl/time/clock.h /usr/local/include/absl/time/time.h \
  /usr/include/x86_64-linux-gnu/sys/time.h /usr/include/c++/11/cmath \
  /usr/include/math.h /usr/include/x86_64-linux-gnu/bits/math-vector.h \
  /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
@@ -325,7 +331,6 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
  /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
- /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
  /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
  /usr/include/c++/11/bits/specfun.h /usr/include/c++/11/tr1/gamma.tcc \
  /usr/include/c++/11/tr1/special_function_util.h \
@@ -339,42 +344,44 @@ CMakeFiles/ss_grpc_proto.dir/snippet_sample.grpc.pb.cc.o: \
  /usr/include/c++/11/tr1/poly_hermite.tcc \
  /usr/include/c++/11/tr1/poly_laguerre.tcc \
  /usr/include/c++/11/tr1/riemann_zeta.tcc \
- /include/absl/strings/string_view.h \
- /include/absl/base/internal/throw_delegate.h \
- /include/absl/time/civil_time.h \
- /include/absl/time/internal/cctz/include/cctz/civil_time.h \
- /include/absl/time/internal/cctz/include/cctz/civil_time_detail.h \
- /include/absl/time/internal/cctz/include/cctz/time_zone.h \
- /include/absl/synchronization/internal/per_thread_sem.h \
- /include/absl/synchronization/internal/create_thread_identity.h \
- /include/grpcpp/impl/codegen/completion_queue.h /usr/include/c++/11/list \
- /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
- /include/grpcpp/impl/codegen/grpc_library.h \
- /include/grpcpp/impl/codegen/rpc_service_method.h \
- /include/grpcpp/impl/codegen/intercepted_channel.h \
- /include/grpcpp/impl/codegen/interceptor_common.h \
- /include/grpcpp/impl/codegen/server_interceptor.h \
- /include/grpcpp/impl/codegen/callback_common.h \
- /include/grpcpp/impl/codegen/message_allocator.h \
- /include/grpcpp/impl/codegen/server_callback.h \
- /include/grpcpp/impl/codegen/service_type.h \
- /include/grpcpp/impl/codegen/server_interface.h \
- /include/grpcpp/impl/codegen/server_callback_handlers.h \
- /include/grpcpp/impl/codegen/async_unary_call.h \
- /include/grpcpp/impl/codegen/client_callback.h \
- /include/grpcpp/impl/codegen/method_handler.h \
- /include/grpcpp/impl/codegen/sync_stream.h \
- /include/grpcpp/impl/codegen/proto_utils.h \
- /include/grpcpp/impl/codegen/config_protobuf.h \
- /include/google/protobuf/descriptor.pb.h \
- /include/google/protobuf/descriptor_database.h \
- /include/google/protobuf/util/json_util.h \
- /include/google/protobuf/util/type_resolver.h \
- /include/google/protobuf/type.pb.h /include/google/protobuf/any.pb.h \
- /include/google/protobuf/source_context.pb.h \
- /include/google/protobuf/stubs/bytestream.h \
- /include/google/protobuf/util/type_resolver_util.h \
- /include/grpcpp/impl/codegen/proto_buffer_reader.h \
- /include/grpcpp/impl/codegen/proto_buffer_writer.h \
- /include/grpcpp/impl/codegen/stub_options.h \
- /include/grpcpp/impl/codegen/client_unary_call.h
+ /usr/local/include/absl/strings/string_view.h \
+ /usr/local/include/absl/base/internal/throw_delegate.h \
+ /usr/local/include/absl/time/civil_time.h \
+ /usr/local/include/absl/time/internal/cctz/include/cctz/civil_time.h \
+ /usr/local/include/absl/time/internal/cctz/include/cctz/civil_time_detail.h \
+ /usr/local/include/absl/time/internal/cctz/include/cctz/time_zone.h \
+ /usr/local/include/absl/synchronization/internal/per_thread_sem.h \
+ /usr/local/include/absl/synchronization/internal/create_thread_identity.h \
+ /usr/local/include/grpcpp/impl/codegen/completion_queue.h \
+ /usr/include/c++/11/list /usr/include/c++/11/bits/stl_list.h \
+ /usr/include/c++/11/bits/list.tcc \
+ /usr/local/include/grpcpp/impl/codegen/grpc_library.h \
+ /usr/local/include/grpcpp/impl/codegen/rpc_service_method.h \
+ /usr/local/include/grpcpp/impl/codegen/intercepted_channel.h \
+ /usr/local/include/grpcpp/impl/codegen/interceptor_common.h \
+ /usr/local/include/grpcpp/impl/codegen/server_interceptor.h \
+ /usr/local/include/grpcpp/impl/codegen/callback_common.h \
+ /usr/local/include/grpcpp/impl/codegen/message_allocator.h \
+ /usr/local/include/grpcpp/impl/codegen/server_callback.h \
+ /usr/local/include/grpcpp/impl/codegen/service_type.h \
+ /usr/local/include/grpcpp/impl/codegen/server_interface.h \
+ /usr/local/include/grpcpp/impl/codegen/server_callback_handlers.h \
+ /usr/local/include/grpcpp/impl/codegen/async_unary_call.h \
+ /usr/local/include/grpcpp/impl/codegen/client_callback.h \
+ /usr/local/include/grpcpp/impl/codegen/method_handler.h \
+ /usr/local/include/grpcpp/impl/codegen/sync_stream.h \
+ /usr/local/include/grpcpp/impl/codegen/proto_utils.h \
+ /usr/local/include/grpcpp/impl/codegen/config_protobuf.h \
+ /usr/local/include/google/protobuf/descriptor.pb.h \
+ /usr/local/include/google/protobuf/descriptor_database.h \
+ /usr/local/include/google/protobuf/util/json_util.h \
+ /usr/local/include/google/protobuf/util/type_resolver.h \
+ /usr/local/include/google/protobuf/type.pb.h \
+ /usr/local/include/google/protobuf/any.pb.h \
+ /usr/local/include/google/protobuf/source_context.pb.h \
+ /usr/local/include/google/protobuf/stubs/bytestream.h \
+ /usr/local/include/google/protobuf/util/type_resolver_util.h \
+ /usr/local/include/grpcpp/impl/codegen/proto_buffer_reader.h \
+ /usr/local/include/grpcpp/impl/codegen/proto_buffer_writer.h \
+ /usr/local/include/grpcpp/impl/codegen/stub_options.h \
+ /usr/local/include/grpcpp/impl/codegen/client_unary_call.h

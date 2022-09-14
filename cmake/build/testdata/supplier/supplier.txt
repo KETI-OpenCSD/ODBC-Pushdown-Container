@@ -1,0 +1,101 @@
+s_suppkey~s_nationkey~s_comment~s_name~s_address~s_phone~s_acctbal
+1~13~blithely final pearls are. instructions thra~Supplier#000000001~,wWs4pnykQOFl8mgVCU8EZMXqZs1w~800-807-9579~3082.8600
+2~5~requests integrate fluffily. fluffily ironic deposits wake. bold~Supplier#000000002~WkXT6MSAJrp4qWq3W9N~348-617-6055~3009.7300
+3~22~carefully express ideas shall have to unwin~Supplier#000000003~KjUqa42JEHaRDVQTHV6Yq2h~471-986-9888~9159.7800
+4~22~quickly ironic instructions snooze? express deposits are furiously along the slyly~Supplier#000000004~ dxp8WejdtFKFPKa Q7Emf0RjnKx3gR3~893-133-4384~9846.0100
+5~9~regular requests haggle. final deposits according to the~Supplier#000000005~W9VO4vl4dfoDYZ RhawP8xLoc~752-877-4449~-74.9400
+6~2~furiously regular pinto beans detect. quickly final braids sleep carefully bold dolphins. slyly expre~Supplier#000000006~ UehnPL54frpEmHoH ~308-113-4748~7349.9600
+7~0~carefully even packages affix furiously pending pinto beans.~Supplier#000000007~P5YDcLfpLaVkJcPnqeMv~400-485-7616~1680.4400
+8~15~regular ironic theodolites wake blithely pending theodolites. furiously ironic deposits are carefully~Supplier#000000008~rPMo3 1Xbp~893-918-3335~-276.1300
+9~8~carefully bold deposits haggle carefully against the blithely regular depo~Supplier#000000009~YUjB,vHmtrRQltUFBoTPLHZ~277-152-4591~5246.2000
+10~19~express pinto beans nag daringly furiously bold warthogs. express special requests affix acc~Supplier#000000010~4qmhqqhjW7SYPwRI~454-730-5084~6824.9800
+11~18~bold requests poach carefully furious requests. care~Supplier#000000011~CsPrqsunkt7YgKwh0u~488-820-1133~7866.5800
+12~1~accounts breach along the fluffily regular foxes. special requests are. pending f~Supplier#000000012~kaik3OgMM5wUm7gB2Ezas,AuQ~814-239-7110~5222.0500
+13~2~excuses among the requests are blithely about the unusual accounts. carefully final dependencies han~Supplier#000000013~MiaaIaqfDllL b68vBe~981-671-4833~5234.6400
+14~22~slyly unusual ideas sleep according to the even accounts. slyly ~Supplier#000000014~WoeLCTPhTE~772-647-1392~4930.0000
+15~13~ironic ideas sleep about the slyly ironic accounts. slyly regular packages sleep furio~Supplier#000000015~794RP7ebqdTYFOP~972-724-4712~4973.3800
+16~18~ironic ironic pains cajole about the c~Supplier#000000016~BHEY8uFlvrLpsK e8Z6Is mIZ3rxmqSxh9QF3J~924-198-3387~5917.4000
+17~1~blithely special ideas sleep. quickly even cour~Supplier#000000017~QuGRFF5yaMaDFhuxIa1NgohuefzNRhUq D2J6pbk~635-437-1512~8809.6600
+18~17~carefully regular packages cajole unusual deposits-- carefully pending ideas are carefully a~Supplier#000000018~mY7or,fcLVt2xRk YjHgD,wJ5tXxIG3nOYeyl~826-385-7193~8914.7600
+19~21~unusual ironic packages cajole ironic accounts. express cour~Supplier#000000019~98H M pNuJNG~514-988-5122~2143.1500
+20~3~express final deposits wake sometimes regular pinto beans. express pains accordin~Supplier#000000020~iUPertyqE9ZqQ,ZKaj2,6btjBAlqLroEGbC26Q~256-531-4743~1199.5600
+21~16~slyly special requests sleep furiously car~Supplier#000000021~esFlodpoY7A2~671-137-7784~9415.0200
+22~15~stealthy requests nag carefully regular bold deposits. furiously pending escapades nag blith~Supplier#000000022~RYbXbpdB2j15JTRnARMKZMlMbt~488-352-4430~3802.5500
+23~16~busily regular packages haggle carefully against the express ideas. slyly regular d~Supplier#000000023~h23k8XSa4Vev3,MUxayO6~226-941-2775~5581.3800
+24~1~slyly bold accounts use; express ironic instruct~Supplier#000000024~FPF0ceCegaW7fat1bRfWRDzQSPMmToSAhC~718-317-8384~9954.3700
+25~21~regular requests among the slyly regular requests are sly~Supplier#000000025~iolf17X3I6dbImmMQBh~376-574-5998~2783.2100
+26~10~fluffily ironic packages use bold instructions. furiously regular in~Supplier#000000026~vl8KQEvyCG2D5NP,IOFwXoZQ7~193-649-1734~492.6000
+27~17~carefully bold hockey players affix ~Supplier#000000027~e7imXwvYfS~666-401-5679~790.1200
+28~12~deposits nag fluffily ironic packages~Supplier#000000028~b,NSCSibQ,gQaLJE2gS~767-678-4359~5861.7600
+29~8~slyly special pearls cajole at the carefully~Supplier#000000029~8HWl7M3aQF3vqgFZlec2b7nKaayVJGxKO,A~922-954-7540~4988.0800
+30~5~packages maintain slyly regular instructions. ironic frays integrate. quickly careful theodolite~Supplier#000000030~D,ffULugRMkSL~318-472-8450~1530.2000
+31~2~regular requests around the~Supplier#000000031~IPH9I8x9XaK~858-242-6792~2121.2800
+32~9~quickly final instructions ~Supplier#000000032~lj3q1dJXCte9sB33IFnDCC,Vh tRbmQt~599-907-8339~5957.2300
+33~10~blithely final theodolites maintain ~Supplier#000000033~9ElSWGdGSeNdHY30poHESIk9TOCV1b2~599-220-3038~6756.4400
+34~3~fluffily regular deposits across the slyly final acco~Supplier#000000034~,YwBQFrL,FWpOoKWIX4C7c~349-704-4189~4301.6000
+35~7~regular pending deposits kindle slyly carefully quiet accounts. final instructions haggle~Supplier#000000035~D8,zhPRuPRn3jk7u g KRB9hti~947-240-3482~4475.9900
+36~2~bold special accounts cajole quickly final instructions. furiously express pa~Supplier#000000036~SZmMC2I7lgls1DcIm320Om~840-351-3527~4581.2700
+37~5~slyly final theodolites according to the ironic foxes nag slyly ironic dep~Supplier#000000037~rvPx 9en3gXu~161-556-2542~1979.6500
+38~20~furiously regular accounts wake enticingly after the ideas. permanent regular packages across the ~Supplier#000000038~QdUfyzGXx0SgCiARSrNM8Q5IzXZG46ZMdXyPG~707-923-4145~3707.0500
+39~4~fluffily regular requests detect slyly blithely regular ideas. slyly regular theodolites a~Supplier#000000039~lwTkpEEK9UQ7,TvCpVMRBP~586-436-1368~1843.6500
+40~12~slyly regular ideas use slyly furiously regular theodolites. carefully express packages are. slyly fin~Supplier#000000040~8 Ypr4apYEH9g2PnkkGC1G5qPp6QHej7E~991-971-7952~1053.7900
+41~4~furiously regular platelets print quickly silent deposits. carefully regular dependencies w~Supplier#000000041~MXL0QE,EAcTKyxnDpBnBQzR~642-703-7278~-365.8900
+42~13~regularly silent foxes haggle bravely. slyly final deposits nag about the carefully even asymptotes.~Supplier#000000042~SLhFgvIAZ2y6SIC8QCMjtGjPvJSCow 0A,8S0u~754-135-6537~4447.9600
+43~3~final deposits play carefully above the regular theodolites: final theodolites sleep. quickly r~Supplier#000000043~YZFgZmhTjM7D~568-976-5236~7664.7100
+44~3~carefully express asymptotes wake above the slyly regular deposi~Supplier#000000044~tYgn3w,5FqmRfrpOknjJ2oWxdgXubSIEdTIaka~618-750-6989~3571.2800
+45~5~slyly special pinto beans detect pend~Supplier#000000045~XCQSKAX8ZG0Jx 4bq~564-226-1195~5769.4800
+46~23~ideas dazzle slyly. fluffily pending instructions among the even pending deposits wake quickly slow id~Supplier#000000046~dY6QhoweNlTgvYNtOmKd64uZQLLh~187-937-4326~2303.8600
+47~17~quickly pending accounts nod careful~Supplier#000000047~NU,fHE1cvM~588-204-6367~7329.1200
+48~1~slyly even theodolites are. carefully special instructions boost ~Supplier#000000048~OvY 0sb7snkatO~356-466-5853~8746.3300
+49~2~express pinto beans along the carefully regular do~Supplier#000000049~zOG jAGC,oScBdlxl7q1m78Unv6nQPv2lfqRh~393-425-6443~5259.0900
+50~10~carefully even requests use fur~Supplier#000000050~8t5R89KNiPvzcn3~287-856-5311~7567.3100
+51~13~fluffily final waters haggle about the f~Supplier#000000051~Bks7WEKNmeSsZ8319mr,P5aDKKe~608-356-3106~5704.7100
+52~4~special packages cajole enticingly after the packages.~Supplier#000000052~wJHR5 eHSh9mi~630-813-5247~2824.4300
+53~9~regular express packages kindle slyly. quickly bold packages boost fluffily furiously express gifts?~Supplier#000000053~zTgcAVuTXQU54Eb36lz5z,29KUlssyOtPPLEV~303-158-6142~85.1300
+54~12~pinto beans grow carefully carefully final ideas. speci~Supplier#000000054~ vRe,2ZuqckI3C3fiopnE09qwxIcBCtEoD7OyVP~224-351-3935~7162.3800
+55~9~slyly regular packages x-ray quickly~Supplier#000000055~HIcQxhJLx09aK3IhvwP sA~457-878-8549~3149.5500
+56~21~unusual deposits according to the slyly ironic ideas cajole fluffily after the~Supplier#000000056~rT4hoJp0vx9EIR,Vq o32XSc~464-669-7423~7584.7200
+57~1~blithely regular excuses haggle of the carefully pendin~Supplier#000000057~oMv1GPNlQ873mLt3G6TbaTiBn~100-510-7176~9200.4600
+58~21~forges x-ray. requests use careful~Supplier#000000058~H8hw017,cBfLGr1s3N3xeNTTOZ5vje0muLJ~416-481-7875~8770.9400
+59~16~slyly ironic pinto beans eat according to the permanent deposits. sometimes ironic accounts~Supplier#000000059~VgnvoNhEivzEwCRBiMj5P~244-148-5020~7086.1200
+60~9~brave ideas unwind blithely fluffily ironic dependencies. even ironic re~Supplier#000000060~HgA8CtLBeUVO7a0Cl7UEDSgJshY3~563-783-4409~-209.6200
+61~16~furiously ironic frets are ideas. furiously regular ~Supplier#000000061~AHVaDjMipzH7mgJ3~677-977-1815~2455.9300
+62~10~slyly special ideas wake slyly about the requests. slyly express ideas sleep slyly pending courts~Supplier#000000062~nTEZYEh,vjpRLG,EwF5htgPVYbOxYZCaKa~195-585-3041~5458.4600
+63~15~final accounts are furiously alongside of the carefull~Supplier#000000063~c 3FaE,9whoYySlUluXtKroN4zf4Qz5wHldJY~994-224-1579~5752.6100
+64~3~slyly ironic instructions use fluffily. carefully regular dependencies believ~Supplier#000000064~,werjDBBc G52FHPT1cNJ1hVgYB~446-927-6616~4381.0000
+65~2~pending packages haggle carefully about the pending accounts. carefully~Supplier#000000065~lKrnGwttBdTQi,Kq9~840-674-4437~7809.1500
+66~5~bold final accounts use. slyly even deposits affix. carefully bold theodolit~Supplier#000000066~ojsusVOqe6c,YjVe1DfRP~474-404-2332~8780.4600
+67~9~final regular deposits cajo~Supplier#000000067~t yCNvhXdGR6GqSUJfzqizBfXdz~663-906-6933~5927.7800
+68~24~carefully permanent asymptotes cajole blithely. carefully pending pain~Supplier#000000068~UUIdrarNgu9jbirov4KzNNm3UCup g0eiF~744-536-6946~5683.3700
+69~16~stealthily special deposits wake carefully among the slyly ironic packages? furio~Supplier#000000069~mp6E OC nAZ9vR8nQvn4C,fzP0nODLny6N~832-551-7543~-78.6500
+70~4~special final deposits are! express ideas are slyly. packages use after the even blithe court~Supplier#000000070~AoesxfuCIpROvnP807NYl258Aug~710-828-5515~4879.1900
+71~2~carefully express dolphins along the regular eve~Supplier#000000071~3Vo8EZt3BQLUBQe46Rtfjo33Hd,N~873-597-3666~3902.9700
+72~17~carefully ironic deposits nag carefully. pending requests about the boldly regular ideas use furiously~Supplier#000000072~K8Mpn8yKw kYpw8VA9k8NK,xrm~980-561-4259~8759.0800
+73~2~final accounts boost quickly ironic even deposit~Supplier#000000073~tbMsSPJVSzDNMY9gnfTTOuosVPd2sHelz1cSU~779-878-7063~965.6300
+74~15~furiously silent packages along the regular final orbits wake ac~Supplier#000000074~NTVm,BARxVmTNTBSsqGKik ymJ0GDX~495-971-6320~3616.4400
+75~2~blithely bold packages detect. ~Supplier#000000075~oBOtcMeD7hu37UCylnLayWvYp5WHO12vE6KdYYTq~774-637-8628~1171.6500
+76~0~fluffily even requests haggle ironic courts. deposits believe furiously. regular pi~Supplier#000000076~5OWkvA4ddFb11A1dNt7rCkDHzDOC ~649-580-3618~6300.0100
+77~5~final asymptotes use carefully. furiously ironic pinto beans boost carefully. ironic unusua~Supplier#000000077~vlFO QfOyNb~204-940-8811~4441.9800
+78~6~ironic instructions after the regular accounts doubt blithel~Supplier#000000078~6hDSXWQAE8sqKGU~467-970-5931~7718.0900
+79~6~slyly ironic accounts according to the braids cajole across the final acc~Supplier#000000079~ZBSvOir3pw2wp,YbXO YMp8rOIVGXwu6ahBDUORY~505-550-6469~41.0500
+80~5~special theodolites along the fluffily final accounts boost furiously blithel~Supplier#000000080~20 xFMdBKPa4gaBtDhs~514-919-3077~1409.6200
+81~23~ironic ironic pinto beans play carefully special theodolites. ~Supplier#000000081~rMxQNrsxy6bxmPV3R~517-811-1728~7915.1100
+82~24~carefully special pinto beans across~Supplier#000000082~kUzjJn9isi~233-426-9337~6950.8200
+83~19~blithely ironic dependencies boost slyly close theodolites. quickly express accounts ac~Supplier#000000083~vVtzhYZ6IOls4nxRv4LnWrGAV6Dv1eIwrcc~837-305-2359~9652.3300
+84~15~even packages nag special warthogs. final theodolites against the pen~Supplier#000000084~yL4nf,yKWip2D M1k1EQHrRzbIK~752-325-9327~6881.7200
+85~22~express ideas sleep carefully along~Supplier#000000085~TftdNmcoB7tkPvPHThRKdRD NsEsUX~197-943-4714~2536.2900
+86~17~regular accounts boost. doggedly blithe theodolites cajole quickly ~Supplier#000000086~YtaReip4NUWILei71duWmNkUlDH 7kGFSwx3~143-928-4011~4680.6700
+87~10~blithely even platelets eat blithely packages. even package~Supplier#000000087~5GHbEzDRoG79qKN6,oUYl8ow5ubw8rgVa6Se,Rls~805-857-5600~1766.8100
+88~11~fluffily express accounts use according to the blithely even ~Supplier#000000088~HJYNUIMEt,4Z3D0n9V~333-347-7728~1722.3200
+89~21~permanently ironic deposits play slyly. fluffily express asymptotes dazzle final packages. fo~Supplier#000000089~mvuqxxrK,1z4aJE6Sy749Y0HY87T8he4~904-552-8769~8652.3200
+90~20~slyly ironic requests use fluffily against the slyly final deposits: slyly iron~Supplier#000000090~isx2zjuVpmqsnfLjj qN, QvsnXmGqqo~642-189-1273~9256.9500
+91~19~even express frets boost blithely. blithely express packages ~Supplier#000000091~KowPS Tizg2HN4TogKDeDunXoeGfuvUj~548-457-3818~8570.8900
+92~22~bold deposits boost furiously inside the regular requests. blithely ironi~Supplier#000000092~hNmm,TbjEVkakLfVZhr1L6n,oq 9KmFHvG~690-380-7399~4966.0800
+93~2~express instructions cajole according ~Supplier#000000093~y2Kgj4uC0OHpcGQ~338-925-4800~9739.6100
+94~12~slyly regular dolphins haggle evenly about the accounts. regular regular ~Supplier#000000094~WNnMdL 5QzSqaDLPiW~732-441-9407~8813.8100
+95~0~slyly regular packages sleep blithely furiously busy pearls. regular~Supplier#000000095~OYPvyNkCnzXUVvc6xtEY 1~940-494-9817~8879.2200
+96~4~furiously bold patterns could~Supplier#000000096~ 9aAZQiswl~616-846-4421~-668.1300
+97~12~unusual requests kindle carefully special pinto beans. carefully special requests sleep carefully ev~Supplier#000000097~kIqXl4FKWzbOITFo wh2cKGbLsMcHt8cmIT1qez9~357-809-2554~3229.2900
+98~20~regular special requests wake furiousl~Supplier#000000098~ND5x2kf4XaVNuLya6OOI5vZ2Aln N~542-390-6334~150.7000
+99~16~pending ironic dolphins haggle fluffily regular platelets. slyly ironic instructions a~Supplier#000000099~E qF64toDo8s~982-364-7100~2074.0000
+100~24~regular packages cajole. ideas cajole. quickly bold dugouts affix blithely fl~Supplier#000000100~hIbtFBIvdbB3geP0vWk TOnSJ58o~681-350-1885~1026.7400

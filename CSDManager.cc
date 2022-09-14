@@ -3,7 +3,7 @@
 
 void CSDManager::CSDManagerInit(){
     CSDInfo initinfo;
-    initinfo.CSDIP = "10.0.5.120+10.1.1.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.1.2";
     initinfo.CSDReplica = "4";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002010.sst");
@@ -14,7 +14,7 @@ void CSDManager::CSDManagerInit(){
     initinfo.SSTList.push_back("002568.sst");
     CSD_Map_.insert(make_pair("1",initinfo));
     initinfo.SSTList.clear();
-    initinfo.CSDIP = "10.0.5.120+10.1.2.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.2.2";
     initinfo.CSDReplica = "5";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002072.sst");
@@ -23,7 +23,7 @@ void CSDManager::CSDManagerInit(){
     initinfo.SSTList.push_back("002569.sst");
     CSD_Map_.insert(make_pair("2",initinfo));
     initinfo.SSTList.clear();
-    initinfo.CSDIP = "10.0.5.120+10.1.3.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.3.2";
     initinfo.CSDReplica = "5";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002089.sst");
@@ -32,7 +32,7 @@ void CSDManager::CSDManagerInit(){
     initinfo.SSTList.push_back("002570.sst");
     CSD_Map_.insert(make_pair("3",initinfo));
     initinfo.SSTList.clear();
-    initinfo.CSDIP = "10.0.5.120+10.1.4.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.4.2";
     initinfo.CSDReplica = "";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002106.sst");
@@ -41,7 +41,7 @@ void CSDManager::CSDManagerInit(){
     initinfo.SSTList.push_back("002571.sst");
     CSD_Map_.insert(make_pair("4",initinfo));
     initinfo.SSTList.clear();
-    initinfo.CSDIP = "10.0.5.120+10.1.5.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.5.2";
     initinfo.CSDReplica = "";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002122.sst");
@@ -50,7 +50,7 @@ void CSDManager::CSDManagerInit(){
     initinfo.SSTList.push_back("002572.sst");
     CSD_Map_.insert(make_pair("5",initinfo));
     initinfo.SSTList.clear();
-    initinfo.CSDIP = "10.0.5.120+10.1.6.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.6.2";
     initinfo.CSDReplica = "";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002139.sst");
@@ -59,7 +59,7 @@ void CSDManager::CSDManagerInit(){
     initinfo.SSTList.push_back("002573.sst");
     CSD_Map_.insert(make_pair("6",initinfo));
     initinfo.SSTList.clear();
-    initinfo.CSDIP = "10.0.5.120+10.1.7.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.7.2";
     initinfo.CSDReplica = "";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002155.sst");
@@ -68,7 +68,7 @@ void CSDManager::CSDManagerInit(){
     initinfo.SSTList.push_back("002574.sst");
     CSD_Map_.insert(make_pair("7",initinfo));
     initinfo.SSTList.clear();
-    initinfo.CSDIP = "10.0.5.120+10.1.8.2";
+    initinfo.CSDIP = "10.0.5.121+10.1.8.2";
     initinfo.CSDReplica = "";
     initinfo.CSDWorkingBlock = 0;
     initinfo.SSTList.push_back("002187.sst");
@@ -83,8 +83,8 @@ CSDInfo CSDManager::getCSDInfo(string CSDID){
 }
 
 
-void CSDManager::CSDBlockDesc(string id){
-    CSD_Map_[id].CSDWorkingBlock--;
+void CSDManager::CSDBlockDesc(string id, int num){
+    CSD_Map_[id].CSDWorkingBlock = CSD_Map_[id].CSDWorkingBlock - num;
 }
 
 vector<string> CSDManager::getCSDIDs(){

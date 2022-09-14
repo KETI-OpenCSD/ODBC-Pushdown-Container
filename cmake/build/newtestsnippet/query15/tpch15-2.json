@@ -1,0 +1,42 @@
+{
+    "type": 3,
+    "snippet": {
+      "queryID": 14,
+      "workID": 2,
+      "tableName": [
+        "revenue0"
+      ],
+      "tableCol": [],
+      "tableFilter": [],
+      "tableOffset": [],
+      "tableOfflen": [],
+      "tableDatatype": [],
+      "tableAlias": "snippet14-2",
+      "columnAlias": [
+        "supplier_no",
+        "total_revenue"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": [
+            "supplier_no"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 7,
+          "value": [
+            "total_revenue"
+          ],
+          "valueType": [
+            10
+          ]
+        }
+      ],
+      "columnFiltering": [],
+      "groupBy": []
+    }
+  }

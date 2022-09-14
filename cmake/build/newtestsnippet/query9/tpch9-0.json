@@ -1,0 +1,70 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :8,
+      "workID":0,
+      "tableName": ["part"],
+      "tableCol":[
+        ****채우기
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [
+              10
+            ],
+            "value": [
+              "p_name"
+            ]
+          },
+          "Operator": 7,
+          "RV": {
+            "type": [
+              9
+            ],
+            "value": [
+              "%dim%"
+            ]
+          },
+          "EXTRA": []
+        }
+      ],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet8-0",
+      "columnAlias": [
+        "p_partkey",
+        "p_name"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": [
+            "p_partkey"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "p_name"
+          ],
+          "valueType": [
+            10
+          ]
+        }
+      ],
+      "columnFiltering": [
+        "p_partkey",
+        "p_name"
+      ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

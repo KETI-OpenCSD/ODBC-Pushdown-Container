@@ -21,6 +21,7 @@ unordered_map<string,vector<vectortype>> GetBufMTable(string tablename, SnippetS
 {
 
         unordered_map<string,vector<vectortype>> table = buff.GetTableData(snippet.query_id, tablename).table_data;
+        // cout<< table.size() << endl;
         // cout << tablename << endl;
         // for(auto i = table.begin(); i != table.end(); i++){
         //     pair<string,vector<any>> a = *i;
@@ -36,24 +37,35 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
     unordered_map<string,int> stackmap;
     vector<vectortype> ret;
     pair<string,vector<vectortype>> tmppair;
+    // cout << 1 << endl;
     auto tmpiter = tablelist.begin();
+    // cout << 2 << endl;
     tmppair = *tmpiter;
+    // cout << 3 << endl;
     int rownum = tmppair.second.size();
+    // cout << 4 << endl;
+    cout << data[0].value << endl;
     if(data[0].value == "0"){
+        // cout << 5 << endl;
         // StackType tmpstack;
         stack<vectortype> tmpstack;
         // tmpstack.type = typeid(tablelist[data[1].value]).name;
         for(int i = 0; i < rownum; i++){
+            // cout << 6 << endl;
+            // cout << data.size() << endl;
             for(int j = 1; j < data.size(); j++){
+                // cout << 7 << endl;
                 vectortype tmpvect;
                 if(data[j].type == 10){
+                    // cout << data[j].value << endl;
                     // cout << any_cast<int>(tablelist[data[j].value][i]) << endl;
+                    // cout << tablelist[data[j].value][i].intvec << endl;
                     tmpstack.push(tablelist[data[j].value][i]);
-                }else if(data[j].type == 2){
+                }else if(data[j].type == 11){
                     if(data[j].value == "+"){
-                        vectortype value1 = tmpstack.top();
-                        tmpstack.pop();
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
@@ -62,15 +74,15 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                             // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
                             tmpstack.push(tmpvect);
                         }else if(value1.type == 2){
-                            tmpvect.intvec = value1.floatvec + value2.floatvec;
+                            tmpvect.floatvec = value1.floatvec + value2.floatvec;
                             tmpvect.type = 2;
                             // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
                             tmpstack.push(tmpvect);
                         }
                     }else if(data[j].value == "-"){
-                        vectortype value1 = tmpstack.top();
-                        tmpstack.pop();
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
@@ -79,32 +91,44 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                             // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
                             tmpstack.push(tmpvect);
                         }else if(value1.type == 2){
-                            tmpvect.intvec = value1.floatvec - value2.floatvec;
+                            tmpvect.floatvec = value1.floatvec - value2.floatvec;
                             tmpvect.type = 2;
                             // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
                             tmpstack.push(tmpvect);
                         }
                     }else if(data[j].value == "*"){
-                        vectortype value1 = tmpstack.top();
-                        tmpstack.pop();
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
-                            tmpvect.intvec = value1.intvec * value2.intvec;
-                            tmpvect.type = 1;
+                            if(value2.type == 1){
+                                tmpvect.intvec = value1.intvec * value2.intvec;
+                                tmpvect.type = 1;
+                            }else{
+                                tmpvect.floatvec = value1.intvec * value2.floatvec;
+                                // cout << tmpvect.floatvec << endl;
+                                tmpvect.type = 2;
+                            }
                             // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
                             tmpstack.push(tmpvect);
                         }else if(value1.type == 2){
-                            tmpvect.intvec = value1.floatvec * value2.floatvec;
+                            if(value2.type == 2){
+                                tmpvect.floatvec = value1.floatvec * value2.floatvec;
+                                // cout << tmpvect.floatvec << endl;
+                            }else{
+                                tmpvect.floatvec = value1.floatvec * value2.intvec;
+                                // cout << tmpvect.floatvec << endl;
+                            }
                             tmpvect.type = 2;
                             // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
                             tmpstack.push(tmpvect);
                         }
                     }else if(data[j].value == "/"){
-                        vectortype value1 = tmpstack.top();
-                        tmpstack.pop();
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
@@ -113,7 +137,7 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                             // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
                             tmpstack.push(tmpvect);
                         }else if(value1.type == 2){
-                            tmpvect.intvec = value1.floatvec / value2.floatvec;
+                            tmpvect.floatvec = value1.floatvec / value2.floatvec;
                             tmpvect.type = 2;
                             // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
                             tmpstack.push(tmpvect);
@@ -121,14 +145,16 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                     }else{
                         //string
                     }
-                }else if(data[j].type == 1){
+                }else if(data[j].type == 4 || data[j].type == 5 || data[j].type == 6){
                     tmpvect.type = 2;
-                    tmpvect.floatvec = stof(data[j].value);
+                    tmpvect.floatvec = stod(data[j].value);
+                    // cout << data[j].value << endl;
                     // tmpstack.push(stof(data[j].value));
                     tmpstack.push(tmpvect);
                 }else{
                     // cout << data[j].value << endl;
                     tmpvect.type = 1;
+                    // cout << data[j].value << endl;
                     tmpvect.intvec = stoi(data[j].value);
                     // tmpstack.push(stof(data[j].value));
                     tmpstack.push(tmpvect);
@@ -147,13 +173,124 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
         for(int i = 0; i < rownum; i++){
             for(int j = 1; j < data.size(); j++){
                 vectortype tmpvect;
-                if(data[j].type == 3){
+                if(data[j].type == 10){
                     tmpstack.push(tablelist[data[j].value][i]);
-                }else if(data[j].type == 2){
+                }else if(data[j].type == 11){
                     if(data[j].value == "+"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
                         vectortype value1 = tmpstack.top();
                         tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec + value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.floatvec = value1.floatvec + value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "-"){
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec- value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.floatvec = value1.floatvec - value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "*"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec * value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.floatvec = value1.floatvec * value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "/"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec / value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.floatvec = value1.floatvec / value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else{
+                        //string
+                    }
+                }else if(data[j].type == 4 || data[j].type == 5 || data[j].type == 6){
+                    tmpvect.type = 2;
+                    tmpvect.floatvec = stod(data[j].value);
+                    // tmpstack.push(stof(data[j].value));
+                    tmpstack.push(tmpvect);
+                }else{
+                    // cout << data[j].value << endl;
+                    tmpvect.type = 1;
+                    tmpvect.intvec = stoi(data[j].value);
+                    // tmpstack.push(stof(data[j].value));
+                    tmpstack.push(tmpvect);
+                    // tmpstack.push(stoi(data[j].value));
+                }
+
+            }
+            //이부분이 sum을 해야함
+            
+            vectortype tmpnum = tmpstack.top(); //int인지 flaot인지 구분 필요
+            if(tmpnum.type == 1){
+                retdata.type = 1;
+                retdata.intvec = retdata.intvec + tmpnum.intvec;
+                // retdata = any_cast<int>(retdata) + any_cast<int>(tmpnum);
+            }else{
+                retdata.type = 2;
+                retdata.floatvec = retdata.floatvec + tmpnum.floatvec;
+                // retdata = any_cast<float>(retdata) + any_cast<float>(tmpnum);
+            }
+
+        }
+        ret.push_back(retdata);
+    }else if(data[0].value == "2"){
+        vectortype retdata;
+        stack<vectortype> tmpstack;
+        // tmpstack.type = typeid(tablelist[data[1].value]).name;
+        for(int i = 0; i < rownum; i++){
+            for(int j = 1; j < data.size(); j++){
+                vectortype tmpvect;
+                if(data[j].type == 10){
+                    tmpstack.push(tablelist[data[j].value][i]);
+                }else if(data[j].type == 11){
+                    if(data[j].value == "+"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
@@ -168,9 +305,9 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                             tmpstack.push(tmpvect);
                         }
                     }else if(data[j].value == "-"){
-                        vectortype value1 = tmpstack.top();
-                        tmpstack.pop();
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
@@ -185,9 +322,9 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                             tmpstack.push(tmpvect);
                         }
                     }else if(data[j].value == "*"){
-                        vectortype value1 = tmpstack.top();
-                        tmpstack.pop();
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
@@ -202,9 +339,9 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                             tmpstack.push(tmpvect);
                         }
                     }else if(data[j].value == "/"){
-                        vectortype value1 = tmpstack.top();
-                        tmpstack.pop();
                         vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
                         tmpstack.pop();
                         // if(value1.type == typeid(int&))
                         if(value1.type == 1){
@@ -221,7 +358,7 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
                     }else{
                         //string
                     }
-                }else if(data[j].type == 1){
+                }else if(data[j].type == 4 || data[j].type == 5 || data[j].type == 6){
                     tmpvect.type = 2;
                     tmpvect.floatvec = stof(data[j].value);
                     // tmpstack.push(stof(data[j].value));
@@ -250,7 +387,388 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
             }
 
         }
+        if(retdata.type == 1){
+            retdata.type = 2;
+            retdata.floatvec = retdata.intvec / rownum;
+        }else{
+            retdata.type = 2;
+            retdata.floatvec = retdata.floatvec / rownum;
+        }
         ret.push_back(retdata);
+    }else if(data[0].value == "4"){
+        auto it = tablelist.begin();
+        pair<string,vector<vectortype>> tmpv = *it;
+        vectortype retdata;
+        retdata.type = 1;
+        retdata.intvec = tmpv.second.size();
+        ret.push_back(retdata);
+    }else if(data[0].value == "6"){
+        vectortype retdata;
+        for(int i = 0; i < rownum; i++){
+            stack<vectortype> tmpstack;
+            for(int j = 1; j < data.size(); j++){
+                vectortype tmpvect;
+                if(data[j].type == 10){
+                    // cout << any_cast<int>(tablelist[data[j].value][i]) << endl;
+                    tmpstack.push(tablelist[data[j].value][i]);
+                }else if(data[j].type == 11){
+                    if(data[j].value == "+"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec + value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec + value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "-"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec - value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec - value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "*"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec * value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec * value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "/"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec / value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec / value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else{
+                        //string
+                    }
+                }else if(data[j].type == 4 || data[j].type == 5 || data[j].type == 6){
+                    tmpvect.type = 2;
+                    tmpvect.floatvec = stod(data[j].value);
+                    // tmpstack.push(stof(data[j].value));
+                    tmpstack.push(tmpvect);
+                }else{
+                    // cout << data[j].value << endl;
+                    tmpvect.type = 1;
+                    tmpvect.intvec = stoi(data[j].value);
+                    // tmpstack.push(stof(data[j].value));
+                    tmpstack.push(tmpvect);
+                    // tmpstack.push(stoi(data[j].value));
+                }
+            }
+            if(i == 0){
+                retdata = tmpstack.top();
+            }else{
+                if(retdata.type == 0){
+                    if(retdata.strvec > tmpstack.top().strvec){
+                        retdata = tmpstack.top();
+                    }
+                }else if(retdata.type == 1){
+                    if(retdata.intvec > tmpstack.top().intvec){
+                        retdata = tmpstack.top();
+                    }
+                }else{
+                    if(retdata.floatvec > tmpstack.top().floatvec){
+                        retdata = tmpstack.top();
+                    }
+                }
+            }
+        }
+        ret.push_back(retdata);
+    }else if(data[0].value == "7"){
+        vectortype retdata;
+        for(int i = 0; i < rownum; i++){
+            stack<vectortype> tmpstack;
+            for(int j = 1; j < data.size(); j++){
+                vectortype tmpvect;
+                if(data[j].type == 10){
+                    // cout << any_cast<int>(tablelist[data[j].value][i]) << endl;
+                    tmpstack.push(tablelist[data[j].value][i]);
+                }else if(data[j].type == 11){
+                    if(data[j].value == "+"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec + value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec + value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "-"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec - value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec - value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "*"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec * value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec * value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else if(data[j].value == "/"){
+                        vectortype value2 = tmpstack.top();
+                        tmpstack.pop();
+                        vectortype value1 = tmpstack.top();
+                        tmpstack.pop();
+                        // if(value1.type == typeid(int&))
+                        if(value1.type == 1){
+                            tmpvect.intvec = value1.intvec / value2.intvec;
+                            tmpvect.type = 1;
+                            // int retnum = any_cast<int>(value1) + any_cast<int>(value2);
+                            tmpstack.push(tmpvect);
+                        }else if(value1.type == 2){
+                            tmpvect.intvec = value1.floatvec / value2.floatvec;
+                            tmpvect.type = 2;
+                            // float retnum = any_cast<float>(value1) + any_cast<float>(value2);
+                            tmpstack.push(tmpvect);
+                        }
+                    }else{
+                        //string
+                    }
+                }else if(data[j].type == 4 || data[j].type == 5 || data[j].type == 6){
+                    tmpvect.type = 2;
+                    tmpvect.floatvec = stod(data[j].value);
+                    // tmpstack.push(stof(data[j].value));
+                    tmpstack.push(tmpvect);
+                }else{
+                    // cout << data[j].value << endl;
+                    tmpvect.type = 1;
+                    tmpvect.intvec = stoi(data[j].value);
+                    // tmpstack.push(stof(data[j].value));
+                    tmpstack.push(tmpvect);
+                    // tmpstack.push(stoi(data[j].value));
+                }
+            }
+            if(i == 0){
+                retdata = tmpstack.top();
+            }else{
+                if(retdata.type == 0){
+                    if(retdata.strvec < tmpstack.top().strvec){
+                        retdata = tmpstack.top();
+                    }
+                }else if(retdata.type == 1){
+                    if(retdata.intvec < tmpstack.top().intvec){
+                        retdata = tmpstack.top();
+                    }
+                }else{
+                    if(retdata.floatvec < tmpstack.top().floatvec){
+                        retdata = tmpstack.top();
+                    }
+                }
+            }
+        }
+        ret.push_back(retdata);
+    }else if(data[0].value == "8"){
+        for(int i = 0; i < rownum; i++){
+            // stack<vectortype> tmpstack;
+            vectortype lv;
+            vectortype rv;
+            vectortype tmpv;
+            bool lvflag = false;
+            bool whenflag = false;
+            bool thenflag = false;
+            bool elsefalg = false;
+            bool CV = false;
+            for(int j = 1; j < data.size(); j++){
+                if(data[j].type == 10){
+                    // tmpstack.push(tablelist[data[j].value][i]);
+                    if(whenflag){
+                        if(lvflag){
+                            rv = tablelist[data[j].value][i];
+                        }else{
+                            lv = tablelist[data[j].value][i];
+                            lvflag = true;
+                        }
+                    }else if(thenflag){
+                        if(CV){
+                            tmpv = tablelist[data[j].value][i];
+                            break;
+                        }else{
+                            continue;
+                        }
+                    }else{
+                        tmpv = tablelist[data[j].value][i];
+                        break;
+                    }
+                }else if(data[j].type == 9 || data[j].type == 11){
+                    if(data[j].value == "CASE"){
+                        continue;
+                    }
+                    else if(data[j].value == "WHEN"){
+                        whenflag = true;
+                        continue;
+                    }
+                    else if(data[j].value == "THEN"){
+                        thenflag = true;
+                        whenflag = false;
+                        continue;
+                    }
+                    else if(data[j].value == "ELSE"){
+                        elsefalg = true;
+                        thenflag = false;
+                        whenflag = false;
+                        continue;
+                    }
+                    else if(data[j].value == "="){
+                        if(lv.type == 0){
+                            if(lv.strvec == rv.strvec){
+                                CV = true;
+                                continue;
+                            }
+                        }else if(lv.type == 1){
+                            if(lv.intvec == rv.intvec){
+                                CV = true;
+                                continue;
+                            }
+                        }else{
+                            if(lv.floatvec == rv.floatvec){
+                                CV == true;
+                                continue;
+                            }
+                        }
+                        elsefalg = true;
+                        continue;
+                    }
+                    else if(data[j].value == "LIKE"){
+                        CV = LikeSubString_v2(lv.strvec,rv.strvec);
+                        continue;
+                    }else if(data[j].value == "END"){
+                        break;
+                    }
+                    else if(whenflag){
+                        if(lvflag){
+                            rv.type = 0;
+                            rv.strvec = data[j].value;
+                        }else{
+                            lv.type = 0;
+                            lv.strvec = data[j].value;
+                            lvflag = true;
+                        }
+                        continue;
+                    }
+                    else if(thenflag){
+                        if(CV){
+                            if(data[j].type == 9){
+                                tmpv.type = 0;
+                                tmpv.strvec = data[j].value;
+                            }else if(data[j].type == 0 || data[j].type == 1 || data[j].type == 2 || data[j].type == 3 || data[j].type == 7){
+                                tmpv.type = 1;
+                                cout << data[j].value << endl;
+                                tmpv.intvec = stoi(data[j].value);
+                            }else{
+                                tmpv.type = 2;
+                                tmpv.floatvec = stod(data[j].value);
+                            }
+                            break;
+                        }else{
+                            continue;
+                        }
+                    }else if(elsefalg){
+                        if(data[j].type == 9){
+                            tmpv.type = 0;
+                            tmpv.strvec = data[j].value;
+                        }else if(data[j].type == 0 || data[j].type == 1 || data[j].type == 2 || data[j].type == 3 || data[j].type == 7){
+                            tmpv.type = 1;
+                            cout << data[j].value << endl;
+                            tmpv.intvec = stoi(data[j].value);
+                        }else{
+                            tmpv.type = 2;
+                            tmpv.floatvec = stod(data[j].value);
+                        }
+                        break;
+                    }
+                }
+            }
+            ret.push_back(tmpv);
+        }
+    }else if(data[0].value == "13"){
+        for(int i = 0; i < rownum; i++){
+            // stack<vectortype> tmpstack;
+            vectortype lv;
+
+            bool CV = false;
+            for(int j = 1; j < data.size(); j++){
+                if(data[j].type == 10){
+                    // cout << any_cast<int>(tablelist[data[j].value][i]) << endl;
+                   lv = tablelist[data[j].value][i];
+                }
+                lv.intvec = lv.intvec / 32 / 16;
+                // cout << lv.intvec << endl;
+            }
+            ret.push_back(lv);
+        }
     }
     // cout << 3 << endl;
     return ret;
@@ -259,6 +777,7 @@ vector<vectortype> Postfix(unordered_map<string,vector<vectortype>> tablelist, v
 
 void Aggregation(SnippetStruct& snippet, BufferManager &buff, bool tablecount){
     unordered_map<string,vector<vectortype>> tablelist;
+    cout << "[Merge Query Manager] Start Aggregation Snippet" << snippet.query_id << "-" << snippet.work_id << endl;
     cout << "[Merge Query Manager] Strat Aggregation Time : ";
     time_t t = time(0);
     cout << t << endl;
@@ -274,16 +793,20 @@ void Aggregation(SnippetStruct& snippet, BufferManager &buff, bool tablecount){
             }
         }
     }else{
+        // sleep(1);
         unordered_map<string,vector<vectortype>> table = GetBufMTable(snippet.tableAlias, snippet, buff);
         for(auto it = table.begin(); it != table.end(); it++){
             pair<string,vector<vectortype>> pair;
             pair = *it;
+            cout << pair.first << " " << pair.second.size()<< endl;
             tablelist.insert(pair);
         }
     }
     // cout << 1 << endl;
     unordered_map<string,vector<vectortype>> savedTable;
+    // cout << snippet.columnProjection.size() << endl;
     for(int i = 0; i < snippet.columnProjection.size(); i++){
+        // cout << i << endl;
         // any ret;
         // ret = Postfix(tablelist,snippet.columnProjection[i], savedTable);
         // vector<any> tmpvec;
@@ -313,6 +836,7 @@ void JoinTable(SnippetStruct& snippet, BufferManager &buff){
         // tablelist.push_back(table);
         for(auto it = table.begin(); it != table.end(); it++){
             pair<string,vector<vectortype>> tmppair = *it;
+            cout << tmppair.first << " " << tmppair.second.size() << endl;
             tablelist.insert(make_pair(tmppair.first,tmppair.second));
             tmpvector.push_back(tmppair.first);
         }
@@ -580,7 +1104,7 @@ void JoinTable(SnippetStruct& snippet, BufferManager &buff){
         }
     // cout << "end" << endl;
     time_t t1 = time(0);
-    cout  << "[Merge Query Manager] End Join Snippet 4-" << snippet.work_id <<" Time : " << t1 << endl;
+    cout  << "[Merge Query Manager] End Join Snippet " << snippet.query_id << "-" << snippet.work_id <<" Time : " << t1 << endl;
     buff.SaveTableData(snippet.query_id,snippet.tableAlias,savedTable);
 
 }
@@ -593,9 +1117,316 @@ void JoinTable(SnippetStruct& snippet, BufferManager &buff){
 //     //같은 값이 없을경우 null을 채워 모든 데이터 유지
 // }
 
-// void OuterLeftJoin(SnippetStruct snippet, BufferManager &buff){
-//     //왼쪽 테이블 기준으로 같은 값이 없으면 null을 채움
-// }
+void LOJoin(SnippetStruct& snippet, BufferManager &buff){
+    //왼쪽 테이블 기준으로 같은 값이 없으면 null을 채움
+    time_t t = time(0);
+    cout <<"[Merge Query Manager] Start Join Table1.Name : " << snippet.tablename[0] << " | Table2.Name : " << snippet.tablename[1]  <<" Time : " << t << endl;
+    unordered_map<string,vector<vectortype>> tablelist;
+    vector<vector<string>> tablenamelist;
+    for(int i = 0; i < 2; i++){
+        vector<string> tmpvector;
+        // unordered_map<string,vector<any>> table = GetBufMTable(snippet.tablename[i], snippet, buff);
+        cout << "[Merge Query Manager] Buffer Manager Access Get Table, Table Name : " << snippet.tablename[i] << endl;
+        unordered_map<string,vector<vectortype>> table = buff.GetTableData(snippet.query_id, snippet.tablename[i]).table_data;
+        // tablelist.push_back(table);
+        for(auto it = table.begin(); it != table.end(); it++){
+            pair<string,vector<vectortype>> tmppair = *it;
+            tablelist.insert(make_pair(tmppair.first,tmppair.second));
+            tmpvector.push_back(tmppair.first);
+        }
+        tablenamelist.push_back(tmpvector);
+    }
+
+
+
+    unordered_map<string,vector<vectortype>> savedTable;
+    // for(auto i = tablelist[0].begin(); i != tablelist[0].end(); i++){
+    //     pair<string,vector<any>> tabledata;
+    //     tabledata = *i;
+    //     vector<any> table;
+    //     savedTable.insert(make_pair(tabledata.first,table));
+        
+    // }
+    // for(auto i = tablelist[1].begin(); i != tablelist[1].end(); i++){
+    //     pair<string,vector<any>> tabledata;
+    //     tabledata = *i;
+    //     vector<any> table;
+    //     if(savedTable.find(tabledata.first) != savedTable.end()){
+    //         savedTable.insert(make_pair(tabledata.first + "_2", table));
+    //     }else{
+    //         savedTable.insert(make_pair(tabledata.first, table));
+    //     }
+    // }
+    // cout << 1 << endl;
+    // cout << snippet.table_filter.GetType() << endl;
+    // cout << snippet.columnProjection[0][0].value << endl;
+    // cout << tablelist.size() << endl;
+    // cout << tablelist.size() << endl;
+    // cout << tablelist["n_regionkey"].size() << endl;
+    // for(auto i = tablelist.begin(); i != tablelist.end(); i++){
+    //     pair<string,vector<any>> cc = *i;
+    //     cout << cc.first << endl;
+    // }
+    string joinColumn1 = snippet.table_filter[0].LV.value[0];
+    string joinColumn2;
+    auto ttit = find(tablenamelist[0].begin(),tablenamelist[0].end(),joinColumn1);
+    if(ttit != tablenamelist[0].end()){
+        joinColumn1 = snippet.table_filter[0].LV.value[0];
+        joinColumn2 = snippet.table_filter[0].RV.value[0];
+    }else{
+        joinColumn1 = snippet.table_filter[0].RV.value[0];
+        joinColumn2 = snippet.table_filter[0].LV.value[0];
+    }
+
+    // string joinColumn1 = snippet.table_filter[0].LV.value[0];
+    
+    cout << "[Merge Query Manager] JoinColumn1 : " << joinColumn1 << " | JoinColumn2 : " << joinColumn2 << endl;
+    cout << "[Merge Query Manager] " << joinColumn1 <<".Rows : " << tablelist[joinColumn1].size() << " | "<< joinColumn2 << ".Rows : " <<tablelist[joinColumn2].size() << endl;
+    // string joinColumn2 = snippet.table_filter[0].RV.value[0];
+    // cout << joinColumn2 << endl;
+    // cout << tablelist[joinColumn1].size() << endl;
+    // cout << tablelist[joinColumn2].size() << endl;
+    // cout << 1 << endl;
+    // cout << snippet.table_filter.Size() << endl;
+    int countcout = 0;
+        for(int i = 0; i < tablelist[joinColumn1].size(); i++){
+            bool leftjoinflag = true;
+            for(int j = 0; j < tablelist[joinColumn2].size(); j++){
+                bool savedflag = true;
+                if(tablelist[joinColumn1][i].type == 1){
+                    // cout << any_cast<int>(tablelist[joinColumn1][j]) << endl;
+                    if(tablelist[joinColumn1][i].intvec == tablelist[joinColumn2][j].intvec){
+                        // cout << tablelist[joinColumn1][i].intvec << " " << tablelist[joinColumn2][j].intvec << endl;
+                        for(int k = 1; k < snippet.table_filter.size(); k++){
+                            string tmpcolumn1;
+                            string tmpcolumn2;
+                            if(snippet.table_filter[k].LV.value.size() > 0){
+                                tmpcolumn1 = snippet.table_filter[k].LV.value[0];
+                                tmpcolumn2 = snippet.table_filter[k].RV.value[0];
+                                if(countcout == 0){
+                                    cout << "[Merge Query Manager] Join Column 1 : " << tmpcolumn1 << " Join Column 2 : " << tmpcolumn2 << endl;
+                                    countcout++;
+                                }
+                            }else{
+                                continue;
+                            }
+                            if(tablelist[tmpcolumn1][i].type == 1){
+                                if(tablelist[tmpcolumn1][i].intvec == tablelist[tmpcolumn2][j].intvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }else if(tablelist[tmpcolumn1][i].type == 2){
+                                if(tablelist[tmpcolumn1][i].floatvec == tablelist[tmpcolumn2][j].floatvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }else{
+                                if(tablelist[tmpcolumn1][i].strvec == tablelist[tmpcolumn2][j].strvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if(savedflag){
+                            leftjoinflag = false;
+                            // for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                            //     pair<string,vector<any>> tabledata;
+                            //     tabledata = *it;
+                            //     vector<any> tmptable = tabledata.second;
+                            //     savedTable[tabledata.first].push_back(tmptable[i]);
+                            // }
+                            for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                                pair<string,vector<vectortype>> tabledata;
+                                tabledata = *it;
+                                if(savedTable.find(tabledata.first + "_v2") != savedTable.end()){
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    savedTable[tabledata.first + "_v2"].push_back(tmptable[j]);
+                                }else{
+                                    for(int k = 0; k < tablenamelist.size(); k++){
+                                        // cout << tabledata.first << endl;
+                                        auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                        if(tit != tablenamelist[k].end()){
+                                            if(k == 0){
+                                                // cout << tabledata.first << endl;
+                                                vector<vectortype> tmptable = tabledata.second;
+                                                // cout << i << endl;
+                                                // cout << tmptable[i].intvec << endl;
+                                                savedTable[tabledata.first].push_back(tmptable[i]);
+                                            }else{
+                                                vector<vectortype> tmptable = tabledata.second;
+                                                savedTable[tabledata.first].push_back(tmptable[j]);
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }else if(tablelist[joinColumn1][i].type == 2){
+                    if(tablelist[joinColumn1][i].floatvec == tablelist[joinColumn2][j].floatvec){
+                        for(int k = 1; k < snippet.table_filter.size(); k++){
+                            string tmpcolumn1;
+                            string tmpcolumn2;
+                            if(snippet.table_filter[k].LV.type.size() > 0){
+                                tmpcolumn1 = snippet.table_filter[k].LV.value[0];
+                                tmpcolumn2 = snippet.table_filter[k].RV.value[0];
+                            }else{
+                                continue;
+                            }
+                            if(tablelist[tmpcolumn1][i].type == 1){
+                                if(tablelist[tmpcolumn1][i].intvec == tablelist[tmpcolumn2][j].intvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }else if(tablelist[tmpcolumn1][i].type == 2){
+                                if(tablelist[tmpcolumn1][i].floatvec == tablelist[tmpcolumn2][j].floatvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }else{
+                                if(tablelist[tmpcolumn1][i].strvec == tablelist[tmpcolumn2][j].strvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if(savedflag){
+                            leftjoinflag = false;
+                            // for(auto it = tablelist[0].begin(); it != tablelist[0].end(); it++){
+                            //     pair<string,vector<any>> tabledata;
+                            //     tabledata = *it;
+                            //     vector<any> tmptable = tabledata.second;
+                            //     savedTable[tabledata.first].push_back(tmptable[i]);
+                            // }
+                            for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                                pair<string,vector<vectortype>> tabledata;
+                                tabledata = *it;
+                                if(savedTable.find(tabledata.first + "_v2") != savedTable.end()){
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    savedTable[tabledata.first + "_v2"].push_back(tmptable[j]);
+                                }else{
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    savedTable[tabledata.first].push_back(tmptable[j]);
+                                }
+                            }
+                        }
+                    }
+
+                }else if(tablelist[joinColumn1][i].type == 0){
+                    if(tablelist[joinColumn1][i].strvec == tablelist[joinColumn2][j].strvec){
+                        for(int k = 1; k < snippet.table_filter.size(); k++){
+                            string tmpcolumn1;
+                            string tmpcolumn2;
+                            if(snippet.table_filter[k].LV.type.size() > 0){
+                                tmpcolumn1 = snippet.table_filter[k].LV.value[0];
+                                tmpcolumn2 = snippet.table_filter[k].RV.value[0];
+                            }else{
+                                continue;
+                            }
+                            if(tablelist[tmpcolumn1][i].type == 1){
+                                if(tablelist[tmpcolumn1][i].intvec == tablelist[tmpcolumn2][j].intvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }else if(tablelist[tmpcolumn1][i].type == 2){
+                                if(tablelist[tmpcolumn1][i].floatvec == tablelist[tmpcolumn2][j].floatvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }else{
+                                if(tablelist[tmpcolumn1][i].strvec == tablelist[tmpcolumn2][j].strvec){
+                                    continue;
+                                }else{
+                                    savedflag = false;
+                                    break;
+                                }
+                            }
+                        }
+                        if(savedflag){
+                            leftjoinflag = false;
+                            // for(auto it = tablelist[0].begin(); it != tablelist[0].end(); it++){
+                            //     pair<string,vector<any>> tabledata;
+                            //     tabledata = *it;
+                            //     vector<any> tmptable = tabledata.second;
+                            //     savedTable[tabledata.first].push_back(tmptable[i]);
+                            // }
+                            for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                                pair<string,vector<vectortype>> tabledata;
+                                tabledata = *it;
+                                if(savedTable.find(tabledata.first + "_v2") != savedTable.end()){
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    savedTable[tabledata.first + "_v2"].push_back(tmptable[j]);
+                                }else{
+                                    for(int k = 0; k < tablenamelist.size(); k++){
+                                        auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                        if(tit != tablenamelist[k].end()){
+                                            if(k == 0){
+                                                vector<vectortype> tmptable = tabledata.second;
+                                                savedTable[tabledata.first].push_back(tmptable[i]);
+                                            }else{
+                                                vector<vectortype> tmptable = tabledata.second;
+                                                savedTable[tabledata.first].push_back(tmptable[j]);
+                                            }
+
+                                        }
+                                    }
+                                    // vector<vectortype> tmptable = tabledata.second;
+                                    // savedTable[tabledata.first].push_back(tmptable[j]);
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+            if(leftjoinflag){
+                //여기가 null로 채우는 부분
+                for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                    pair<string,vector<vectortype>> tabledata;
+                    tabledata = *it;
+                        for(int k = 0; k < tablenamelist.size(); k++){
+                            auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                            if(tit != tablenamelist[k].end()){
+                                if(k == 0){
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    savedTable[tabledata.first].push_back(tmptable[i]);
+                                }else{
+                                    vectortype tmptable;
+                                    tmptable.type = 0;
+                                    tmptable.strvec = "NULL";
+                                    savedTable[tabledata.first].push_back(tmptable);
+                                }
+
+                            }
+                        }
+                }
+            }
+        }
+    // cout << "end" << endl;
+    time_t t1 = time(0);
+    cout  << "[Merge Query Manager] End Join Snippet " << snippet.query_id << "-" << snippet.work_id <<" Time : " << t1 << endl;
+    buff.SaveTableData(snippet.query_id,snippet.tableAlias,savedTable);
+}
 
 // void OuterRightJoin(SnippetStruct snippet, BufferManager &buff){
 //     //오른쪽 테이블 기준으로 같은 값이 없으면 null을 채움
@@ -623,6 +1454,7 @@ void GroupBy(SnippetStruct& snippet, BufferManager &buff){
     // }
 
     // unordered_map<>
+    cout << "start group by" << endl;
     unordered_map<string,groupby> groupbymap;
     for(int i = 0; i < table[snippet.groupBy[0]].size(); i++){
         string key = "";
@@ -645,15 +1477,18 @@ void GroupBy(SnippetStruct& snippet, BufferManager &buff){
             }
             tmpsavedkey.push_back(table[snippet.groupBy[j]][i]);
         }
+        // cout << key << endl;
         if(groupbymap.find(key) == groupbymap.end()){
             // cout << "findkey : " << key << endl;
             groupby tmpgroupby;
             tmpgroupby.count = 0;
+            tmpgroupby.rowcount = 0;
             // vectortype tmpvt;
             // tmpvt.type = 2;
             // tmpgroupby.value.push_back(tmpvt);
             groupbymap.insert(make_pair(key,tmpgroupby));
         }
+        groupbymap[key].rowcount++;
         for(int j = 0; j < snippet.columnProjection.size(); j++){
             // cout << j << endl;
             if(snippet.columnProjection[j][0].value == "0"){
@@ -669,7 +1504,7 @@ void GroupBy(SnippetStruct& snippet, BufferManager &buff){
                     groupbymap[key].count = groupbymap[key].count + 1;
                     // cout << groupbymap[key].count << endl;
                 }
-            }else{
+            }else if(snippet.columnProjection[j][0].value == "1"){
                 // cout << 21 << endl;
                 // cout << groupbymap[key].count  << endl;
                 //sum
@@ -677,8 +1512,11 @@ void GroupBy(SnippetStruct& snippet, BufferManager &buff){
                     //덧셈 연산
                     // cout << groupbymap[key].value[1].type << endl;
                     if(groupbymap[key].value[1].type == 2){
-                        groupbymap[key].value[1].floatvec = groupbymap[key].value[1].floatvec + table[snippet.columnProjection[j][1].value][i].floatvec;
+                        // cout << table[snippet.columnProjection[j][1].value][i].floatvec << endl;
+                        groupbymap[key].value[1].floatvec = groupbymap[key].value[j].floatvec + table[snippet.columnProjection[j][1].value][i].floatvec;
                         // cout << groupbymap[key].value[1].floatvec << endl;
+                    }else if(groupbymap[key].value[1].type == 1){
+                        groupbymap[key].value[1].intvec = groupbymap[key].value[j].intvec + table[snippet.columnProjection[j][1].value][i].intvec;
                     }
                 }else{
                     // 값 넣기
@@ -687,8 +1525,47 @@ void GroupBy(SnippetStruct& snippet, BufferManager &buff){
                     // cout <<table[snippet.columnProjection[j][1].value][i].floatvec << endl;
                     //  cout <<table[snippet.columnProjection[j][1].value][i].type << endl;
                     //  cout << snippet.columnProjection[j][1].value << endl;
-                     groupbymap[key].count = groupbymap[key].count + 1;
+                    groupbymap[key].count = groupbymap[key].count + 1;
                     //  cout << groupbymap[key].count << endl;
+                }
+            }else if(snippet.columnProjection[j][0].value == "2"){
+                if(groupbymap[key].count > snippet.columnProjection.size() - 1){
+                    //덧셈 연산
+                    // cout << groupbymap[key].value[1].type << endl;
+                    if(groupbymap[key].value[j].type == 2){
+                        groupbymap[key].value[j].floatvec = groupbymap[key].value[j].floatvec + table[snippet.columnProjection[j][1].value][i].floatvec;
+                        // cout << groupbymap[key].value[1].floatvec << endl;
+                    }else if(groupbymap[key].value[j].type == 1){
+                        groupbymap[key].value[j].intvec = groupbymap[key].value[j].intvec + table[snippet.columnProjection[j][1].value][i].intvec;
+                    }
+                    // groupbymap[key].count = groupbymap[key].count + 1;
+                    if(i == table[snippet.groupBy[0]].size() - 1){
+                        if(groupbymap[key].value[j].type == 2){
+                            groupbymap[key].value[j].floatvec = groupbymap[key].value[j].floatvec / groupbymap[key].rowcount;
+                        // cout << groupbymap[key].value[1].floatvec << endl;
+                        }else if(groupbymap[key].value[j].type == 1){
+                            groupbymap[key].value[j].type = 2;
+                            groupbymap[key].value[j].intvec = groupbymap[key].value[j].intvec / groupbymap[key].rowcount;
+                        }
+                    }
+                }else{
+                    // 값 넣기
+                    // cout << "else" << endl;
+                    groupbymap[key].value.push_back(table[snippet.columnProjection[j][1].value][i]);
+                    // cout <<table[snippet.columnProjection[j][1].value][i].floatvec << endl;
+                    //  cout <<table[snippet.columnProjection[j][1].value][i].type << endl;
+                    //  cout << snippet.columnProjection[j][1].value << endl;
+                    groupbymap[key].count = groupbymap[key].count + 1;
+                    //  cout << groupbymap[key].count << endl;
+                }
+            }else if(snippet.columnProjection[j][0].value == "4"){
+                if(groupbymap[key].count > snippet.columnProjection.size() - 1){
+                    groupbymap[key].value[j].intvec = groupbymap[key].rowcount;
+                }else{
+                    vectortype tmpv;
+                    tmpv.type = 1;
+                    tmpv.intvec = groupbymap[key].rowcount;
+                    groupbymap[key].value.push_back(tmpv);
                 }
             }
         }
@@ -1123,4 +2000,1448 @@ void OrderBy(SnippetStruct& snippet, BufferManager &buff){
 
 // void GetColOff()
 // {
+// }
+
+
+
+void DependencyExist(SnippetStruct& snippet, BufferManager &buff){
+    unordered_map<string,vector<vectortype>> tablelist;
+    vector<vector<string>> tablenamelist;
+    for(int i = 0; i < snippet.tablename.size(); i++){
+        vector<string> tmpvector;
+        // unordered_map<string,vector<any>> table = GetBufMTable(snippet.tablename[i], snippet, buff);
+        cout << "[Merge Query Manager] Buffer Manager Access Get Table, Table Name : " << snippet.tablename[i] << endl;
+        unordered_map<string,vector<vectortype>> table = buff.GetTableData(snippet.query_id, snippet.tablename[i]).table_data;
+        // tablelist.push_back(table);
+        for(auto it = table.begin(); it != table.end(); it++){
+            pair<string,vector<vectortype>> tmppair = *it;
+            tablelist.insert(make_pair(tmppair.first,tmppair.second));
+            tmpvector.push_back(tmppair.first);
+        }
+        tablenamelist.push_back(tmpvector);
+    }
+    unordered_map<string,vector<vectortype>> savedTable;
+    bool filterflag = false;
+    bool rowflag = true;
+    for(int i = 0; i < tablelist[snippet.table_filter[0].LV.value[0]].size(); i++){
+        for(int k = 0; k < tablelist[snippet.table_filter[0].RV.value[0]].size(); k++){
+            filterflag = false;
+            for(int j = 0; j < snippet.table_filter.size(); j++){
+                if(snippet.table_filter[j].LV.type.size() == 0){
+                    continue;
+                }
+                if(tablelist[snippet.table_filter[j].LV.value[0]][i].type == 0){
+                    if(snippet.table_filter[j].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].strvec == tablelist[snippet.table_filter[j].RV.value[0]][k].strvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].strvec != tablelist[snippet.table_filter[j].RV.value[0]][k].strvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }
+                }else if(tablelist[snippet.table_filter[j].LV.value[0]][i].type == 1){
+                    if(snippet.table_filter[j].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].intvec == tablelist[snippet.table_filter[j].RV.value[0]][k].intvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].intvec != tablelist[snippet.table_filter[j].RV.value[0]][k].intvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }
+                }else{
+                    if(snippet.table_filter[j].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].floatvec == tablelist[snippet.table_filter[j].RV.value[0]][k].floatvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].floatvec != tablelist[snippet.table_filter[j].RV.value[0]][k].floatvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }
+                }
+                filterflag = false;
+                break;
+            }
+            //이번 조건이 맞는지(이전과 비교하여)
+            if(filterflag){
+                rowflag = true;
+                break;
+            }else{
+                rowflag = false;
+                continue;
+            }
+        }
+        //여기가 한 로우 세이브 가능한지 체크
+        if(rowflag){
+            for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                pair<string,vector<vectortype>> tabledata;
+                tabledata = *it;
+                    // cout << tabledata.first << endl;
+                auto tit = find(tablenamelist[0].begin(), tablenamelist[0].end(),tabledata.first);
+                if(tit != tablenamelist[0].end()){
+                    // cout << tabledata.first << endl;
+                    vector<vectortype> tmptable = tabledata.second;
+                    // cout << i << endl;
+                    // cout << tmptable[i].intvec << endl;
+                    savedTable[tabledata.first].push_back(tmptable[i]);
+                }
+            }
+        }
+    }
+    //디펜던시 완료
+    buff.SaveTableData(snippet.query_id,snippet.tableAlias,savedTable);
+}
+
+
+void DependencyNotExist(SnippetStruct& snippet, BufferManager &buff){
+    unordered_map<string,vector<vectortype>> tablelist;
+    vector<vector<string>> tablenamelist;
+    for(int i = 0; i < snippet.tablename.size(); i++){
+        vector<string> tmpvector;
+        // unordered_map<string,vector<any>> table = GetBufMTable(snippet.tablename[i], snippet, buff);
+        cout << "[Merge Query Manager] Buffer Manager Access Get Table, Table Name : " << snippet.tablename[i] << endl;
+        unordered_map<string,vector<vectortype>> table = buff.GetTableData(snippet.query_id, snippet.tablename[i]).table_data;
+        // tablelist.push_back(table);
+        for(auto it = table.begin(); it != table.end(); it++){
+            pair<string,vector<vectortype>> tmppair = *it;
+            tablelist.insert(make_pair(tmppair.first,tmppair.second));
+            tmpvector.push_back(tmppair.first);
+        }
+        tablenamelist.push_back(tmpvector);
+    }
+    unordered_map<string,vector<vectortype>> savedTable;
+    bool filterflag = false;
+    bool rowflag = true;
+    for(int i = 0; i < tablelist[snippet.table_filter[0].LV.value[0]].size(); i++){
+        for(int k = 0; k < tablelist[snippet.table_filter[0].RV.value[0]].size(); k++){
+            filterflag = false;
+            for(int j = 0; j < snippet.table_filter.size(); j++){
+                if(snippet.table_filter[j].LV.type.size() == 0){
+                    continue;
+                }
+                if(tablelist[snippet.table_filter[j].LV.value[0]][i].type == 0){
+                    if(snippet.table_filter[j].filteroper == 4){
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].strvec == tablelist[snippet.table_filter[j].RV.value[0]][k].strvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].strvec != tablelist[snippet.table_filter[j].RV.value[0]][k].strvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }
+                }else if(tablelist[snippet.table_filter[j].LV.value[0]][i].type == 1){
+                    if(snippet.table_filter[j].filteroper == 4){
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].intvec == tablelist[snippet.table_filter[j].RV.value[0]][k].intvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].intvec != tablelist[snippet.table_filter[j].RV.value[0]][k].intvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }
+                }else{
+                    if(snippet.table_filter[j].filteroper == 4){
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].floatvec == tablelist[snippet.table_filter[j].RV.value[0]][k].floatvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[j].LV.value[0]][i].floatvec != tablelist[snippet.table_filter[j].RV.value[0]][k].floatvec){
+                            filterflag = true;
+                            continue;
+                        }
+                    }
+                }
+                filterflag = false;
+                break;
+            }
+            //이번 조건이 맞는지(이전과 비교하여)
+            if(filterflag){
+                rowflag = false;
+                break;
+            }else{
+                rowflag = true;
+                continue;
+            }
+        }
+        //여기가 한 로우 세이브 가능한지 체크
+        if(rowflag){
+            for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                pair<string,vector<vectortype>> tabledata;
+                tabledata = *it;
+                    // cout << tabledata.first << endl;
+                auto tit = find(tablenamelist[0].begin(), tablenamelist[0].end(),tabledata.first);
+                if(tit != tablenamelist[0].end()){
+                    // cout << tabledata.first << endl;
+                    vector<vectortype> tmptable = tabledata.second;
+                    // cout << i << endl;
+                    // cout << tmptable[i].intvec << endl;
+                    savedTable[tabledata.first].push_back(tmptable[i]);
+                }
+            }
+        }
+    }
+    //디펜던시 완료
+    buff.SaveTableData(snippet.query_id,snippet.tableAlias,savedTable);
+}
+
+void DependencyOPER(SnippetStruct& snippet, BufferManager &buff){
+    unordered_map<string,vector<vectortype>> tablelist;
+    vector<vector<string>> tablenamelist;
+    for(int i = 0; i < snippet.tablename.size(); i++){
+        vector<string> tmpvector;
+        // unordered_map<string,vector<any>> table = GetBufMTable(snippet.tablename[i], snippet, buff);
+        cout << "[Merge Query Manager] Buffer Manager Access Get Table, Table Name : " << snippet.tablename[i] << endl;
+        unordered_map<string,vector<vectortype>> table = buff.GetTableData(snippet.query_id, snippet.tablename[i]).table_data;
+        // tablelist.push_back(table);
+        for(auto it = table.begin(); it != table.end(); it++){
+            pair<string,vector<vectortype>> tmppair = *it;
+            tablelist.insert(make_pair(tmppair.first,tmppair.second));
+            tmpvector.push_back(tmppair.first);
+            cout << tmppair.first << " " << tmppair.second.size() << endl;
+        }
+        tablenamelist.push_back(tmpvector);
+    }
+    // for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+    //     pair<string,vector<vectortype>> tmppair = *it;
+    //     tablelist.insert(make_pair(tmppair.first,tmppair.second));
+    //     cout << tmppair.first << " " << tmppair.second.size() << endl;
+    // }
+    // cout << snippet.table_filter[0].RV.value[0] << endl;
+    // cout << tablelist.size() << endl;
+    unordered_map<string,vector<vectortype>> savedTable;
+    cout << "start dependencyoper" << endl;
+    // cout << tablelist[snippet.table_filter[0].LV.value[0]].size() << " " << tablelist[snippet.table_filter[0].RV.value[0]].size() << endl;
+    // cout << tablelist[snippet.table_filter[0].LV.value[0]][0].intvec << " " << tablelist[snippet.table_filter[0].RV.value[0]][0].intvec << endl;
+    for(int i = 0; i < tablelist[snippet.table_filter[0].LV.value[0]].size(); i++){
+        unordered_map<string,vector<vectortype>> tmpTable;
+        for(int j = 0; j < tablelist[snippet.table_filter[0].RV.value[0]].size(); j++){
+            // cout << tablelist[snippet.table_filter[0].LV.value[0]][i].intvec << " " << tablelist[snippet.table_filter[0].RV.value[0]][j].intvec << endl;
+            bool savedflag = true;
+            for(int k = 0; k < snippet.table_filter.size(); k++){
+                if(snippet.table_filter[k].LV.type.size() == 0){
+                    continue;
+                }
+                if(tablelist[snippet.table_filter[k].LV.value[0]][i].type == 0){
+                    if(snippet.table_filter[k].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].strvec == tablelist[snippet.table_filter[k].RV.value[0]][j].strvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].strvec > tablelist[snippet.table_filter[k].RV.value[0]][j].strvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }
+                }else if(tablelist[snippet.table_filter[k].LV.value[0]][i].type == 1){
+                    // cout << tablelist[snippet.table_filter[k].LV.value[0]][i].intvec << " " << tablelist[snippet.table_filter[k].RV.value[0]][j].intvec << endl;
+                    if(snippet.table_filter[k].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].intvec == tablelist[snippet.table_filter[k].RV.value[0]][j].intvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].intvec > tablelist[snippet.table_filter[k].RV.value[0]][j].intvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }
+                }else{
+                    if(snippet.table_filter[k].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].floatvec == tablelist[snippet.table_filter[k].RV.value[0]][j].floatvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].floatvec > tablelist[snippet.table_filter[k].RV.value[0]][j].floatvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }
+                }
+                savedflag = false;
+                break;
+            }
+            //템프 테이블 저장
+            if(savedflag){
+                for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                    pair<string,vector<vectortype>> tabledata;
+                    tabledata = *it;
+                    if(tmpTable.find(tabledata.first + "_v2") != tmpTable.end()){
+                        vector<vectortype> tmptable = tabledata.second;
+                        tmpTable[tabledata.first + "_v2"].push_back(tmptable[j]);
+                    }else{
+                        for(int k = 0; k < tablenamelist.size(); k++){
+                            // cout << tabledata.first << endl;
+                            auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                            if(tit != tablenamelist[k].end()){
+                                if(k == 0){
+                                    continue; //아마 1번 테이블은 필요 없을듯
+                                    // cout << tabledata.first << endl;
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    // cout << i << endl;
+                                    // cout << tmptable[i].intvec << endl;
+                                    tmpTable[tabledata.first].push_back(tmptable[i]);
+                                }else{
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    tmpTable[tabledata.first].push_back(tmptable[j]);
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        // cout << tmpTable.size() << endl;
+        //어그리게이션 및 비교 수행 및 로우 저장 여부 결정
+        for(int j = 0; j < snippet.dependencyProjection.size(); j++){
+            //아마 무조건 1번만 수행하는 반복문
+            vector<vectortype> tmpdata = Postfix(tmpTable,snippet.dependencyProjection[j],savedTable);
+            if(snippet.dependencyFilter[0].filteroper == KETI_ET){
+                if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].type == 0){
+                    if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].strvec == tmpdata[0].strvec){
+                        //같다 1번 테이블만 필요
+                        for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                            pair<string,vector<vectortype>> tabledata;
+                            tabledata = *it;
+                            for(int k = 0; k < tablenamelist.size(); k++){
+                                // cout << tabledata.first << endl;
+                                auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                if(tit != tablenamelist[k].end()){
+                                    if(k == 0){
+                                        // cout << tabledata.first << endl;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        // cout << i << endl;
+                                        // cout << tmptable[i].intvec << endl;
+                                        savedTable[tabledata.first].push_back(tmptable[i]);
+                                    }else{
+                                        continue;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        savedTable[tabledata.first].push_back(tmptable[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].type == 1){
+                    if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].intvec == tmpdata[0].intvec){
+                        //같다
+                        for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                            pair<string,vector<vectortype>> tabledata;
+                            tabledata = *it;
+                            for(int k = 0; k < tablenamelist.size(); k++){
+                                // cout << tabledata.first << endl;
+                                auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                if(tit != tablenamelist[k].end()){
+                                    if(k == 0){
+                                        // cout << tabledata.first << endl;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        // cout << i << endl;
+                                        // cout << tmptable[i].intvec << endl;
+                                        savedTable[tabledata.first].push_back(tmptable[i]);
+                                    }else{
+                                        continue;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        savedTable[tabledata.first].push_back(tmptable[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].floatvec == tmpdata[0].floatvec){
+                        //같다
+                        for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                            pair<string,vector<vectortype>> tabledata;
+                            tabledata = *it;
+                            for(int k = 0; k < tablenamelist.size(); k++){
+                                // cout << tabledata.first << endl;
+                                auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                if(tit != tablenamelist[k].end()){
+                                    if(k == 0){
+                                        // cout << tabledata.first << endl;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        // cout << i << endl;
+                                        // cout << tmptable[i].intvec << endl;
+                                        savedTable[tabledata.first].push_back(tmptable[i]);
+                                    }else{
+                                        continue;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        savedTable[tabledata.first].push_back(tmptable[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }else{
+                // >
+                if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].type == 0){
+                    if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].strvec > tmpdata[0].strvec){
+                        //같다 1번 테이블만 필요
+                        for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                            pair<string,vector<vectortype>> tabledata;
+                            tabledata = *it;
+                            for(int k = 0; k < tablenamelist.size(); k++){
+                                // cout << tabledata.first << endl;
+                                auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                if(tit != tablenamelist[k].end()){
+                                    if(k == 0){
+                                        // cout << tabledata.first << endl;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        // cout << i << endl;
+                                        // cout << tmptable[i].intvec << endl;
+                                        savedTable[tabledata.first].push_back(tmptable[i]);
+                                    }else{
+                                        continue;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        savedTable[tabledata.first].push_back(tmptable[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].type == 1){
+                    if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].intvec > tmpdata[0].intvec){
+                        //같다
+                        for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                            pair<string,vector<vectortype>> tabledata;
+                            tabledata = *it;
+                            for(int k = 0; k < tablenamelist.size(); k++){
+                                // cout << tabledata.first << endl;
+                                auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                if(tit != tablenamelist[k].end()){
+                                    if(k == 0){
+                                        // cout << tabledata.first << endl;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        // cout << i << endl;
+                                        // cout << tmptable[i].intvec << endl;
+                                        savedTable[tabledata.first].push_back(tmptable[i]);
+                                    }else{
+                                        continue;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        savedTable[tabledata.first].push_back(tmptable[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    if(tablelist[snippet.dependencyFilter[0].LV.value[0]][i].floatvec > tmpdata[0].floatvec){
+                        //같다
+                        for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                            pair<string,vector<vectortype>> tabledata;
+                            tabledata = *it;
+                            for(int k = 0; k < tablenamelist.size(); k++){
+                                // cout << tabledata.first << endl;
+                                auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                                if(tit != tablenamelist[k].end()){
+                                    if(k == 0){
+                                        // cout << tabledata.first << endl;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        // cout << i << endl;
+                                        // cout << tmptable[i].intvec << endl;
+                                        savedTable[tabledata.first].push_back(tmptable[i]);
+                                    }else{
+                                        continue;
+                                        vector<vectortype> tmptable = tabledata.second;
+                                        savedTable[tabledata.first].push_back(tmptable[j]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    buff.SaveTableData(snippet.query_id,snippet.tableAlias,savedTable);
+}
+
+void DependencyIN(SnippetStruct& snippet, BufferManager &buff){
+    //나중에 구현 예정
+    unordered_map<string,vector<vectortype>> tablelist;
+    vector<vector<string>> tablenamelist;
+    for(int i = 0; i < snippet.tablename.size(); i++){
+        vector<string> tmpvector;
+        // unordered_map<string,vector<any>> table = GetBufMTable(snippet.tablename[i], snippet, buff);
+        cout << "[Merge Query Manager] Buffer Manager Access Get Table, Table Name : " << snippet.tablename[i] << endl;
+        unordered_map<string,vector<vectortype>> table = buff.GetTableData(snippet.query_id, snippet.tablename[i]).table_data;
+        // tablelist.push_back(table);
+        for(auto it = table.begin(); it != table.end(); it++){
+            pair<string,vector<vectortype>> tmppair = *it;
+            tablelist.insert(make_pair(tmppair.first,tmppair.second));
+            tmpvector.push_back(tmppair.first);
+        }
+        tablenamelist.push_back(tmpvector);
+    }
+
+    unordered_map<string,vector<vectortype>> savedTable;
+
+    
+
+    for(int i = 0; i < tablelist[snippet.table_filter[0].LV.value[0]].size(); i++){
+        unordered_map<string,vector<vectortype>> tmpTable;
+        for(int j = 0; j < tablelist[snippet.table_filter[0].RV.value[0]].size(); j++){
+            bool savedflag = true;
+            for(int k = 0; k < snippet.table_filter.size(); k++){
+                if(snippet.table_filter[k].LV.type.size() == 0){
+                    continue;
+                }
+                if(tablelist[snippet.table_filter[k].LV.value[0]][i].type == 0){
+                    if(snippet.table_filter[k].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].strvec == tablelist[snippet.table_filter[k].RV.value[0]][j].strvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].strvec != tablelist[snippet.table_filter[k].RV.value[0]][j].strvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }
+                }else if(tablelist[snippet.table_filter[k].LV.value[0]][i].type == 1){
+                    if(snippet.table_filter[k].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].intvec == tablelist[snippet.table_filter[k].RV.value[0]][j].intvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].intvec != tablelist[snippet.table_filter[k].RV.value[0]][j].intvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }
+                }else{
+                    if(snippet.table_filter[k].filteroper == KETI_ET){
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].floatvec == tablelist[snippet.table_filter[k].RV.value[0]][j].floatvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }else{
+                        if(tablelist[snippet.table_filter[k].LV.value[0]][i].floatvec != tablelist[snippet.table_filter[k].RV.value[0]][j].floatvec){
+                            savedflag = true;
+                            continue;
+                        }
+                    }
+                }
+                savedflag = false;
+                break;
+            }
+            //템프 테이블 저장
+            if(savedflag){
+                for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                    pair<string,vector<vectortype>> tabledata;
+                    tabledata = *it;
+                    if(tmpTable.find(tabledata.first + "_v2") != tmpTable.end()){
+                        vector<vectortype> tmptable = tabledata.second;
+                        tmpTable[tabledata.first + "_v2"].push_back(tmptable[j]);
+                    }else{
+                        for(int k = 0; k < tablenamelist.size(); k++){
+                            // cout << tabledata.first << endl;
+                            auto tit = find(tablenamelist[k].begin(), tablenamelist[k].end(),tabledata.first);
+                            if(tit != tablenamelist[k].end()){
+                                if(k == 0){
+                                    continue; //아마 1번 테이블은 필요 없을듯
+                                    // cout << tabledata.first << endl;
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    // cout << i << endl;
+                                    // cout << tmptable[i].intvec << endl;
+                                    tmpTable[tabledata.first].push_back(tmptable[i]);
+                                }else{
+                                    vector<vectortype> tmptable = tabledata.second;
+                                    tmpTable[tabledata.first].push_back(tmptable[j]);
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //tmpTable의 row들과 In연산을 통해 값이 있는지 확인
+
+    }
+
+
+    buff.SaveTableData(snippet.query_id,snippet.tableAlias,savedTable);
+}
+
+
+void Storage_Filter(SnippetStruct& snippet, BufferManager &buff){
+    unordered_map<string,vector<vectortype>> tablelist;
+    vector<vector<string>> tablenamelist;
+    for(int i = 0; i < snippet.tablename.size(); i++){
+        vector<string> tmpvector;
+        unordered_map<string,vector<vectortype>> table;
+        // unordered_map<string,vector<any>> table = GetBufMTable(snippet.tablename[i], snippet, buff);
+        if(snippet.tablename.size() > 1){
+            cout << "[Merge Query Manager] Buffer Manager Access Get Table, Table Name : " << snippet.tablename[i] << endl;
+            table = buff.GetTableData(snippet.query_id, snippet.tablename[i]).table_data;
+        }else{
+            cout << "[Merge Query Manager] Buffer Manager Access Get Table, Table Name : " << snippet.tableAlias << endl;
+            table = buff.GetTableData(snippet.query_id, snippet.tableAlias).table_data;
+        }
+        // tablelist.push_back(table);
+        for(auto it = table.begin(); it != table.end(); it++){
+            pair<string,vector<vectortype>> tmppair = *it;
+            cout << tmppair.first << " " << tmppair.second.size() << endl;
+            tablelist.insert(make_pair(tmppair.first,tmppair.second));
+            tmpvector.push_back(tmppair.first);
+        }
+        tablenamelist.push_back(tmpvector);
+    }
+    // cout << snippet.table_filter.size() << endl;
+    cout <<"start filter" << endl;
+    unordered_map<string,vector<vectortype>> savedTable;
+    //단일 테이블이다 = 모든 컬럼의 row수가 같다
+    auto it = tablelist.begin();
+    pair<string,vector<vectortype>> tmppair = *it;
+    int rownum = tmppair.second.size();
+    bool rvflag = false;
+    for(int i = 0; i < snippet.table_filter.size(); i++){
+        // cout << i << endl;
+        // if(snippet.table_filter[i].RV.type)
+        for(int j = 0; j < snippet.table_filter[i].RV.type.size(); j++){
+            if(snippet.table_filter[i].RV.type[j] == 10){
+                rvflag = true;
+                break;
+            }
+        }
+    }
+    vectortype rv;
+    vector<vectortype> rvlist;
+    if(!rvflag){
+        for(int j = 0; j < snippet.table_filter.size(); j++){
+            if(snippet.table_filter[j].RV.type.size() == 0){
+                rvlist.push_back(rv);
+            }else{
+                rvlist.push_back(GetRV(snippet.table_filter[j].RV,0,tablelist));
+            }
+        }
+    }
+    for(int i = 0; i < rownum; i++){
+        // cout << i << endl;
+        bool passed = false;
+        bool isSaved = true;
+        bool CV = false;
+        bool notflag = false;
+        if(i % 1000 == 0){
+            cout << i << endl;
+            // if(i != 0){
+            //     auto it = savedTable.begin();
+            //     pair<string,vector<vectortype>> tmp = *it;
+            //     cout << tmp.second.size() << endl;
+            // }
+        }
+        for(int j = 0; j < snippet.table_filter.size(); j++){
+            // cout << j << endl;
+            // cout << j << endl;
+            if(passed){
+                if(snippet.table_filter[j].filteroper == KETI_OR){
+                    passed = false;
+                }
+                continue;
+            }
+            switch (snippet.table_filter[j].filteroper)
+            {
+            case KETI_GE:
+            {
+                /* code */
+                //lv가 여러개일 가능성을 생각해야한다?
+                // time_t t1 = time(0);
+                // cout << t1 << endl;
+                // vectortype lv;
+                // vectortype rv;
+                // if(snippet.table_filter[j].LV.type[0] == KETI_COLUMN){
+                //     lv = tablelist[snippet.table_filter[j].LV.value[0]][i];
+                // }
+                // if(snippet.table_filter[j].RV.type[0] == KETI_DATE){
+                //     rv.type = 1;
+                //     rv.intvec = stoi(snippet.table_filter[j].RV.value[0]);
+                // }
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                // cout << lv.intvec << endl;
+                if(rvflag){
+                    rv = GetRV(snippet.table_filter[j].RV,i,tablelist);
+                }else{
+                    rv = rvlist[j];
+                }
+                // t1 = time(0);
+                // cout << t1 << endl;
+                // cout << lv.type << " " << rv.type << endl;
+                if(lv.type == 0){
+                    if(lv.strvec >= rv.strvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else if(lv.type == 1){
+                    // cout << lv.intvec << " " << rv.intvec << endl;
+                    if(lv.intvec >= rv.intvec){
+                        // cout << lv.intvec << " " << rv.intvec << endl;
+                        // cout << "fliter" << endl;
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else{
+                    if(lv.floatvec >= rv.floatvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+                break;
+            }
+            case KETI_LE:
+            {   
+                // vectortype lv;
+                // vectortype rv;
+                // if(snippet.table_filter[j].LV.type[0] == KETI_COLUMN){
+                //     lv = tablelist[snippet.table_filter[j].LV.value[0]][i];
+                // }
+                // if(snippet.table_filter[j].RV.type[0] == KETI_DATE){
+                //     rv.type = 1;
+                //     rv.intvec = stoi(snippet.table_filter[j].RV.value[0]);
+                // }
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                // cout << lv.intvec << endl;
+                if(rvflag){
+                    rv = GetRV(snippet.table_filter[j].RV,i,tablelist);
+                }else{
+                    rv = rvlist[j];
+                }
+                if(lv.type == 0){
+                    if(lv.strvec <= rv.strvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else if(lv.type == 1){
+                    // cout << lv.intvec << " " << rv.intvec << endl;
+                    if(lv.intvec <= rv.intvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else{
+                    if(lv.floatvec <= rv.floatvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+            }
+                break;
+            case KETI_GT:
+            {
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                // cout << lv.type << endl;
+                if(rvflag){
+                    rv = GetRV(snippet.table_filter[j].RV,i,tablelist);
+                }else{
+                    rv = rvlist[j];
+                }
+                if(lv.type == 0){
+                    if(lv.strvec > rv.strvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else if(lv.type == 1){
+                    if(lv.intvec > rv.intvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else{
+                    // cout << lv.floatvec << " " << rv.floatvec << endl;
+                    if(lv.floatvec > rv.floatvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+            }
+                break;
+            case KETI_LT:
+            {
+                // vectortype lv;
+                // vectortype rv;
+                // if(snippet.table_filter[j].LV.type[0] == KETI_COLUMN){
+                //     lv = tablelist[snippet.table_filter[j].LV.value[0]][i];
+                // }
+                // if(snippet.table_filter[j].RV.type[0] == KETI_DATE){
+                //     rv.type = 1;
+                //     rv.intvec = stoi(snippet.table_filter[j].RV.value[0]);
+                // }
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                // cout << lv.intvec << endl;
+                // cout << rvflag << endl;
+                if(rvflag){
+                    // cout << 1 << endl;
+                    rv = GetRV(snippet.table_filter[j].RV,i,tablelist);
+                    // cout << 2 << endl;
+                }else{
+                    rv = rvlist[j];
+                }
+                // cout << lv.type << endl;
+                // cout << rv.type << endl;
+                // break;
+                if(lv.type == 0){
+                    if(lv.strvec < rv.strvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else if(lv.type == 1){
+                    // cout << lv.intvec << " " << rv.intvec << endl;
+                    if(lv.intvec < rv.intvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else{
+                    if(lv.floatvec < rv.floatvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+            }
+                break;
+            case KETI_ET:
+            {
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                if(rvflag){
+                    rv = GetRV(snippet.table_filter[j].RV,i,tablelist);
+                }else{
+                    rv = rvlist[j];
+                }
+                // cout << lv.type << endl;
+                if(lv.type == 0){
+                    if(lv.strvec == rv.strvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else if(lv.type == 1){
+                    if(lv.intvec == rv.intvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else{
+                    if(lv.floatvec == rv.floatvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+            }
+                break;
+            case KETI_NE:
+            {
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                if(rvflag){
+                    rv = GetRV(snippet.table_filter[j].RV,i,tablelist);
+                }else{
+                    rv = rvlist[j];
+                }
+                if(lv.type == 0){
+                    if(lv.strvec != rv.strvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else if(lv.type == 1){
+                    if(lv.intvec != rv.intvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else{
+                    if(lv.floatvec != rv.floatvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+            }
+                break;
+            case KETI_LIKE:
+            {
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                if(rvflag){
+                    rv = GetRV(snippet.table_filter[j].RV,i,tablelist);
+                }else{
+                    rv = rvlist[j];
+                }
+                CV = LikeSubString_v2(lv.strvec,rv.strvec);
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+                break;
+            }
+            case KETI_BETWEEN:
+            {
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                vector<vectortype> rv;
+                for(int k = 0; k < snippet.table_filter[j].RV.value.size(); k++){
+                    vectortype tmpv;
+                    if(snippet.table_filter[j].RV.type[k] == KETI_COLUMN){
+                        tmpv = tablelist[snippet.table_filter[j].RV.value[k]][i];
+                        rv.push_back(tmpv);
+                    }else if(lv.type == 1){
+                        tmpv.type = 1;
+                        tmpv.intvec = stoi(snippet.table_filter[j].RV.value[k]);
+                        rv.push_back(tmpv);
+                    }else if(lv.type == 2){
+                        tmpv.type = 2;
+                        tmpv.intvec = stof(snippet.table_filter[j].RV.value[k]);
+                        rv.push_back(tmpv);
+                    }
+                }
+                if(lv.type == 1){
+                    if(lv.intvec >= rv[0].intvec && lv.intvec <= rv[1].intvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }else if(lv.type == 2){
+                    if(lv.floatvec >= rv[0].floatvec && lv.floatvec <= rv[1].floatvec){
+                        CV = true;
+                    }else{
+                        CV = false;
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+                break;
+            }
+            case KETI_IN:
+            {
+                vectortype lv = GetLV(snippet.table_filter[j].LV,i,tablelist);
+                string tmpstring;
+                if(lv.type == 0){
+                    tmpstring = lv.strvec;
+                }else if(lv.type == 1){
+                    tmpstring = to_string(lv.intvec);
+                }else{
+                    tmpstring = to_string(lv.floatvec);
+                }
+                if(snippet.table_filter[j].RV.type.size() == 1 && snippet.table_filter[j].RV.type[0] == 10){
+                    for(int k = 0; k < tablelist[snippet.table_filter[j].RV.value[0]].size(); k++){
+                        vectortype rv = tablelist[snippet.table_filter[j].RV.value[0]][k];
+                        if(lv.type == 1){
+                            if(rv.type == 1){
+                                if(lv.intvec == rv.intvec){
+                                    CV = true;
+                                    break;
+                                }else{
+                                    CV = false;
+                                }
+                            }else{
+                                if(lv.intvec == rv.floatvec){
+                                    CV = true;
+                                    break;
+                                }else{
+                                    CV = false;
+                                }
+                            }
+                        }else if(lv.type == 2){
+                            if(rv.type == 1){
+                                if(lv.floatvec == rv.intvec){
+                                    CV = true;
+                                    break;
+                                }else{
+                                    CV = false;
+                                }
+                            }else{
+                                if(lv.floatvec == rv.floatvec){
+                                    CV = true;
+                                    break;
+                                }else{
+                                    CV = false;
+                                }
+                            }
+                        }else{
+                            if(rv.type == 1){
+                                if(lv.strvec == to_string(rv.intvec)){
+                                    CV = true;
+                                    break;
+                                }else{
+                                    CV = false;
+                                }
+                            }else{
+                                if(lv.strvec == to_string(rv.floatvec)){
+                                    CV = true;
+                                    break;
+                                }else{
+                                    CV = false;
+                                }
+                            }
+                        }
+                    }
+                }else{
+                    for(int k = 0; k < snippet.table_filter[j].RV.type.size(); k++){
+                        if(tmpstring == snippet.table_filter[j].RV.value[k]){
+                            CV = true;
+                            break;
+                        }else{
+                            CV = false;
+                        }
+                    }
+                }
+                if(notflag){
+                    if(CV){
+                        CV = false;
+                    }else{
+                        CV = true;
+                    }
+                }
+                break;
+            }
+            case KETI_IS:
+                break;
+            case KETI_ISNOT:
+                break;
+            case KETI_NOT:
+                if(notflag){
+                    notflag = false;
+                }else{
+                    notflag = true;
+                }
+                break;
+            case KETI_AND:
+            {
+                if(CV){
+                    isSaved = true;
+                }else{
+                    isSaved = false;
+                    passed = true;
+                }
+                break;
+            }
+            case KETI_OR:
+            {
+                if(CV){
+                    isSaved = true;
+                    break;
+                }else{
+                    passed = false;
+                    continue;
+                }
+                break;
+            }
+            case KETI_SUBSTRING:
+            {
+                if(CV){
+                    isSaved = true;
+                    break;
+                }else{
+                    passed = false;
+                    continue;
+                }
+                break;
+            }
+            default:
+                break;
+            }
+        }
+        if(isSaved && CV){
+            //로우 살림
+            // cout << "saved" << endl;
+            // break;
+            // continue;
+            for(auto it = tablelist.begin(); it != tablelist.end(); it++){
+                pair<string,vector<vectortype>> tabledata;
+                tabledata = *it;
+                // savedTable[tabledata.first].push_back(tabledata.second[i]);
+                auto tit = find(tablenamelist[0].begin(), tablenamelist[0].end(),tabledata.first);
+                if(tit != tablenamelist[0].end()){
+                    // cout << tabledata.first << endl;
+                    vector<vectortype> tmptable = tabledata.second;
+                    // cout << i << endl;
+                    // cout << tmptable[i].intvec << endl;
+                    savedTable[tabledata.first].push_back(tmptable[i]);
+                }
+            }
+        }
+    }
+    if(snippet.tablename.size() == 1){
+        buff.DeleteTableData(snippet.query_id,snippet.tableAlias);
+    }
+    buff.SaveTableData(snippet.query_id,snippet.tableAlias,savedTable);
+}
+
+
+vectortype GetLV(lv lvdata, int index, unordered_map<string,vector<vectortype>> tablelist){
+    //여러개일 가능성이 생긴순간 postfix로 가야함
+    // if(lvdata.type[0] == KETI_COLUMN){
+    //     return tablelist[lvdata.value[0]][index];
+    // }else{
+    //     vectortype tmpvect;
+    //     tmpvect.type = 1;
+    //     tmpvect.intvec = stoi(lvdata.value[0]);
+    //     return tmpvect;
+    // }
+    vectortype tmpvalue;
+    // tmpvalue.type = 1;
+    // return tmpvalue;
+    stack<vectortype> tmpstack;
+    for(int i = 0; i < lvdata.type.size(); i++){
+        vectortype tmpvect;
+        if(lvdata.type[i] == KETI_COLUMN){
+            //무조건 컬럼이 1순위로 들어와야 함
+            //sub스트링은 다른곳에서 처리
+            tmpstack.push(tablelist[lvdata.value[i]][index]);
+            // cout << tmpstack.top().intvec << endl;
+        }else if(lvdata.type[i] == KETI_STRING){
+            if(lvdata.value[i] == "+"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec + value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec + value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else if(lvdata.value[i] == "-"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec - value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec - value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else if(lvdata.value[i] == "/"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec / value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec / value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else if(lvdata.value[i] == "*"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec * value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec * value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else{
+                //그냥 스트링이 있나?
+                //있다 like와 같은것
+                tmpvect.type = 0;
+                tmpvect.strvec = lvdata.value[i];
+                tmpstack.push(tmpvect);
+            }
+        }else{
+            //int 나 float등 과 같은 일반적인 상수
+            if(tmpstack.top().type == 1){
+                tmpvect.type = 1;
+                tmpvect.intvec = stoi(lvdata.value[i]);
+                tmpstack.push(tmpvect);
+            }else{
+                tmpvect.type = 2;
+                tmpvect.intvec = stof(lvdata.value[i]);
+                tmpstack.push(tmpvect);
+            }
+        }
+    }
+    return tmpstack.top();
+}
+
+
+vectortype GetRV(rv rvdata, int index, unordered_map<string,vector<vectortype>> tablelist){
+    // if(rvdata.type[0] == KETI_COLUMN){
+    //     return tablelist[rvdata.value[0]][index];
+    // }else if(){
+    //     vectortype tmpvect;
+    //     tmpvect.type = 1;
+    //     tmpvect.intvec = stoi(rvdata.value[0]);
+    //     return tmpvect;
+    // }
+    vectortype tmpvalue;
+    stack<vectortype> tmpstack;
+    for(int i = 0; i < rvdata.type.size(); i++){
+        vectortype tmpvect;
+        if(rvdata.type[i] == KETI_COLUMN){
+            //무조건 컬럼이 1순위로 들어와야 함
+            //sub스트링은 다른곳에서 처리
+            // cout << rvdata.value[i] << endl;
+
+            
+            tmpstack.push(tablelist[rvdata.value[i]][0]);
+
+        }else if(rvdata.type[i] == KETI_STRING){
+            if(rvdata.value[i] == "+"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec + value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec + value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else if(rvdata.value[i] == "-"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec - value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec - value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else if(rvdata.value[i] == "/"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec / value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec / value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else if(rvdata.value[i] == "*"){
+                vectortype value2 = tmpstack.top();
+                tmpstack.pop();
+                vectortype value1 = tmpstack.top();
+                tmpstack.pop();
+                if(value1.type == 1){
+                    tmpvect.intvec = value1.intvec * value2.intvec;
+                    tmpvect.type = 1;
+                    tmpstack.push(tmpvect);
+                }else if(value1.type == 2){
+                    tmpvect.intvec = value1.floatvec * value2.floatvec;
+                    tmpvect.type = 2;
+                    tmpstack.push(tmpvect);
+                }
+            }else{
+                vectortype value1;
+                value1.type = 0;
+                value1.strvec = rvdata.value[i];
+                tmpstack.push(value1);
+            }
+        }else if(rvdata.type[i] == KETI_DATE){
+            vectortype value1;
+            value1.type = 1;
+            value1.intvec = stoi(rvdata.value[i]);
+            tmpstack.push(value1);
+        }else{
+            //int 나 float등 과 같은 일반적인 상수
+            if(rvdata.type[i] == 2 || rvdata.type[i] == 3 || rvdata.type[i] == 4){
+                tmpvect.type = 1;
+                tmpvect.intvec = stoi(rvdata.value[i]);
+                tmpstack.push(tmpvect);
+            }else{
+                tmpvect.type = 2;
+                tmpvect.intvec = stof(rvdata.value[i]);
+                tmpstack.push(tmpvect);
+            }
+        }
+    }
+    return tmpstack.top();
+}
+
+
+
+bool LikeSubString_v2(string lv, string rv)
+{ // % 위치 찾기
+    // 해당 문자열 포함 검색 * 또는 % 존재 a like 'asd'
+    int len = rv.length();
+    int LvLen = lv.length();
+    int i = 0, j = 0;
+    int substringsize = 0;
+    bool isfirst = false, islast = false; // %가 맨 앞 또는 맨 뒤에 있는지에 대한 변수
+    // cout << rv[0] << endl;
+    if (rv[0] == '%')
+    {
+        isfirst = true;
+    }
+    if (rv[len - 1] == '%')
+    {
+        islast = true;
+    }
+    vector<string> val = split(rv, '%');
+    // for (int k = 0; k < val.size(); k++){
+    //     cout << val[k] << endl;
+    // }
+    // for(int k = 0; k < val.size(); k ++){
+    //     cout << val[k] << endl;
+    // }
+    if (isfirst)
+    {
+        i = 1;
+    }
+    // cout << LvLen << " " << val[val.size() - 1].length() << endl;
+    // cout << LvLen - val[val.size() - 1].length() << endl;
+    for (i; i < val.size(); i++)
+    {
+        // cout << "print i : " << i << endl;
+
+        for (j; j < LvLen - val[val.size() - 1].length() + 1; j++)
+        { // 17까지 돌아야함 lvlen = 19 = 17
+            // cout << "print j : " << j << endl;
+            substringsize = val[i].length();
+            if (!isfirst)
+            {
+
+                if (lv.substr(0, substringsize) != val[i])
+                {
+                    // cout << "111111" << endl;
+                    return false;
+                }
+            }
+            if (!islast)
+            {
+
+                if (lv.substr(LvLen - val[val.size() - 1].length(), val[val.size() - 1].length()) != val[val.size() - 1])
+                {
+                    // cout << lv.substr(LvLen - val[val.size()-1].length() + 1, val[val.size()-1].length()) << " " << val[val.size()-1] << endl;
+                    // cout << "222222" << endl;
+                    return false;
+                }
+            }
+            if (lv.substr(j, val[i].length()) == val[i])
+            {
+                // cout << lv.substr(j,val[i].length()) << endl;
+                if (i == val.size() - 1)
+                {
+                    // cout << lv.substr(j, val[i].length()) << " " << val[i] << endl;
+                    return true;
+                }
+                else
+                {
+                    j = j + val[i].length();
+                    i++;
+                    continue;
+                }
+            }
+        }
+        return false;
+    }
+
+    return false;
+}
+
+// vector<string> split(string str, char Delimiter)
+// {
+//     istringstream iss(str); // istringstream에 str을 담는다.
+//     string buffer;          // 구분자를 기준으로 절삭된 문자열이 담겨지는 버퍼
+
+//     vector<string> result;
+
+//     // istringstream은 istream을 상속받으므로 getline을 사용할 수 있다.
+//     while (getline(iss, buffer, Delimiter))
+//     {
+//         result.push_back(buffer); // 절삭된 문자열을 vector에 저장
+//     }
+
+//     return result;
 // }

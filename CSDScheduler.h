@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -22,7 +23,7 @@ struct vectortype{
   string strvec;
   int64_t intvec;
   double floatvec;
-  int type; //0 string, 1 int, 2float
+  int type; //0 string, 1 int, 2 float
 };
 
 
@@ -135,6 +136,7 @@ class Scheduler{
         void Serialize(PrettyWriter<StringBuffer>& writer, Snippet& s, string csd_ip, string tablename, string CSDName);
         void Serialize(Writer<StringBuffer>& writer, Snippet& s, string csd_ip, string tablename, string CSDName, int blockidnum);
         string BestCSD(string sstname, int blockworkcount, CSDManager& csdmanager);
+        void CSDManagerDec(string csdname, int num);
         void sendsnippet(string snippet, string ipaddr);
         // void addcsdip(Writer<StringBuffer>& writer, string s);
         void printcsdblock(){
@@ -150,6 +152,7 @@ class Scheduler{
         unordered_map<string,string> sstcsd_; //csd의 sst파일 보유 내용 <sstname, csdlist>
         vector<string> csdpair_;
         unordered_map<string,string> csdreaplicamap_;
+        // CSDManager &csdmanager_;
         int blockcount_;
 };
 

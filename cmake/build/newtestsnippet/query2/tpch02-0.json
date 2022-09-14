@@ -1,0 +1,45 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :1,
+      "workID":0,
+      "tableName": ["odbcdata.region"],
+      "tableCol":[
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [10],
+            "value": ["r_regionkey"]
+        },
+        "Operator" : 0, 
+        "RV" : {
+            "type": [7],
+            "value": ["ASIA"]
+          }
+        }
+      ],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet1-0",
+      "columnAlias": [
+          "r_regionkey"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["r_regionkey"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [
+          "r_regionkey"
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

@@ -1,0 +1,88 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :7,
+    "workID":3,
+    "tableName": ["orders"],
+    "tableCol":[
+      ****채우기
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "o_orderdate"
+          ]
+        },
+        "Operator": 8,
+        "RV": {
+          "type": [],
+          "value": []
+        },
+        "EXTRA": [
+          {
+              "type": [7],
+              "value": ["1021473"]
+          },
+          {
+              "type": [7],
+              "value": ["1022367"]
+          }
+        ]
+      }
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet7-3",
+    "columnAlias": [
+      "o_year",
+      "o_orderkey",
+      "o_custkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 13,
+        "value": [
+          "o_orderdate",
+          "year"
+        ],
+        "valueType": [
+          10,
+          11
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "o_orderkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "o_custkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [
+      "o_orderdate",
+      "o_orderkey",
+      "o_custkey"
+    ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

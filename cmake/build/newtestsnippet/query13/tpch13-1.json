@@ -1,0 +1,29 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 12,
+    "workID": 1,
+    "tableName": [
+      "customer"
+    ],
+    "tableCol": [ ],
+    "tableFilter": [ ],
+    "tableOffset": [ ],
+    "tableOfflen": [ ],
+    "tableDatatype": [ ],
+    "tableAlias": "snippet12-1",
+    "columnAlias": [
+      "c_custkey"
+    ],
+    "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["c_custkey"],
+          "valueType": [10]
+        }
+    ],
+    "columnFiltering": [ ],
+    "groupBy": [ ],
+    "orderBy": [ ]
+  }
+}

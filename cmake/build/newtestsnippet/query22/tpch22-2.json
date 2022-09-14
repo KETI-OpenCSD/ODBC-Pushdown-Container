@@ -1,0 +1,71 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :21,
+    "workID":2,
+    "tableName": ["customer","snippet21-1"],
+    "tableCol":[
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["c_acctbal"]
+      },
+      "Operator" : 2,
+      "RV" : {
+          "type": [10],
+          "value": ["snippet21-1.c_acctbal"]
+        }
+      },
+      {
+      "Operator" : 12
+      },
+      {
+        "LV": {
+          "type": [10],
+          "value": ["c_phone"]
+        },
+        "Operator" : 14,
+        "RV" : {
+            "type": [14],
+            "value": ["1","2"]
+        }
+      },
+      {
+      "Operator" : 8,
+      "RV" : {
+          "type": [7,7,7,7,7,7,7],
+          "value": ["20","40","22","30","39","42","21"]
+        }
+      }
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet21-2",
+    "columnAlias": [
+        "c_acctbal",
+        "c_custkey",
+        "c_phone"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["c_acctbal"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 2,
+        "value": ["c_custkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+}

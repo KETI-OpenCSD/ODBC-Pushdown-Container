@@ -90,67 +90,71 @@ void SnippetManager::NewQueryMain(SavedRet &snippetdata, BufferManager &buff,Tab
     string LTName; //last table name
     int snippetsize = snippetdata.GetSnippetSize();
     for(int i = 0; i < snippetsize; i++){
+        cout << i << endl;
         // cout << snippetdata.GetSnippetSize() << endl;
-        if(i < 7){
-            SnippetStruct snippet = snippetdata.Dequeue();
-            cout << "[Snippet Manager] Snippet 4-"<< i << " Start" << endl;
-            cout << "[Buffer Manager] init work buffer ID(4:"<<i<<")" << endl;
-            cout << "[Snippet Scheduler] Send Snippet To CSD Work Modules" << endl;
+        // if(i < 7){
+        //     SnippetStruct snippet = snippetdata.Dequeue();
+        //     cout << "[Snippet Manager] Snippet 4-"<< i << " Start" << endl;
+        //     cout << "[Buffer Manager] init work buffer ID(4:"<<i<<")" << endl;
+        //     cout << "[Snippet Scheduler] Send Snippet To CSD Work Modules" << endl;
 
             
-            vector<string> sstlist = tblM.get_sstlist(snippet.tablename[0]);
-            string tmpstring;
-            string tmppstring;
-            // vector<string> csd
-            // vector<string> csdlist = csdmanager.
-            for(int j = 0; j < sstlist.size(); j++){
-                tmpstring = tmpstring + sstlist[j] + " ";
-                string csdid = csdmanager.getsstincsd(sstlist[j]);
-                tmppstring = tmppstring + csdid + " ";
-            }
-            cout << "[Snippet Scheduler] Table Name : "<< snippet.tablename[0] << endl;
-            cout << "[Snippet Scheduler] Table's SST List : "<< tmpstring << endl;
-            cout << "[Snippet Scheduler] SST in CSD List  : "<< tmppstring << endl;
+        //     vector<string> sstlist = tblM.get_sstlist(snippet.tablename[0]);
+        //     string tmpstring;
+        //     string tmppstring;
+        //     // vector<string> csd
+        //     // vector<string> csdlist = csdmanager.
+        //     for(int j = 0; j < sstlist.size(); j++){
+        //         tmpstring = tmpstring + sstlist[j] + " ";
+        //         string csdid = csdmanager.getsstincsd(sstlist[j]);
+        //         tmppstring = tmppstring + csdid + " ";
+        //     }
+        //     cout << "[Snippet Scheduler] Table Name : "<< snippet.tablename[0] << endl;
+        //     cout << "[Snippet Scheduler] Table's SST List : "<< tmpstring << endl;
+        //     cout << "[Snippet Scheduler] SST in CSD List  : "<< tmppstring << endl;
 
 
-            cout << "[Buffer Manager] Recived CSD Snippet (4:"<<i<<")" << endl;
-            cout << "[Buffer Manager] Recived CSD Data Blcok ID : 0" << endl;
-            cout << "[Buffer Manager] Recived CSD Data Blcok ID : 1" << endl;
-            cout << "[Buffer Manager] Recived CSD Data Blcok ID : 2" << endl;
+        //     cout << "[Buffer Manager] Recived CSD Snippet (4:"<<i<<")" << endl;
+        //     cout << "[Buffer Manager] Recived CSD Data Blcok ID : 0" << endl;
+        //     cout << "[Buffer Manager] Recived CSD Data Blcok ID : 1" << endl;
+        //     cout << "[Buffer Manager] Recived CSD Data Blcok ID : 2" << endl;
             
-            // cout << snippet.table_filter.GetType() << endl;
-            get_data(i,buff,snippet.tableAlias);
-        }else{
-            cout << "[Snippet Manager] Snippet 4-"<< i << " Start" << endl;
-            cout << "[Buffer Manager] init work buffer ID(4:"<<i<<")" << endl;
-            SnippetStruct snippet = snippetdata.Dequeue();
-            // if(i == 8){
-            //     unordered_map<string,vector<vectortype>> tmpv = buff.GetTableData(snippet.query_id,snippet.tablename[0]).table_data;
-            //     for(auto it = tmpv.begin(); it != tmpv.end(); it++){
-            //         pair<string,vector<vectortype>> tmpp = *it;
-            //         cout << tmpp.first << endl;
-            //         for(int j = 0; j < tmpp.second.size(); j++){
-            //             cout << tmpp.second[j].strvec << endl;
-            //             cout << tmpp.second[j].type << endl;
-            //         }
-            //     }
-            // }
-            // cout << snippet.work_id << endl;
-            // cout << snippet.table_filter.GetType() << endl;
-            SnippetRun(snippet,buff,tblM,scheduler_,csdmanager);
-            LQID = snippet.query_id;
-            LTName = snippet.tableAlias;
-        }
-        // SnippetStruct snippet = snippetdata.Dequeue();
+        //     // cout << snippet.table_filter.GetType() << endl;
+        //     get_data(i,buff,snippet.tableAlias);
+        // }else{
+        //     cout << "[Snippet Manager] Snippet 4-"<< i << " Start" << endl;
+        //     cout << "[Buffer Manager] init work buffer ID(4:"<<i<<")" << endl;
+        //     SnippetStruct snippet = snippetdata.Dequeue();
+        //     // if(i == 8){
+        //     //     unordered_map<string,vector<vectortype>> tmpv = buff.GetTableData(snippet.query_id,snippet.tablename[0]).table_data;
+        //     //     for(auto it = tmpv.begin(); it != tmpv.end(); it++){
+        //     //         pair<string,vector<vectortype>> tmpp = *it;
+        //     //         cout << tmpp.first << endl;
+        //     //         for(int j = 0; j < tmpp.second.size(); j++){
+        //     //             cout << tmpp.second[j].strvec << endl;
+        //     //             cout << tmpp.second[j].type << endl;
+        //     //         }
+        //     //     }
+        //     // }
+        //     // cout << snippet.work_id << endl;
+        //     // cout << snippet.table_filter.GetType() << endl;
+        //     SnippetRun(snippet,buff,tblM,scheduler_,csdmanager);
+        //     LQID = snippet.query_id;
+        //     LTName = snippet.tableAlias;
+        // }
+        // cout << snippetdata.GetSnippetSize() << endl;
+        SnippetStruct snippet = snippetdata.Dequeue();
         // cout << snippet.work_id << endl;
-        // // cout << snippet.table_filter.GetType() << endl;
-        // SnippetRun(snippet,buff,tblM,scheduler_,csdmanager);
-        // LQID = snippet.query_id;
-        // LTName = snippet.tableAlias;
+        // cout << snippet.table_filter.GetType() << endl;
+        SnippetRun(snippet,buff,tblM,scheduler_,csdmanager);
+        LQID = snippet.query_id;
+        LTName = snippet.tableAlias;
     }
     // unordered_map<string,vector<vectortype>> tmpt = buff.GetTableData(4,"snippet4-12").table_data;
     // cout << tmpt.size() << endl;
     snippetdata.SetResult(buff.GetTableData(LQID,LTName).table_data);
+    cout << "[Snippet Manager] End Query" << endl;
+    cout << "[Snippet Manager] Send Query Result To DB Connector Instance" << endl;
     // snippetdata.unlockmutex();
 }
 
@@ -158,8 +162,10 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
     //비트 마스킹으로 교체 예정
     //여기서 각 작업별 수행 위치 선정
     //테이블 수에 따라서 일단 작업 선정
-    ReturnColumnType(snippet,buff);
+    // cout << 1 << endl;
+    
     // buff.InitWork()
+    // cout << snippet.tablename.size() << endl;
     if(snippet.tablename.size() > 1){
         //se 작업
         buff.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,snippet.column_alias,snippet.return_datatype,snippet.table_offlen,0);
@@ -171,14 +177,24 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
             //변수 삽입하는 스캔부분
         }else if(snippet.snippetType == 8){
             //그룹바이 이후 having 부분
+            Storage_Filter(snippet,buff);
         }else if(snippet.snippetType == 4){
             //dependency exist
         }else if(snippet.snippetType == 5){
             //dependency not exist
         }else if(snippet.snippetType == 6){
             //dependency =
-        }else if(snippet. snippetType == 7){
+            DependencyOPER(snippet,buff);
+            Aggregation(snippet,buff,0);
+        }else if(snippet.snippetType == 7){
             //dependency in
+        }else if(snippet.snippetType == 1){
+            //having
+            Storage_Filter(snippet,buff);
+        }else if(snippet.snippetType == 9){
+            //having
+            LOJoin(snippet,buff);
+            Aggregation(snippet,buff,0);
         }
     }else{
         if(buff.CheckTableStatus(snippet.query_id,snippet.tablename[0]) == 3){
@@ -236,65 +252,112 @@ void SnippetManager::SnippetRun(SnippetStruct& snippet, BufferManager &buff,Tabl
             //     buff.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,snippet.column_alias,snippet.return_datatype,snippet.table_offlen,0);
             // }
         }else{
-            if(GetWALTable(snippet)){
-                //머지쿼리에 데이터 필터 요청
-                // Filtering(snippet); //wal 데이터 필터링
-            }
-            //여기는 csd로 내리는 쪽으로
-            //리턴타입 봐야함
-            //lba2pba도 해야함
-            string req_json;
-			string res_json;
-            tableManager_.generate_req_json(snippet.tablename[0],req_json);
-            my_LBA2PBA(req_json,res_json);
-            Document resdoc;
-            Document reqdoc;
-            reqdoc.Parse(req_json.c_str());
-            resdoc.Parse(res_json.c_str());
-            scheduler_.snippetdata.block_info_list = resdoc["RES"]["Chunk List"];
+            // cout << snippet.snippetType << endl;
+            if(snippet.snippetType == BASIC_SNIPPET){
+                ReturnColumnType(snippet,buff);
+                get_data_and_filter(snippet,buff);
 
-			vector<string> sstfilename;
-			for (int i = 0; i < reqdoc["REQ"]["Chunk List"].Size(); i ++){
-				sstfilename.push_back(reqdoc["REQ"]["Chunk List"][i]["filename"].GetString());
-				// cout << reqdoc["REQ"]["Chunk List"][i]["filename"].GetString() << endl;
-			}
-            int count = 0;
-            for(int i = 0; i < scheduler_.snippetdata.block_info_list.Size(); i ++){
-				scheduler_.threadblocknum.push_back(count);
-				for (int j = 0; j < scheduler_.snippetdata.block_info_list[i][sstfilename[i].c_str()].Size(); j++){
-					scheduler_.blockvec.push_back(count);
-					// cout << count << endl;
-					count++;
-				}
-			}
 
-            //이부분 수정 필요
-            scheduler_.snippetdata.query_id = snippet.query_id;
-            scheduler_.snippetdata.work_id = snippet.work_id;
-			scheduler_.snippetdata.table_offset = snippet.table_offset;
-			scheduler_.snippetdata.table_offlen = snippet.table_offlen;
-			scheduler_.snippetdata.table_filter = snippet.table_filter;
-			scheduler_.snippetdata.table_datatype = snippet.table_datatype;
-			scheduler_.snippetdata.sstfilelist = sstfilename;
-			scheduler_.snippetdata.table_col = snippet.table_col;
-            scheduler_.snippetdata.column_filtering = snippet.columnFiltering;
-            scheduler_.snippetdata.column_projection = snippet.columnProjection;
-			// scheduler_.snippetdata.block_info_list = snippet.block_info_list;
-			scheduler_.snippetdata.tablename = snippet.tablename[0];
-            scheduler_.snippetdata.returnType = snippet.return_datatype;
-            scheduler_.snippetdata.Group_By = snippet.groupBy;
-            scheduler_.snippetdata.Order_By = snippet.orderBy;
-            // cout << 1 << endl;
-            buff.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,snippet.column_alias,snippet.return_datatype,snippet.return_offlen,count);
-            // cout << 2 << endl;
-            boost::thread_group tg;
-            for(int i = 0; i < sstfilename.size(); i++){
-                tg.create_thread(boost::bind(&Scheduler::sched,&scheduler_,i,csdmanager));
+                // if(GetWALTable(snippet)){
+                //     //머지쿼리에 데이터 필터 요청
+                //     // Filtering(snippet); //wal 데이터 필터링
+                // }
+                // //여기는 csd로 내리는 쪽으로
+                // //리턴타입 봐야함
+                // //lba2pba도 해야함
+                // string req_json;
+                // string res_json;
+                // tableManager_.generate_req_json(snippet.tablename[0],req_json);
+                // my_LBA2PBA(req_json,res_json);
+                // Document resdoc;
+                // Document reqdoc;
+                // reqdoc.Parse(req_json.c_str());
+                // resdoc.Parse(res_json.c_str());
+                // scheduler_.snippetdata.block_info_list = resdoc["RES"]["Chunk List"];
+
+                
+
+                // vector<string> sstfilename;
+                // for (int i = 0; i < reqdoc["REQ"]["Chunk List"].Size(); i ++){
+                //     sstfilename.push_back(reqdoc["REQ"]["Chunk List"][i]["filename"].GetString());
+                //     // cout << reqdoc["REQ"]["Chunk List"][i]["filename"].GetString() << endl;
+                // }
+                // int count = 0;
+                // for(int i = 0; i < scheduler_.snippetdata.block_info_list.Size(); i ++){
+                //     scheduler_.threadblocknum.push_back(count);
+                //     for (int j = 0; j < scheduler_.snippetdata.block_info_list[i][sstfilename[i].c_str()].Size(); j++){
+                //         scheduler_.blockvec.push_back(count);
+                //         // cout << count << endl;
+                //         count++;
+                //     }
+                // }
+                // cout << "[Snippet Manager] Recived Snippet" << snippet.query_id << "-" << snippet.work_id << endl;
+                // cout << "[Snippet Manager] Updating Snippet info ..." << endl;
+                // cout << "[Snippet Manager] Get Table Data info from Table Data Manager" << endl;
+                // cout << "[Snippet Manager] Get Data Block Address from LBA2PBA Query Agent" << endl;
+
+                // cout << "[Snippet Manager] File SST Size : " << scheduler_.snippetdata.block_info_list.Size() << endl;
+                // //이부분 수정 필요
+                // scheduler_.snippetdata.query_id = snippet.query_id;
+                // scheduler_.snippetdata.work_id = snippet.work_id;
+                // scheduler_.snippetdata.table_offset = snippet.table_offset;
+                // scheduler_.snippetdata.table_offlen = snippet.table_offlen;
+                // scheduler_.snippetdata.table_filter = snippet.table_filter;
+                // scheduler_.snippetdata.table_datatype = snippet.table_datatype;
+                // scheduler_.snippetdata.sstfilelist = sstfilename;
+                // scheduler_.snippetdata.table_col = snippet.table_col;
+                // scheduler_.snippetdata.column_filtering = snippet.columnFiltering;
+                // scheduler_.snippetdata.column_projection = snippet.columnProjection;
+                // // scheduler_.snippetdata.block_info_list = snippet.block_info_list;
+                // scheduler_.snippetdata.tablename = snippet.tablename[0];
+                // scheduler_.snippetdata.returnType = snippet.return_datatype;
+                // scheduler_.snippetdata.Group_By = snippet.groupBy;
+                // scheduler_.snippetdata.Order_By = snippet.orderBy;
+                // // cout << 1 << endl;
+                // buff.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,snippet.column_alias,snippet.return_datatype,snippet.return_offlen,count);
+                // // cout << 2 << endl;
+                // boost::thread_group tg;
+                // cout << "[Snippet Manager] Send Snippet to Snippet Scheduler" << endl;
+                // for(int i = 0; i < sstfilename.size(); i++){
+                //     tg.create_thread(boost::bind(&Scheduler::sched,&scheduler_,i,csdmanager));
+                // }
+                // tg.join_all();
+                // scheduler_.threadblocknum.clear();
+                // scheduler_.blockvec.clear();
+
+
+
+
+                if(snippet.columnProjection.size() > 0){
+                    //어그리게이션 호출
+                    cout << "start agg" << endl;
+                    Aggregation(snippet,buff,0);
+                    cout << "end agg" << endl;
+                }
+            }else if(snippet.snippetType == AGGREGATION_SNIPPET){
+                if(snippet.groupBy.size() > 0){
+                    //그룹바이 호출
+                    cout<<"start group by" << endl;
+                    GroupBy(snippet,buff);
+                    cout << "end group by" << endl;
+                }else if(snippet.columnProjection.size() > 0){
+                    //어그리게이션 호출
+                    cout << "start aggregation" << endl;
+                    Aggregation(snippet,buff,1);
+                    cout << "end aggregation" << endl;
+                }
+                if(snippet.orderBy.size() > 0){
+                    //오더바이 호출
+                    cout << "start order by" << endl;
+                    OrderBy(snippet,buff);
+                    cout << "end order by" << endl;
+                }
             }
-            tg.join_all();
-            scheduler_.threadblocknum.clear();
-            scheduler_.blockvec.clear();
-            // scheduler_.sched(1);
+
+
+
+
+
         }
     }
 
@@ -306,19 +369,28 @@ void SnippetManager::ReturnColumnType(SnippetStruct& snippet, BufferManager &buf
     vector<int> return_datatype;
     vector<int> return_offlen;
     bool bufferflag = false;
+    cout << "[Snippet Manager] Start Get Return Column Type..." << endl;
     if(snippet.tablename.size() > 1){
         bufferflag = true;
         for(int i = 0; i < snippet.tablename.size();i++){
+            // cout << buff.CheckTableStatus(snippet.query_id,snippet.tablename[i]) << endl;
             TableInfo tmpinfo = buff.GetTableInfo(snippet.query_id, snippet.tablename[i]);
             for(int j = 0; j < tmpinfo.table_column.size(); j++){
                 //만약 같은 이름이라면에 대한 처리 필요
+                // cout << tmpinfo.table_column.size() << endl;
+                // cout << tmpinfo.table_datatype.size() << endl;
+                // cout << tmpinfo.table_offlen.size() << endl;
                 columntype.insert(make_pair(tmpinfo.table_column[j],tmpinfo.table_datatype[j]));
                 columnofflen.insert(make_pair(tmpinfo.table_column[j],tmpinfo.table_offlen[j]));
+                // cout << j << endl;
             }
         }
         //무조건 buffermanager
     }else{
-        if(buff.CheckTableStatus(snippet.query_id, snippet.tablename[0])){
+        // cout << 1 << endl;
+        // cout << buff.CheckTableStatus(snippet.query_id, snippet.tablename[0]) << endl;
+        // cout << 2 << endl;
+        if(buff.CheckTableStatus(snippet.query_id, snippet.tablename[0]) == 3){
             //있다 --> buffermanager
             bufferflag = true;
             TableInfo tmpinfo = buff.GetTableInfo(snippet.query_id,snippet.tablename[0]);
@@ -334,6 +406,7 @@ void SnippetManager::ReturnColumnType(SnippetStruct& snippet, BufferManager &buf
             }
         }
     }
+    // cout << 11122 << endl;
     for(int i = 0; i <snippet.columnProjection.size(); i++){
         for(int j = 1; j < snippet.columnProjection[i].size(); j++){
             if(snippet.columnProjection[i][0].value == "3" || snippet.columnProjection[i][0].value == "4"){
@@ -353,6 +426,7 @@ void SnippetManager::ReturnColumnType(SnippetStruct& snippet, BufferManager &buf
         }
     }
     snippet.return_datatype = return_datatype;
+    // cout << 1 << endl;
 }
 
 void SnippetManager::GetIndexNumber(string TableName, vector<int> &IndexNumber){

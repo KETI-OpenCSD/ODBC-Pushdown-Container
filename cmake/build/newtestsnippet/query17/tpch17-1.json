@@ -1,0 +1,59 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 16,
+    "workID": 1,
+    "tableName": [
+      "part"
+    ],
+    "tableCol": [],
+    "tableFilter": [
+            {
+                "LV": {
+                    "type": [10],
+                    "value": ["p_brand"]
+                },
+                "Operator" : 5, 
+                "RV" : {
+                    "type": [9],
+                    "value": ["Brand#44"]
+                }
+            },
+            {
+                "Operator" : 13
+            },
+            {
+                "LV": {
+                    "type": [10],
+                    "value": ["p_container"]
+                },
+                "Operator" : 5, 
+                "RV" : {
+                    "type": [9],
+                    "value": ["WRAP PKG"]
+                }
+            }
+        ],
+    "tableOffset": [],
+    "tableOfflen": [],
+    "tableDatatype": [],
+    "tableAlias": "snippet16-1",
+    "columnAlias": [
+      "p_partkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "p_partkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [],
+    "groupBy": [],
+    "orderBy": []
+  }
+}

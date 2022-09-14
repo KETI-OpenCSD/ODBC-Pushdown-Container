@@ -17,7 +17,7 @@ class CSDManager{
     public:
     void CSDManagerInit();
     CSDManager(){CSDManagerInit();}
-    void CSDBlockDesc(string id);
+    void CSDBlockDesc(string id, int num);
 
 
     CSDInfo getCSDInfo(string CSDID);

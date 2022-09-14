@@ -1,0 +1,49 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :7,
+    "workID":1,
+    "tableName": ["supplier"],
+    "tableCol":[
+      ****채우기
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet7-1",
+    "columnAlias": [
+      "s_suppkey",
+      "s_nationkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "s_suppkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "s_nationkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [
+      "s_suppkey",
+      "s_nationkey"
+    ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

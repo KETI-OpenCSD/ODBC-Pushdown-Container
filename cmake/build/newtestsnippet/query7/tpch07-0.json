@@ -1,0 +1,49 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :6,
+      "workID":0,
+      "tableName": ["odbcdata.orders"],
+      "tableCol":[
+        "o_orderdate", 
+        "o_orderkey", 
+        "o_custkey", 
+        "o_orderpriority", 
+        "o_shippriority", 
+        "o_clerk", 
+        "o_orderstatus", 
+        "o_totalprice", 
+        "o_comment"
+      ],
+      "tableFilter":[],
+      "tableOffset":[0,3,7,11,26,30,31,32,39],
+      "tableOfflen":[3,4,4,15,4,15,1,7,79],
+      "tableDatatype":[14,3,3,254,3,254,254,246,15],
+      "blockList":[],
+      "tableAlias": "snippet6-0",
+      "columnAlias": [
+          "o_orderkey",
+          "o_custkey"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["o_orderkey"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["o_custkey"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [
+          "o_orderkey",
+          "o_custkey"
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

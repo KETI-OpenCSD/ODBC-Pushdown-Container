@@ -1,0 +1,49 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :7,
+    "workID":5,
+    "tableName": ["nation"],
+    "tableCol":[
+      ****채우기
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "n1",
+    "columnAlias": [
+      "n1.n_regionkey",
+      "n1.n_nationkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "n_regionkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "n_nationkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [
+      "n_regionkey",
+      "n_nationkey"
+    ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

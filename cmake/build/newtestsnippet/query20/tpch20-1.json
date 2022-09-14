@@ -1,0 +1,51 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :19,
+    "workID":1,
+    "tableName": ["odbcdata.nation"],
+    "tableCol":[
+
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["n_name"]
+      },
+      "Operator" : 5, 
+      "RV" : {
+          "type": [7],
+          "value": ["ALGERIA"]
+        }
+      }
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet19-1",
+    "columnAlias": [
+        "n_nationkey",
+        "n_name"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["n_nationkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["n_name"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

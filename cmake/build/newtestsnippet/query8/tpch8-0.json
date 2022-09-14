@@ -1,0 +1,70 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :7,
+      "workID":0,
+      "tableName": ["part"],
+      "tableCol":[
+        ****채우기
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [
+              10
+            ],
+            "value": [
+              "p_type"
+            ]
+          },
+          "Operator": 5,
+          "RV": {
+            "type": [
+              9
+            ],
+            "value": [
+              "small plated copper"
+            ]
+          },
+          "EXTRA": []
+        }
+      ],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet7-0",
+      "columnAlias": [
+        "p_type",
+        "p_partkey"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": [
+            "p_type"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "p_partkey"
+          ],
+          "valueType": [
+            10
+          ]
+        }
+      ],
+      "columnFiltering": [
+        "p_type",
+        "p_partkey"
+      ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

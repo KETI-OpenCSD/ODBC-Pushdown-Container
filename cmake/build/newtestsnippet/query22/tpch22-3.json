@@ -1,0 +1,32 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :21,
+      "workID":3,
+      "tableName": ["odbcdata.order"],
+      "tableCol":[
+
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet21-3",
+      "columnAlias": [
+        "o_custkey"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["o_custkey"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

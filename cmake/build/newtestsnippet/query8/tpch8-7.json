@@ -1,0 +1,70 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :7,
+    "workID":7,
+    "tableName": ["region"],
+    "tableCol":[
+      ****채우기
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "r_name"
+          ]
+        },
+        "Operator": 5,
+        "RV": {
+          "type": [
+            9
+          ],
+          "value": [
+            "asia"
+          ]
+        },
+        "EXTRA": []
+      }
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet7-7",
+    "columnAlias": [
+      "r_regionkey",
+      "r_name"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "r_regionkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "r_name"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [
+      "r_regionkey",
+      "r_name"
+    ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

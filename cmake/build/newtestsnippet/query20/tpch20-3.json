@@ -1,0 +1,55 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :19,
+    "workID":3,
+    "tableName": ["odbcdata.partsupp","snippet19-2"],
+    "tableCol":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["ps_partkey"]
+      },
+      "Operator" : 8, 
+      "RV" : {
+          "type": [7],
+          "value": ["snippet19-2.p_partkey"]
+        }
+      }
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet19-3",
+    "columnAlias": [
+        "ps_suppkey",
+        "ps_partkey",
+        "ps_availqty"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["ps_suppkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["ps_partkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["ps_availqty"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

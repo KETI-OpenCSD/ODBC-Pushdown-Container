@@ -1,0 +1,60 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :8,
+    "workID":3,
+    "tableName": ["partsupp"],
+    "tableCol":[
+      ****채우기
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet8-3",
+    "columnAlias": [
+      "ps_supplycost",
+      "ps_suppkey",
+      "ps_partkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "ps_supplycost"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "ps_suppkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "ps_partkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [
+      "ps_supplycost",
+      "ps_suppkey",
+      "ps_partkey"
+    ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

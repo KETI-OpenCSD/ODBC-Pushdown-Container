@@ -24,6 +24,7 @@ using namespace rapidjson;
 
 
 struct SnippetStruct{
+        int snippetType;
         int query_id;
         int work_id;
         string sstfilename;
@@ -47,6 +48,8 @@ struct SnippetStruct{
         vector<int> orderType;
         vector<int> return_datatype;
         vector<int> return_offlen;
+        vector<vector<Projection>> dependencyProjection;
+        vector<filterstruct> dependencyFilter;
         bool IsJoin;
         // unordered_map<string,VectorType> tabledata;
         // unordered_map<string,VectorType> resultdata;
@@ -115,6 +118,7 @@ struct SnippetStruct{
 
 struct groupby{
     int count;
+    int rowcount;
     vector<vectortype> value;
     vector<vectortype> savedkey;
 };
@@ -202,6 +206,8 @@ class sortclass{
         }
 };
 
+void LOJoin(SnippetStruct& snippet, BufferManager &buff);
+
 bool compare(sortclass &sortbuffer);
 
 void Init(Value snippet);
@@ -212,7 +218,15 @@ void GetAccessData();
 
 void Join();
 
-void DependencyJoin();
+void DependencyExist(SnippetStruct& snippet, BufferManager &buff);
+
+void DependencyNotExist(SnippetStruct& snippet, BufferManager &buff);
+
+void DependencyOPER(SnippetStruct& snippet, BufferManager &buff);
+
+void DependencyIN(SnippetStruct& snippet, BufferManager &buff);
+
+void Storage_Filter(SnippetStruct& snippet, BufferManager &buff);
 
 void GetColOff();
 
@@ -223,6 +237,8 @@ void SaveTable();
 void makeTable(SnippetStruct& snippet);
 
 void JoinTable(SnippetStruct& snippet, BufferManager &buff);
+
+
 
 bool IsJoin(SnippetStruct& snippet);
 
@@ -236,7 +252,7 @@ void NaturalJoin(SnippetStruct& snippet, BufferManager &buff);
 
 void OuterFullJoin(SnippetStruct& snippet, BufferManager &buff);
 
-void OuterLeftJoin(SnippetStruct& snippet, BufferManager &buff);
+
 
 void OuterRightJoin(SnippetStruct& snippet, BufferManager &buff);
 
@@ -256,3 +272,18 @@ void Having(SnippetStruct snippet, BufferManager &buff);
 
 void Filtering(SnippetStruct snippet);
 
+vectortype GetLV(lv lvdata, int index, unordered_map<string,vector<vectortype>> tablelist);
+
+vectortype GetRV(rv rvdata, int index, unordered_map<string,vector<vectortype>> tablelist);
+
+
+bool LikeSubString_v2(string lv, string rv);
+
+vector<string> split(string str, char Delimiter);
+
+
+
+
+void get_data(int snippetnumber,BufferManager &bufma,string tablealias);
+
+void get_data_and_filter(SnippetStruct snippet, BufferManager &bufma);

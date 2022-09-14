@@ -1,0 +1,53 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :2,
+      "workID":0,
+      "tableName": ["odbcdata.customer"],
+      "tableCol":[
+          "c_custkey", 
+          "c_mktsegment", 
+          "c_nationkey", 
+          "c_name", 
+          "c_address", 
+          "c_phone", 
+          "c_acctbal", 
+          "c_comment"
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [10],
+            "value": ["c_mktsegment"]
+        },
+        "Operator" : 0, 
+        "RV" : {
+            "type": [7],
+            "value": ["AUTOMOBILE"]
+          }
+        }
+      ],
+      "tableOffset":[0,4,14,18,43,83,98,105],
+      "tableOfflen":[4,10,4,25,40,15,7,118],
+      "tableDatatype":[3,254,3,15,15,254,246,15],
+      "blockList":[],
+      "tableAlias": "snippet2-0",
+      "columnAlias": [
+          "c_custkey"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["c_custkey"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [
+          "c_custkey"
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

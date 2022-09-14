@@ -1,0 +1,51 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :19,
+      "workID":0,
+      "tableName": ["odbcdata.supplier"],
+      "tableCol":[
+
+      ],
+      "tableFilter":[],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet19-0",
+      "columnAlias": [
+          "s_suppkey",
+          "s_nationkey",
+          "s_name",
+          "s_address"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["s_suppkey"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["s_nationkey"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["s_name"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["s_address"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

@@ -1,0 +1,66 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :19,
+    "workID":4,
+    "tableName": ["odbcdata.lineitem"],
+    "tableCol":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["l_shipdate"]
+      },
+      "Operator" : 0, 
+      "RV" : {
+          "type": [7],
+          "value": ["1993-01-01"]
+        }
+      },
+      {
+        "LV": {
+          "type": [10],
+          "value": ["l_shipdate"]
+      },
+      "Operator" : 3, 
+      "RV" : {
+          "type": [7],
+          "value": ["1994-01-01"]
+        }
+      }
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet19-4",
+    "columnAlias": [
+        "l_quantity",
+        "l_partkey",
+        "l_suppkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["l_quantity"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["l_partkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["l_suppkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

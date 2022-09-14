@@ -1,0 +1,53 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 10,
+    "workID": 7,
+    "tableName": [
+      "partsupp"
+    ],
+    "tableCol": [ ],
+    "tableFilter": [ ],
+    "tableOffset": [ ],
+    "tableOfflen": [ ],
+    "tableDatatype": [ ],
+    "tableAlias": "snippet10-7",
+    "columnAlias": [
+      "value",
+      "ps_suppkey",
+      "ps_partkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "ps_supplycost","ps_availqty","*"
+        ],
+        "valueType": [
+          10,10,11
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "ps_suppkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "ps_partkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [ ],
+    "groupBy": [ ],
+    "orderBy": [ ]
+  }
+}

@@ -9,7 +9,7 @@ void Scheduler::init_scheduler(CSDManager& csdmanager)
     //여긴 csd 기본 데이터 가져오기 ip랑 등등
     //현재 구현 모듈 없음 추후 ngd 사용 시 추가 예정
 
-
+    // csdmanager_ = csdmanager;
     vector<string> tmpids = csdmanager.getCSDIDs();
     for(int i = 0; i < tmpids.size(); i++){
         csdname_.push_back(tmpids[i]);
@@ -18,6 +18,7 @@ void Scheduler::init_scheduler(CSDManager& csdmanager)
         for(int j = 0; j < tmpinfo.SSTList.size(); j++){
             sstcsd_.insert(make_pair(tmpinfo.SSTList[j],csdname_[i]));
         }
+        csdworkblock_.insert(make_pair(csdname_[i],tmpinfo.CSDWorkingBlock));
     }
 
     blockcount_ = 0;
@@ -27,11 +28,15 @@ void Scheduler::sched(int indexdata, CSDManager& csdmanager)
 {
     //스케줄링 시작
 
+
+
     int blockworkcount = snippetdata.block_info_list[indexdata][snippetdata.sstfilelist[indexdata].c_str()].Size();
 
     //best csd 찾기
-    string bestcsd = BestCSD(snippetdata.sstfilelist[indexdata], blockworkcount, csdmanager);
 
+    cout << "[Snippet Scheduler] Scheduling BestCSD ..." << endl;
+    string bestcsd = BestCSD(snippetdata.sstfilelist[indexdata], blockworkcount, csdmanager);
+    cout << "[Snippet Scheduler] => BestCSD : CSD" << bestcsd << endl;
     Snippet snippet(snippetdata.query_id,snippetdata.work_id, snippetdata.sstfilelist[indexdata], snippetdata.table_col, snippetdata.table_offset, snippetdata.table_offlen, snippetdata.table_datatype, snippetdata.column_filtering,snippetdata.Group_By, snippetdata.Order_By, snippetdata.Expr, snippetdata.column_projection, snippetdata.returnType);
     snippet.block_info_list = snippetdata.block_info_list[indexdata][snippetdata.sstfilelist[indexdata].c_str()];
     snippet.table_filter = snippetdata.table_filter;
@@ -43,10 +48,11 @@ void Scheduler::sched(int indexdata, CSDManager& csdmanager)
     //csd로 내리는 스니펫 만들기
     Serialize(writer, snippet, split(csd_[bestcsd], '+')[1], snippetdata.tablename, bestcsd, threadblocknum[indexdata]);
 
-    cout << snippetbuf.GetString() << endl;
+    // cout << snippetbuf.GetString() << endl;
     
     //스니펫 보내기
     sendsnippet(snippetbuf.GetString(), split(csd_[bestcsd], '+')[0]);
+    cout << "[Snippet Scheduler] Send Snippet to CSD Worker Module [CSD" << bestcsd << "]" << endl;
 }
 
 void Scheduler::Serialize(Writer<StringBuffer> &writer, Snippet &s, string csd_ip, string tablename, string CSDName, int blockidnum)
@@ -333,7 +339,9 @@ string Scheduler::BestCSD(string sstname, int blockworkcount, CSDManager& csdman
 
 void Scheduler::csdworkdec(string csdname, int num)
 {
+
     csdworkblock_[csdname] = csdworkblock_[csdname] - num;
+    // CSDManagerDec(csdname,num);
 }
 
 
@@ -352,3 +360,7 @@ vector<string> split(string str, char Delimiter)
 
     return result;
 }
+
+// void Scheduler::CSDManagerDec(string csdname, int num){
+//     csdmanager_.CSDBlockDesc(csdname, num);
+// }

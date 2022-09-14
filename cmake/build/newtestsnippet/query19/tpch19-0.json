@@ -1,0 +1,189 @@
+{
+    "type": 0,
+    "snippet": {
+      "queryID": 18,
+      "workID": 0,
+      "tableName": [
+        "part"
+      ],
+      "tableCol": [],
+      "tableFilter": [
+        {
+          "Operator" : "("
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_brand"]
+          },
+          "Operator" : 5, 
+          "RV" : {
+              "type": [9],
+              "value": ["Brand#52"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_container"]
+          },
+          "Operator" : 9, 
+          "RV" : {
+              "type": [9, 9, 9, 9],
+              "value": ["SM CASE" , "SM BOX", "SM PACK", "SM PKG"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_size"]
+          },
+          "Operator" : 8, 
+          "RV" : {
+              "type": [2, 2],
+              "value": ["1", "5"]
+          }
+        },
+        {
+          "Operator" : ")"
+        },
+        {
+          "Operator" : 14
+        },
+        {
+          "Operator" : "("
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_brand"]
+          },
+          "Operator" : 5, 
+          "RV" : {
+              "type": [9],
+              "value": ["Brand#11"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_container"]
+          },
+          "Operator" : 9, 
+          "RV" : {
+              "type": [9, 9, 9, 9],
+              "value": ["MED BAG" , "MED BOX", "MED PKG", "MED PACK"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_size"]
+          },
+          "Operator" : 8, 
+          "RV" : {
+              "type": [2, 2],
+              "value": ["1", "10"]
+          }
+        },
+        {
+          "Operator" : ")"
+        },
+        {
+          "Operator" : 14
+        },
+        {
+          "Operator" : "("
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_brand"]
+          },
+          "Operator" : 5, 
+          "RV" : {
+              "type": [9],
+              "value": ["Brand#51"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_container"]
+          },
+          "Operator" : 9, 
+          "RV" : {
+              "type": [9, 9, 9, 9],
+              "value": ["LG CASE" , "LG BOX", "LG PACK", "LG PKG"]
+          }
+        },
+        {
+          "Operator" : 13
+        },
+        {
+          "LV": {
+              "type": [10],
+              "value": ["p_size"]
+          },
+          "Operator" : 8, 
+          "RV" : {
+              "type": [2, 2],
+              "value": ["1", "15"]
+          }
+        },
+        {
+          "Operator" : ")"
+        }
+      ],
+      "tableOffset": [],
+      "tableOfflen": [],
+      "tableDatatype": [],
+      "tableAlias": "snippet18-0",
+      "columnAlias": [
+        "p_partkey",
+        "p_brand",
+        "p_container",
+        "p_size"
+      ],
+      "columnProjection": [
+        {
+            "selectType": 0,
+            "value": ["p_partkey"],
+            "valueType": [10]
+        },
+        {
+            "selectType": 0,
+            "value": ["p_brand"],
+            "valueType": [10]
+        },
+        {
+            "selectType": 0,
+            "value": ["p_container"],
+            "valueType": [10]
+        },
+        {
+            "selectType": 0,
+            "value": ["p_size"],
+            "valueType": [10]
+        }
+      ],
+      "columnFiltering": [],
+      "groupBy": [],
+      "orderBy": []
+    }
+  }

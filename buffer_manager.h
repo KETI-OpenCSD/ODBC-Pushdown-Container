@@ -23,6 +23,7 @@
 #include <unordered_set>
 #include <map>
 #include <any>
+#include <bitset>
 
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
@@ -32,10 +33,7 @@
 #include "CSDScheduler.h"
 #include "TableManager.h"
 #include "CSDManager.h"
-// #include "QueryExecutor.h"
 #include "keti_type.h"
-// #include "mergequerykmc.h"
-// #include "SnippetManager.h"
 
 using namespace std;
 using namespace rapidjson;
@@ -98,16 +96,16 @@ public:
 
 struct BlockResult{
     int query_id;
-    int work_id;
-    string csd_name;
+    int work_id;  
     char data[BUFF_SIZE];
     int length;
     vector<int> row_offset; 
     int row_count;
+    string csd_name;
     int result_block_count;
 
+    BlockResult(){}
     BlockResult(const char* json_, char* data_){
-
         Document document;
         document.Parse(json_); 
 
@@ -138,7 +136,7 @@ struct Work_Buffer {
     vector<int> table_offlen;//*결과의 컬럼 길이
     unordered_map<string,vector<vectortype>> table_data;//결과의 컬럼 별 데이터
     int left_block_count;//*남은 블록 수
-    bool is_done;//워크 완료 여부
+    bool is_done;//작업 완료 여부
     condition_variable cond;
     mutex mu;
     // int table_type;//테이블 생성 타입?
@@ -171,10 +169,10 @@ struct Work_Buffer {
 };
 
 struct Query_Buffer{
-  int query_id;
+  int query_id;//쿼리ID
   int work_cnt;//저장된 워크 개수
   unordered_map<int,Work_Buffer*> work_buffer_list;//워크버퍼
-  unordered_map<string,pair<int,int>> table_status;//테이블별 상태<table_name/alias, <work_id,is_done> >
+  unordered_map<string,pair<int,int>> table_status;//테이블별 상태<key:table_name||alias, value:<work_id,is_done> >
 
   Query_Buffer(int qid)
   :query_id(qid){
@@ -209,14 +207,14 @@ struct TableInfo{
 class BufferManager{	
 public:
     // BufferManager();
-    BufferManager(Scheduler &scheduler, TableManager &tblManager){
-      InitBufferManager(scheduler, tblManager);
+    BufferManager(Scheduler &scheduler){
+      InitBufferManager(scheduler);
     }
-    int InitBufferManager(Scheduler &scheduler, TableManager &tblManager);
+    int InitBufferManager(Scheduler &scheduler);
     int Join();
     void BlockBufferInput();
-    void BufferRunning(Scheduler &scheduler, TableManager &tblManager);
-    void MergeBlock(BlockResult result, Scheduler &scheduler, TableManager &tblManager);
+    void BufferRunning(Scheduler &scheduler);
+    void MergeBlock(BlockResult result, Scheduler &scheduler);
     // int GetData(Block_Buffer &dest);
     int InitWork(int qid, int wid, string table_alias,
                  vector<string> table_column_, vector<int> table_datatype,
@@ -255,4 +253,3 @@ private:
 //     __FILE__, __LINE__, __func__, currentDateTime());
 */
 
-void get_data(int snippetnumber,BufferManager &bufma,string tablealias);

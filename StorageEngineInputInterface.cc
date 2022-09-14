@@ -1,67 +1,67 @@
 #include "StorageEngineInputInterface.h"
 
-int main(int argc, char const *argv[])
-{
-	//init table manager	
-  cout << "start" << endl;
-	tblManager.init_TableManager();
-	// snippetmanager.InitSnippetManager(tblManager,csdscheduler,csdmanager);
-	//init WorkID
-	// WorkID=0;
+// int main(int argc, char const *argv[])
+// {
+// 	//init table manager	
+//   cout << "start" << endl;
+// 	tblManager.init_TableManager();
+// 	// snippetmanager.InitSnippetManager(tblManager,csdscheduler,csdmanager);
+// 	//init WorkID
+// 	// WorkID=0;
 	
-    // int server_fd;
-    // struct sockaddr_in address;
-    // int opt = 1;
-    // int addrlen = sizeof(address);
-    // testaggregation();
-    // testjoin();
-    testrun();
-	// RunServer();
-    // char *hello = "Hello from server";
+//     // int server_fd;
+//     // struct sockaddr_in address;
+//     // int opt = 1;
+//     // int addrlen = sizeof(address);
+//     // testaggregation();
+//     // testjoin();
+//     testrun(argv[1]);
+// 	// RunServer();
+//     // char *hello = "Hello from server";
        
-    // Creating socket file descriptor
-    // if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
-    // {
-    //     perror("socket failed");
-    //     exit(EXIT_FAILURE);
-    // }
+//     // Creating socket file descriptor
+//     // if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+//     // {
+//     //     perror("socket failed");
+//     //     exit(EXIT_FAILURE);
+//     // }
        
-    // Forcefully attaching socket to the port 8080
-    // if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
-    //                                               &opt, sizeof(opt)))
-    // {
-    //     perror("setsockopt");
-    //     exit(EXIT_FAILURE);
-    // }
-    // address.sin_family = AF_INET;
-    // address.sin_addr.s_addr = INADDR_ANY;
-    // address.sin_port = htons( PORT );
+//     // Forcefully attaching socket to the port 8080
+//     // if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT,
+//     //                                               &opt, sizeof(opt)))
+//     // {
+//     //     perror("setsockopt");
+//     //     exit(EXIT_FAILURE);
+//     // }
+//     // address.sin_family = AF_INET;
+//     // address.sin_addr.s_addr = INADDR_ANY;
+//     // address.sin_port = htons( PORT );
        
-    // Forcefully attaching socket to the port 8080
-    // if (bind(server_fd, (struct sockaddr *)&address, 
-    //                              sizeof(address))<0)
-    // {
-    //     perror("bind failed");
-    //     exit(EXIT_FAILURE);
-    // }
-    // if (listen(server_fd, NCONNECTION) < 0)
-    // {
-    //     perror("listen");
-    //     exit(EXIT_FAILURE);
-    // }
+//     // Forcefully attaching socket to the port 8080
+//     // if (bind(server_fd, (struct sockaddr *)&address, 
+//     //                              sizeof(address))<0)
+//     // {
+//     //     perror("bind failed");
+//     //     exit(EXIT_FAILURE);
+//     // }
+//     // if (listen(server_fd, NCONNECTION) < 0)
+//     // {
+//     //     perror("listen");
+//     //     exit(EXIT_FAILURE);
+//     // }
 	
-	// thread(accept_connection, server_fd).detach();
+// 	// thread(accept_connection, server_fd).detach();
 
-	// while (1);
+// 	// while (1);
 	
-	// close(server_fd);
-	// bufma.Join();
+// 	// close(server_fd);
+// 	// bufma.Join();
 
-    //send(new_socket , test_buf , 1024 , 0 );
-    //printf("Hello message sent\n");
+//     //send(new_socket , test_buf , 1024 , 0 );
+//     //printf("Hello message sent\n");
 	
-    return 0;
-}
+//     return 0;
+// }
 // void accept_connection(int server_fd){
 // 	while (1) {
 // 		int new_socket;
@@ -305,6 +305,168 @@ int main(int argc, char const *argv[])
 
 
 
+#include <iostream>
+#include <memory>
+#include <string>
+#include <unordered_map>
+#include <vector>
+
+#include "WalManager.h"
+
+#include <grpcpp/grpcpp.h>
+#include <google/protobuf/empty.pb.h>
+#include "snippet_sample.grpc.pb.h"
+
+using grpc::Server;
+using grpc::ServerBuilder;
+using grpc::ServerContext;
+using grpc::ServerReaderWriter;
+using grpc::Status;
+using snippetsample::SnippetSample;
+using snippetsample::Snippet;
+using snippetsample::SnippetRequest;
+using snippetsample::Result;
+using snippetsample::Request;
+using google::protobuf::Empty;
+
+// Logic and data behind the server's behavior.
+class SnippetSampleServiceImpl final : public SnippetSample::Service {
+  Status SetSnippet(ServerContext* context,
+                   ServerReaderWriter<Result, SnippetRequest>* stream) override {
+    SnippetRequest snippetrequest;
+    // Snippet snippet;
+    queue<SnippetStruct> snippetqueue;
+    while (stream->Read(&snippetrequest)) {
+      //Snippet snippet = snippetrequest.snippet();
+      std::string test_json;
+      google::protobuf::util::JsonPrintOptions options;
+      options.always_print_primitive_fields = true;
+      options.always_print_enums_as_ints = true;
+      google::protobuf::util::MessageToJsonString(snippetrequest,&test_json,options);
+      std::cout << "Recv Snippet to JSON" << std::endl;
+      //std::cout << "Snippet Type : " << snippetrequest.type() << std::endl;
+      // std::cout << test_json << std::endl << std::endl;
+
+      Document doc;
+      doc.Parse(test_json.c_str());
+      // SnippetStruct snippetdata;
+      Value& document = doc["snippet"];
+    SnippetStruct snippetdata;
+
+    snippetdata.snippetType = doc["type"].GetInt();
+
+    AppendTableFilter(snippetdata,document["tableFilter"]);
+
+
+    if(snippetdata.snippetType == 6){
+      if(document.HasMember("dependency")){
+        if(document["dependency"].HasMember("dependencyProjection")){
+          AppendDependencyProjection(snippetdata,document["dependency"]["dependencyProjection"]);
+        }
+        if(document["dependency"].HasMember("dependencyFilter")){
+          AppendDependencyFilter(snippetdata,document["dependency"]["dependencyFilter"]);
+        }
+      }
+    }
+
+
+    for(int i = 0; i < document["tableName"].Size(); i++){
+		  snippetdata.tablename.push_back(document["tableName"][i].GetString());
+	  }
+//     // cout << 2 << endl;
+	  for(int i = 0; i < document["columnAlias"].Size(); i++){
+		  snippetdata.column_alias.push_back(document["columnAlias"][i].GetString());
+	  }
+//     // cout << 2 << endl;
+	  for(int i = 0; i < document["columnFiltering"].Size(); i++){
+		  snippetdata.columnFiltering.push_back(document["columnFiltering"][i].GetString());
+	  }
+//     // cout << 2 << endl;
+//     // cout << document.HasMember("orderBy") << endl;
+//     // cout << document["orderBy"].GetType() << endl;
+    // for(int i = 0; i < document["orderBy"].Size(); i++){
+    if(document.HasMember("orderBy")){
+      for(int j = 0; j < document["orderBy"]["columnName"].Size(); j++){
+          snippetdata.orderBy.push_back(document["orderBy"]["columnName"][j].GetString());
+          snippetdata.orderType.push_back(document["orderBy"]["ascending"][j].GetInt());
+        }
+    }
+//     // }
+//     // cout << 2 << endl;
+	  for(int i = 0; i < document["groupBy"].Size(); i++){
+		  snippetdata.groupBy.push_back(document["groupBy"][i].GetString());
+	  }
+    for(int i = 0; i < document["tableCol"].Size(); i++){
+		  snippetdata.table_col.push_back(document["tableCol"][i].GetString());
+	  }
+    for(int i = 0; i < document["tableOffset"].Size(); i++){
+		  snippetdata.table_offset.push_back(document["tableOffset"][i].GetInt());
+	  }
+    for(int i = 0; i < document["tableOfflen"].Size(); i++){
+		  snippetdata.table_offlen.push_back(document["tableOfflen"][i].GetInt());
+	  }
+    for(int i = 0; i < document["tableDatatype"].Size(); i++){
+		  snippetdata.table_datatype.push_back(document["tableDatatype"][i].GetInt());
+	  }
+//     // cout << 1 << endl;
+    snippetdata.tableAlias = document["tableAlias"].GetString();
+//     // cout << document.HasMember("queryID") << endl;
+    snippetdata.query_id = document["queryID"].GetInt();
+//     // cout << 4 << endl;
+    snippetdata.work_id = document["workID"].GetInt();
+//     // cout << 5 << endl;
+    AppendProjection(snippetdata, document["columnProjection"]);
+//     // cout << 6 << endl;
+//     // cout << 2 << endl;
+    snippetqueue.push(snippetdata);
+//     // cout << snippetqueue.front().table_filter.Size() << endl;
+//     // tmpque.enqueue(snippetdata);
+//   }
+
+      
+      
+      if(snippetrequest.type() == 0) {
+        WalManager test(snippetrequest.snippet());
+        test.run();
+      }
+    }
+    string LQNAME = snippetqueue.back().tableAlias;
+    int Queryid = snippetqueue.back().query_id;
+    snippetmanager.NewQuery(snippetqueue,bufma,tblManager,csdscheduler,csdmanager);
+    // snippetmanager.NewQuery(tmpque,bufma,tblManager,csdscheduler,csdmanager);
+    // thread t1 = thread(&SnippetManager::NewQuery,&snippetmanager,snippetqueue,bufma,tblManager,csdscheduler,csdmanager);
+    // t1.detach();
+    // cout << 1 << endl;
+    // unordered_map<string,vector<vectortype>> rrr = bufma.GetTableData(4,"snippet4-12").table_data;
+    // cout << 2 << endl;
+    unordered_map<string,vector<vectortype>> RetTable = bufma.GetTableData(Queryid,LQNAME).table_data;
+    // unordered_map<string,vector<vectortype>> RetTable = snippetmanager.ReturnResult(4);
+    cout << "+-------------------------+" << endl;
+    cout << " ";
+    for(auto i = RetTable.begin(); i != RetTable.end(); i++){
+      pair<string,vector<vectortype>> tmppair = *i;
+      cout << tmppair.first << "      ";
+    }
+    cout << endl;
+    return Status::OK;
+  }
+  Status Run(ServerContext* context, const Request* request, Result* result) override {
+    std::cout << "Run" << std::endl;
+    std::cout << "req queryid :" << request->queryid() << std::endl << std::endl;
+        
+    query_result = "Under Construct";
+
+    result->set_value(query_result);
+
+    query_result = "";
+    return Status::OK;
+  }
+  private:
+    std::unordered_map<int, std::vector<std::string>> map;
+    std::string query_result = "";
+};
+
+
 void RunServer() {
   std::string server_address("0.0.0.0:50051");
   SnippetSampleServiceImpl service;
@@ -324,121 +486,151 @@ void RunServer() {
   server->Wait();
 }
 
-Status SnippetSampleServiceImpl::Run(ServerContext* context, const Request* request, Result* result)  {
-    std::cout << "Run" << std::endl;
-    std::cout << "req queryid :" << request->queryid() << std::endl << std::endl;
-    unordered_map<string,vector<vectortype>> RetTable;
-    RetTable = snippetmanager.ReturnResult(request->queryid());
-    result->set_value(query_result);
-
-    query_result = "";
-    for(auto i = RetTable.begin(); i != RetTable.end(); i++){
-      pair<string,vector<vectortype>> tmppair = *i;
-      cout << tmppair.first << " ";
-    }
-    cout << endl;
-    auto tmppair = *RetTable.begin();
-    int ColumnCount = tmppair.second.size();
-    // for(int i = 0; i < ColumnCount; i++){
-    //   for(auto j = RetTable.begin(); j != RetTable.end(); j++){
-    //     pair<string,vector<vectortype>> tmppair = *j;
-    //     // cout << tmppair.second[j] << " ";
-    //     if(tmppair.second[i].type == 1){
-    //       cout << any_cast<int>(tmppair.second[i]) << " ";
-    //     }else if(tmppair.second[i].type() == typeid(float&)){
-    //       cout << any_cast<float>(tmppair.second[i]) << " ";
-    //     }else{
-    //       cout << any_cast<string>(tmppair.second[i]) << " ";
-    //     }
-    //   }
-    //   cout << endl;
-    // }
-    return Status::OK;
+int main(int argc, char const *argv[]) {
+  if(argc > 1){
+    testrun(argv[1]);
+  }else{
+    RunServer();
   }
 
-Status SnippetSampleServiceImpl::SetSnippet(ServerContext* context,
-                   ServerReaderWriter<Empty, Snippet>* stream) {
-    Snippet snippet;
-    queue<SnippetStruct> snippetqueue;
-    while (stream->Read(&snippet)) {
-      Empty empty;
-
-      std::cout << "SetSnippet" << std::endl;
-      std::cout << "queryid :" << snippet.queryid() << std::endl;
-      std::cout << "workid :" << snippet.workid() << std::endl;
-      std::cout << "snippet :" << snippet.snippet() << std::endl << std::endl;
-
-      query_result += "w_id :";
-      query_result += std::to_string(snippet.workid());    
-      query_result += "snippet str :";
-      query_result += snippet.snippet();
-      query_result += "\n";
-
-      
-	  Document doc;
-	  doc.Parse(snippet.snippet().c_str());
-    // SnippetStruct snippetdata(doc["table_block_list"]);
-    SnippetStruct snippetdata;
-    snippetdata.query_id = snippet.queryid();
-    snippetdata.work_id = snippet.workid();
-	  snippetdata.tableAlias = doc["table_alias"].GetString();
-	//   snippetdata.tablename = 
-	  for(int i = 0; i < doc["tablename"].Size(); i++){
-		snippetdata.tablename.push_back(doc["tablename"][i].GetString());
-	  }
-	  for(int i = 0; i < doc["column_alias"].Size(); i++){
-		snippetdata.column_alias.push_back(doc["column_alias"][i].GetString());
-	  }
-	  // snippetdata.table_filter = doc["table_filter"];
-	  for(int i = 0; i < doc["column_filtering"].Size(); i++){
-		snippetdata.columnFiltering.push_back(doc["column_filtering"][i].GetString());
-	  }
-	  for(int i = 0; i < doc["order_by"].Size(); i++){
-		snippetdata.orderBy.push_back(doc["order_by"][i].GetString());
-	  }
-	  for(int i = 0; i < doc["group_by"].Size(); i++){
-		snippetdata.groupBy.push_back(doc["group_by"][i].GetString());
-	  }
-    // for(int i = 0; i < doc["tableFilter"].Size(); i++){
-    // snippetdata.table_filter =  doc["tableFilter"];
-    // }
-	  AppendProjection(snippetdata, doc["Projection"]);
-	  snippetqueue.push(snippetdata);
-      stream->Write(empty);
-    }
-    //여기 매니저로 보내는거
-    // snippetmanager.NewQuery(snippetqueue,bufma,tblManager,csdscheduler,csdmanager);
-    return Status::OK;
-  }
-
-void AppendProjection(SnippetStruct &snippetdata,Value &Projectiondata){
-	for(int i = 0; i < Projectiondata.Size(); i++){
-		vector<Projection> tmpVec;
-		for(int j = 0; j < Projectiondata[i]["value"].Size(); j++){
-			if(j == 0){
-        Projection tmpPro;
-        tmpPro.value = to_string(Projectiondata[i]["selectType"].GetInt());
-        tmpVec.push_back(tmpPro);
-      }
-      
-      Projection tmpPro;
-      tmpPro.type = Projectiondata[i]["valueType"][j].GetInt();
-      tmpPro.value = Projectiondata[i]["value"][j].GetString();
-			tmpVec.push_back(tmpPro);
-		}
-		snippetdata.columnProjection.push_back(tmpVec);
-	}
+  return 0;
 }
 
 
-void testrun(){
-  cout << "[Storage Engine Input Interface] Start gRPC Server" << endl;
+
+// void RunServer() {
+//   std::string server_address("0.0.0.0:50051");
+//   SnippetSampleServiceImpl service;
+
+//   ServerBuilder builder;
+//   // Listen on the given address without any authentication mechanism.
+//   builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+//   // Register "service" as the instance through which we'll communicate with
+//   // clients. In this case, it corresponds to an *synchronous* service.
+//   builder.RegisterService(&service);
+//   // Finally assemble the server.
+//   std::unique_ptr<Server> server(builder.BuildAndStart());
+//   std::cout << "Server listening on " << server_address << std::endl;
+
+//   // Wait for the server to shutdown. Note that some other thread must be
+//   // responsible for shutting down the server for this call to ever return.
+//   server->Wait();
+// }
+
+// Status SnippetSampleServiceImpl::Run(ServerContext* context, const Request* request, Result* result)  {
+//     std::cout << "Run" << std::endl;
+//     std::cout << "req queryid :" << request->queryid() << std::endl << std::endl;
+//     unordered_map<string,vector<vectortype>> RetTable;
+//     RetTable = snippetmanager.ReturnResult(request->queryid());
+//     result->set_value(query_result);
+
+//     query_result = "";
+//     for(auto i = RetTable.begin(); i != RetTable.end(); i++){
+//       pair<string,vector<vectortype>> tmppair = *i;
+//       cout << tmppair.first << " ";
+//     }
+//     cout << endl;
+//     auto tmppair = *RetTable.begin();
+//     int ColumnCount = tmppair.second.size();
+//     // for(int i = 0; i < ColumnCount; i++){
+//     //   for(auto j = RetTable.begin(); j != RetTable.end(); j++){
+//     //     pair<string,vector<vectortype>> tmppair = *j;
+//     //     // cout << tmppair.second[j] << " ";
+//     //     if(tmppair.second[i].type == 1){
+//     //       cout << any_cast<int>(tmppair.second[i]) << " ";
+//     //     }else if(tmppair.second[i].type() == typeid(float&)){
+//     //       cout << any_cast<float>(tmppair.second[i]) << " ";
+//     //     }else{
+//     //       cout << any_cast<string>(tmppair.second[i]) << " ";
+//     //     }
+//     //   }
+//     //   cout << endl;
+//     // }
+//     return Status::OK;
+//   }
+
+// Status SnippetSampleServiceImpl::SetSnippet(ServerContext* context,
+//                    ServerReaderWriter<Empty, Snippet>* stream) {
+//     Snippet snippet;
+//     queue<SnippetStruct> snippetqueue;
+//     while (stream->Read(&snippet)) {
+//       Empty empty;
+
+//       std::cout << "SetSnippet" << std::endl;
+//       std::cout << "queryid :" << snippet.query_id() << std::endl;
+//       std::cout << "workid :" << snippet.work_id() << std::endl;
+//       // std::cout << "snippet :" << snippet.() << std::endl << std::endl;
+
+//       query_result += "w_id :";
+//       query_result += std::to_string(snippet.work_id());    
+//       // query_result += "snippet str :";
+//       // query_result += snippet.snippet();
+//       // query_result += "\n";
+
+      
+// 	  // Document doc;
+// 	  // doc.Parse(snippet.snippet().c_str());
+//     // SnippetStruct snippetdata(doc["table_block_list"]);
+//     SnippetStruct snippetdata;
+//     snippetdata.query_id = snippet.query_id();
+//     snippetdata.work_id = snippet.work_id();
+// 	  // snippetdata.tableAlias = doc["table_alias"].GetString();
+// 	//   snippetdata.tablename = 
+// 	  // for(int i = 0; i < doc["tablename"].Size(); i++){
+// 		// snippetdata.tablename.push_back(doc["tablename"][i].GetString());
+// 	  // }
+// 	  // for(int i = 0; i < doc["column_alias"].Size(); i++){
+// 		// snippetdata.column_alias.push_back(doc["column_alias"][i].GetString());
+// 	  // }
+// 	  // // snippetdata.table_filter = doc["table_filter"];
+// 	  // for(int i = 0; i < doc["column_filtering"].Size(); i++){
+// 		// snippetdata.columnFiltering.push_back(doc["column_filtering"][i].GetString());
+// 	  // }
+// 	  // for(int i = 0; i < doc["order_by"].Size(); i++){
+// 		// snippetdata.orderBy.push_back(doc["order_by"][i].GetString());
+// 	  // }
+// 	  // for(int i = 0; i < doc["group_by"].Size(); i++){
+// 		// snippetdata.groupBy.push_back(doc["group_by"][i].GetString());
+// 	  // }
+//     // for(int i = 0; i < doc["tableFilter"].Size(); i++){
+//     // snippetdata.table_filter =  doc["tableFilter"];
+//     // }
+// 	  // AppendProjection(snippetdata, doc["Projection"]);
+// 	  snippetqueue.push(snippetdata);
+//       stream->Write(empty);
+//     }
+//     //여기 매니저로 보내는거
+//     // snippetmanager.NewQuery(snippetqueue,bufma,tblManager,csdscheduler,csdmanager);
+//     return Status::OK;
+//   }
+
+
+
+
+void testrun(string dirname){
+  // cout << "[Storage Engine Input Interface] Start gRPC Server" << endl;
   time_t st = time(0);
   queue<SnippetStruct> snippetqueue;
+  // cout << dirname << endl;
+  string tmpstring;
+  tmpstring = split(dirname,'h')[1];
+  if(tmpstring.size() == 1){
+    tmpstring = "0" + tmpstring;
+  }
   // SnippetStructQueue tmpque;
-  for(int i = 0; i < 13; i++){
-    cout << "[Storage Engine Input Interface] Snippet 4-" << i << " Recived" << endl;
-    string filename = "newtestsnippet/tpch05-" + to_string(i) + ".json";
+  
+  // for(int i = 0; i < 13; i++){
+    cout << dirname << endl;
+    int filecount = 0;
+  for(const auto & file : filesystem::directory_iterator(dirname)){
+    filecount++;
+  }
+  for(int i = 0; i < filecount; i++){
+    // cout << "[Storage Engine Input Interface] Snippet " << i << " Recived" << endl;
+    // string filename = "newtestsnippet/tpch05-" + to_string(i) + ".json";
+    string filename = dirname + "/tpch" + tmpstring + "-" +to_string(i) + ".json";
+    // cout << filename << endl;
+    cout << "[Storage Engine Input Interface] Recived Snippet" << tmpstring << "-" << i + 1 << endl;
     int json_fd;
 	  string json = "";
     json_fd = open(filename.c_str(),O_RDONLY);
@@ -455,37 +647,62 @@ void testrun(){
     }
     close(json_fd);
     Document doc;
+    // cout << 1 << endl;
+    // cout << json << endl;
 	  doc.Parse(json.c_str());
-    bool isjoin = false;
-    if(doc["type"] == 2){
-      isjoin = true;
-    }
+    // cout << 2 << endl;
+    // bool isjoin = false;
+    // if(doc["type"] == 2){
+    //   isjoin = true;
+    // }
     Value& document = doc["snippet"];
     // SnippetStruct snippetdata(document["tableFilter"], document["blockList"]);
     // SnippetStruct snippetdata(document["blockList"]);
+    // cout << 2 << endl;
     SnippetStruct snippetdata;
     // cout << snippetdata.table_filter.Size() << endl;
-    snippetdata.IsJoin = isjoin;
+    snippetdata.snippetType = doc["type"].GetInt();
+    // cout << 2 << endl;
     // for(int i = 0; i < document["tableFilter"].Size(); i++){}
-    AppendFilter(snippetdata,document["tableFilter"]);
+    AppendTableFilter(snippetdata,document["tableFilter"]);
+    // cout << 2 << endl;
 
+    if(snippetdata.snippetType == 6){
+      if(document.HasMember("dependency")){
+        if(document["dependency"].HasMember("dependencyProjection")){
+          AppendDependencyProjection(snippetdata,document["dependency"]["dependencyProjection"]);
+        }
+        if(document["dependency"].HasMember("dependencyFilter")){
+          AppendDependencyFilter(snippetdata,document["dependency"]["dependencyFilter"]);
+        }
+      }
+    }
+    // cout << 2 << endl;
     // snippetdata.table_filter = doc["tableFilter"];
 
     for(int i = 0; i < document["tableName"].Size(); i++){
 		  snippetdata.tablename.push_back(document["tableName"][i].GetString());
 	  }
+    // cout << 2 << endl;
 	  for(int i = 0; i < document["columnAlias"].Size(); i++){
 		  snippetdata.column_alias.push_back(document["columnAlias"][i].GetString());
 	  }
+    // cout << 2 << endl;
 	  for(int i = 0; i < document["columnFiltering"].Size(); i++){
 		  snippetdata.columnFiltering.push_back(document["columnFiltering"][i].GetString());
 	  }
-    for(int i = 0; i < document["orderBy"].Size(); i++){
-      for(int j = 0; j < document["orderBy"][i]["columnName"].Size(); j++){
-        snippetdata.orderBy.push_back(document["orderBy"][i]["columnName"][j].GetString());
-        snippetdata.orderType.push_back(document["orderBy"][i]["ascending"][j].GetInt());
-      }
+    // cout << 2 << endl;
+    // cout << document.HasMember("orderBy") << endl;
+    // cout << document["orderBy"].GetType() << endl;
+    // for(int i = 0; i < document["orderBy"].Size(); i++){
+    if(document.HasMember("orderBy")){
+      for(int j = 0; j < document["orderBy"]["columnName"].Size(); j++){
+          snippetdata.orderBy.push_back(document["orderBy"]["columnName"][j].GetString());
+          snippetdata.orderType.push_back(document["orderBy"]["ascending"][j].GetInt());
+        }
     }
+    // }
+    // cout << 2 << endl;
 	  for(int i = 0; i < document["groupBy"].Size(); i++){
 		  snippetdata.groupBy.push_back(document["groupBy"][i].GetString());
 	  }
@@ -501,18 +718,22 @@ void testrun(){
     for(int i = 0; i < document["tableDatatype"].Size(); i++){
 		  snippetdata.table_datatype.push_back(document["tableDatatype"][i].GetInt());
 	  }
+    // cout << 1 << endl;
     snippetdata.tableAlias = document["tableAlias"].GetString();
     // cout << document.HasMember("queryID") << endl;
-    snippetdata.query_id = document["queryID "].GetInt();
+    snippetdata.query_id = document["queryID"].GetInt();
     // cout << 4 << endl;
     snippetdata.work_id = document["workID"].GetInt();
     // cout << 5 << endl;
     AppendProjection(snippetdata, document["columnProjection"]);
     // cout << 6 << endl;
+    // cout << 2 << endl;
     snippetqueue.push(snippetdata);
     // cout << snippetqueue.front().table_filter.Size() << endl;
     // tmpque.enqueue(snippetdata);
   }
+  string LQNAME = snippetqueue.back().tableAlias;
+  int Queryid = snippetqueue.back().query_id;
   snippetmanager.NewQuery(snippetqueue,bufma,tblManager,csdscheduler,csdmanager);
   // snippetmanager.NewQuery(tmpque,bufma,tblManager,csdscheduler,csdmanager);
   // thread t1 = thread(&SnippetManager::NewQuery,&snippetmanager,snippetqueue,bufma,tblManager,csdscheduler,csdmanager);
@@ -520,7 +741,7 @@ void testrun(){
   // cout << 1 << endl;
   // unordered_map<string,vector<vectortype>> rrr = bufma.GetTableData(4,"snippet4-12").table_data;
   // cout << 2 << endl;
-  unordered_map<string,vector<vectortype>> RetTable = bufma.GetTableData(4,"snippet4-12").table_data;
+  unordered_map<string,vector<vectortype>> RetTable = bufma.GetTableData(Queryid,LQNAME).table_data;
   // unordered_map<string,vector<vectortype>> RetTable = snippetmanager.ReturnResult(4);
   cout << "+-------------------------+" << endl;
   cout << " ";
@@ -560,7 +781,7 @@ void testrun(){
 }
 
 
-void AppendFilter(SnippetStruct &snippetdata,Value &filterdata){
+void AppendTableFilter(SnippetStruct &snippetdata,Value &filterdata){
   for(int i = 0; i < filterdata.Size(); i++){
     filterstruct tmpfilterst;
     if(filterdata[i].HasMember("LV")){
@@ -582,8 +803,84 @@ void AppendFilter(SnippetStruct &snippetdata,Value &filterdata){
     }
     snippetdata.table_filter.push_back(tmpfilterst);
   }
+  // cout << snippetdata.table_filter.size() << endl;
 }
 
+void AppendDependencyFilter(SnippetStruct &snippetdata,Value &filterdata){
+  for(int i = 0; i < filterdata.Size(); i++){
+    filterstruct tmpfilterst;
+    if(filterdata[i].HasMember("LV")){
+      for(int j = 0; j < filterdata[i]["LV"]["type"].Size(); j++){
+        lv tmplv;
+        tmplv.type.push_back(filterdata[i]["LV"]["type"][j].GetInt());
+        tmplv.value.push_back(filterdata[i]["LV"]["value"][j].GetString());
+        tmpfilterst.LV = tmplv;
+      }
+    }
+    tmpfilterst.filteroper = filterdata[i]["Operator"].GetInt();
+    if(filterdata[i].HasMember("RV")){
+      for(int j = 0; j < filterdata[i]["RV"]["type"].Size(); j++){
+        rv tmprv;
+        tmprv.type.push_back(filterdata[i]["RV"]["type"][j].GetInt());
+        tmprv.value.push_back(filterdata[i]["RV"]["value"][j].GetString());
+        tmpfilterst.RV = tmprv;
+      }
+    }
+    snippetdata.dependencyFilter.push_back(tmpfilterst);
+  }
+}
+
+
+void AppendProjection(SnippetStruct &snippetdata,Value &Projectiondata){
+	for(int i = 0; i < Projectiondata.Size(); i++){
+    // cout << i << endl;
+		vector<Projection> tmpVec;
+    if(Projectiondata[i]["selectType"] == KETI_COUNTALL){
+      Projection tmpPro;
+      tmpPro.value = "4";
+      tmpVec.push_back(tmpPro);
+    }else{
+      for(int j = 0; j < Projectiondata[i]["value"].Size(); j++){
+        if(j == 0){
+          Projection tmpPro;
+          tmpPro.value = to_string(Projectiondata[i]["selectType"].GetInt());
+          tmpVec.push_back(tmpPro);
+        }
+        
+        Projection tmpPro;
+        tmpPro.type = Projectiondata[i]["valueType"][j].GetInt();
+        tmpPro.value = Projectiondata[i]["value"][j].GetString();
+        tmpVec.push_back(tmpPro);
+      }
+    }
+		snippetdata.columnProjection.push_back(tmpVec);
+	}
+}
+
+void AppendDependencyProjection(SnippetStruct &snippetdata,Value &Projectiondata){
+	for(int i = 0; i < Projectiondata.Size(); i++){
+		vector<Projection> tmpVec;
+    if(Projectiondata[i]["selectType"] == KETI_COUNTALL){
+      Projection tmpPro;
+      tmpPro.value = "4";
+      tmpVec.push_back(tmpPro);
+    }else{
+      for(int j = 0; j < Projectiondata[i]["value"].Size(); j++){
+        if(j == 0){
+          Projection tmpPro;
+          tmpPro.value = to_string(Projectiondata[i]["selectType"].GetInt());
+          tmpVec.push_back(tmpPro);
+        }
+        
+        Projection tmpPro;
+        tmpPro.type = Projectiondata[i]["valueType"][j].GetInt();
+        tmpPro.value = Projectiondata[i]["value"][j].GetString();
+        tmpVec.push_back(tmpPro);
+      }
+    }
+		snippetdata.dependencyProjection.push_back(tmpVec);
+	}
+}
 
 
 // void testsetdata(){

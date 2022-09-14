@@ -1,0 +1,67 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :6,
+      "workID":5,
+      "tableName": ["odbcdata.nation"],
+      "tableCol":[
+        "n_nationkey", 
+        "n_name", 
+        "n_regionkey", 
+        "n_comment"
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["n_name"]
+      },
+      "Operator" : 4, 
+      "RV" : {
+          "type": [7],
+          "value": ["japan"]
+        }
+      },
+      {
+      "Operator" : 13
+      },
+      {
+        "LV": {
+          "type": [10],
+          "value": ["n_name"]
+      },
+      "Operator" : 4, 
+      "RV" : {
+          "type": [7],
+          "value": ["india"]
+        }
+      }
+    ],
+    "tableOffset":[0, 4,29, 33],
+    "tableOfflen":[4,25, 4,152],
+    "tableDatatype":[3,254,3,254],
+      "blockList":[],
+      "tableAlias": "n2",
+      "columnAlias": [
+        "n_name", 
+        "n_nationkey"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["n_name"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["n_nationkey"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

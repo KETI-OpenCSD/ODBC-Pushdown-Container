@@ -1,0 +1,45 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :20,
+    "workID":2,
+    "tableName": ["odbcdata.orders"],
+    "tableCol":[
+
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["o_orderstatus"]
+      },
+      "Operator" : 4, 
+      "RV" : {
+          "type": [7],
+          "value": ["f"]
+        }
+      }
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet20-2",
+    "columnAlias": [
+        "o_orderkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["o_orderkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

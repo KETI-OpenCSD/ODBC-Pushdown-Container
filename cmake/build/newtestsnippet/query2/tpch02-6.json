@@ -1,0 +1,34 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :1,
+    "workID":6,
+    "tableName": ["odbcdata.nation"],
+    "tableCol":[
+    ],
+    "tableFilter":[
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet1-6",
+    "columnAlias": [
+        "n_nationkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["n_nationkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+        "n_nationkey"
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

@@ -1,0 +1,39 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :20,
+    "workID":4,
+    "tableName": ["odbcdata.lineitem"],
+    "tableCol":[
+
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "l2",
+    "columnAlias": [
+        "l_orderkey",
+        "l_suppkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["l_orderkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["l_suppkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

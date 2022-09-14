@@ -1,0 +1,68 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :2,
+      "workID":2,
+      "tableName": ["odbcdata.lineitem"],
+      "tableCol":[
+          "l_shipdate", 
+          "l_orderkey", 
+          "l_discount", 
+          "l_extendedprice", 
+          "l_suppkey", 
+          "l_quantity", 
+          "l_returnflag", 
+          "l_linestatus",
+          "l_tax",
+          "l_commitdate",
+          "l_receiptdate",
+          "l_shipmode",
+          "l_linenumber",
+          "l_shipinstruct",
+          "l_comment"
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [10],
+            "value": ["l_shipdate"]
+        },
+        "Operator" : 2, 
+        "RV" : {
+            "type": [7],
+            "value": ["1021549"]
+          }
+        }
+      ],
+      "tableOffset":[0,3,7,14,21,25,32,33,37,38,45,48,51,61,65,90],
+      "tableOfflen":[3,4,7,7,4,7,1,4,1,7,3,3,10,4,25,45],
+      "tableDatatype":[14,3,246,246,3,246,254,3,254,246,14,14,254,3,254,15],
+      "blockList":[],
+      "tableAlias": "snippet2-2",
+      "columnAlias": [
+          "l_orderkey",
+          "revenue"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["l_orderkey"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["l_extendedprice","1","l_discount","-","*"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [
+          "l_orderkey",
+          "l_extendedprice",
+          "l_discount"
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

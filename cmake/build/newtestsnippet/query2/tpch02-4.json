@@ -1,0 +1,48 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :1,
+    "workID":4,
+    "tableName": ["odbcdata.partsupp"],
+    "tableCol":[
+    ],
+    "tableFilter":[
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet1-4",
+    "columnAlias": [
+        "ps_partkey", 
+        "ps_suppkey",
+        "ps_supplycost"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["ps_partkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["ps_suppkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["ps_supplycost"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+        "ps_partkey", 
+        "ps_suppkey",
+        "ps_supplycost"
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

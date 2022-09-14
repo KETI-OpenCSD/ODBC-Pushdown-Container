@@ -1,4 +1,4 @@
-#include "buffer_manager.h"
+#include "mergequerykmc.h"
 
 // using namespace std;
 
@@ -233,4 +233,72 @@ void get_data(int snippetnumber,BufferManager &bufma, string tablealias){
     }
     cout << tablealias << endl;
     bufma.SaveTableData(4,tablealias,tmpmap);
+}
+
+
+void get_data_and_filter(SnippetStruct snippet, BufferManager &bufma){
+    vector<string> aa;
+    vector<int> bb;
+    // bufma.InitWork(snippet.query_id,snippet.work_id,snippet.tablename[0],aa,bb,bb,0);
+    bufma.InitWork(snippet.query_id,snippet.work_id,snippet.tableAlias,aa,bb,bb,0);
+    // string tablename = split(snippet.tablename[0],'.')[1];
+    string tablename = snippet.tablename[0];
+    string file_path = "newdata/" + tablename + "/" + tablename + ".txt";
+    // cout << file_path << endl;
+    
+    ifstream inputfile(file_path);
+    string line;
+    vector<string> columnname;
+    vector<string> tmpvector;
+    vector<vector<vectortype>> tmpvv;
+    unordered_map<string,vector<vectortype>> savedmap;
+    if(!inputfile.is_open()){
+        exit(1);
+    }
+    bool firstflag = true;
+    while(getline(inputfile,line)){
+        if(firstflag){
+            firstflag = false;
+            columnname = split(line,'~');
+        }else{
+            tmpvector = split(line,'~');
+            // cout << line << endl;
+            // cout << tmpvector.size() << endl;
+            for(int i = 0; i < tmpvector.size(); i++){
+                // cout << i << endl;
+                // savedmap[columnname]
+                vectortype tmpv;
+                if(snippet.table_datatype[i] == MySQL_INT32){
+                    tmpv.type = 1;
+                    tmpv.intvec = stoi(tmpvector[i]);
+                }else if(snippet.table_datatype[i] == MySQL_FLOAT32){
+                    tmpv.type = 2;
+                    tmpv.floatvec = stod(tmpvector[i]);
+                }else if(snippet.table_datatype[i] == MySQL_NEWDECIMAL){
+                    tmpv.type = 2;
+                    tmpv.floatvec = stod(tmpvector[i]);
+                }else if(snippet.table_datatype[i] == MySQL_STRING){
+                    tmpv.type = 0;
+                    tmpv.strvec = tmpvector[i];
+                }else if(snippet.table_datatype[i] == MySQL_VARSTRING){
+                    tmpv.type = 0;
+                    tmpv.strvec = tmpvector[i];
+                }else if(snippet.table_datatype[i] == MySQL_DATE){
+                    tmpv.type = 1;
+                    int tmpint = 0;
+                    vector<string> tmpstring;
+                    tmpstring = split(tmpvector[i],'-');
+                    tmpint = (stoi(tmpstring[0]) * 32 * 16) + (stoi(tmpstring[1]) * 32) + stoi(tmpstring[2]);
+                    tmpv.intvec = tmpint;
+                    // cout << tmpv.intvec << endl;
+                }
+                savedmap[columnname[i]].push_back(tmpv);
+            }
+        }
+    }
+    bufma.SaveTableData(snippet.query_id,snippet.tableAlias,savedmap);
+    //  Aggregation(snippet,bufma,0);
+    if(snippet.table_filter.size() > 0){
+        Storage_Filter(snippet,bufma);
+    }
 }

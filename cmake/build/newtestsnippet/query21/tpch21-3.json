@@ -1,0 +1,45 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :20,
+    "workID":3,
+    "tableName": ["odbcdata.nation"],
+    "tableCol":[
+
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["n_name"]
+      },
+      "Operator" : 4, 
+      "RV" : {
+          "type": [7],
+          "value": ["egypt"]
+        }
+      }
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet20-3",
+    "columnAlias": [
+        "n_nationkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["n_nationkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

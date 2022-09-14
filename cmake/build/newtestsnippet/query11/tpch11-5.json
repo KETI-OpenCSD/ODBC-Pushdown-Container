@@ -1,0 +1,54 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 10,
+    "workID": 5,
+    "tableName": [
+      "nation"
+    ],
+    "tableCol": [ ],
+    "tableFilter": [
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "n_name"
+          ]
+        },
+        "Operator": 4,
+        "RV": {
+          "type": [
+            9
+          ],
+          "value": [
+            "MOZAMBIQUE"
+          ]
+        },
+        "EXTRA": []
+      }
+    ],
+    "tableOffset": [ ],
+    "tableOfflen": [ ],
+    "tableDatatype": [ ],
+    "tableAlias": "snippet10-5",
+    "columnAlias": [
+      "n_nationkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "n_nationkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [ ],
+    "groupBy": [ ],
+    "orderBy": [ ]
+  }
+}

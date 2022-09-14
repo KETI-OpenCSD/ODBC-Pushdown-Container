@@ -6,5 +6,5 @@ CXX_DEFINES = -DCARES_STATICLIB
 
 CXX_INCLUDES = -I/root/workspace/test/ODBC-Pushdown-Process-Container_40k/build -isystem /include
 
-CXX_FLAGS = -g -std=gnu++11
+CXX_FLAGS = -g -std=gnu++17
 

@@ -1,8 +1,10 @@
 #include "buffer_manager.h"
 
-int BufferManager::InitBufferManager(Scheduler &scheduler, TableManager &tblManager){
+void getColOffset(const char* row_data, int* col_offset_list, vector<int> return_datatype, vector<int> table_offlen);
+
+int BufferManager::InitBufferManager(Scheduler &scheduler){
     BufferManager_Input_Thread = thread([&](){BufferManager::BlockBufferInput();});
-    BufferManager_Thread = thread([&](){BufferManager::BufferRunning(scheduler, tblManager);});
+    BufferManager_Thread = thread([&](){BufferManager::BufferRunning(scheduler);});
     return 0;
 }
 
@@ -103,17 +105,11 @@ void BufferManager::BlockBufferInput(){
 	close(server_fd);
 }
 
-void BufferManager::BufferRunning(Scheduler &scheduler, TableManager &tblManager){
+void BufferManager::BufferRunning(Scheduler &scheduler){
     while (1){
         BlockResult blockResult = BlockResultQueue.wait_and_pop();
 
-        //로그
-        char log_char[100];
-        sprintf(log_char, "<log> Storage Engine Instance:Buffer Manager revieve merged data ID(%d:%d)",blockResult.query_id,blockResult.work_id);
-        string log_str(log_char);
-        cout << log_str << endl;// log(log_str);
-
-
+        printf("Receive Data from CSD Return Interface {ID : %d-%d}\n", blockResult.query_id,blockResult.work_id);
 
         if((m_BufferManager.find(blockResult.query_id) == m_BufferManager.end()) || 
            (m_BufferManager[blockResult.query_id]->work_buffer_list.find(blockResult.work_id) 
@@ -121,11 +117,11 @@ void BufferManager::BufferRunning(Scheduler &scheduler, TableManager &tblManager
             cout << "<error> Work(" << blockResult.query_id << "-" << blockResult.work_id << ") Initialize First!" << endl;
         }   
 
-        MergeBlock(blockResult, scheduler, tblManager);
+        MergeBlock(blockResult, scheduler);
     }
 }
 
-void BufferManager::MergeBlock(BlockResult result, Scheduler &scheduler, TableManager &tblManager){
+void BufferManager::MergeBlock(BlockResult result, Scheduler &scheduler){
     int qid = result.query_id;
     int wid = result.work_id;
 
@@ -139,176 +135,234 @@ void BufferManager::MergeBlock(BlockResult result, Scheduler &scheduler, TableMa
         return;
     }
 
+    // // 테스트 출력
+    // cout << "---------------Merged Block Info-----------------" << endl;
+    // cout << "| work id: " << result.work_id << " | length: " << result.length
+    //         << " | row count: " << result.row_count << endl;
+    // cout << "result.length: " << result.length << endl;
+    // cout << "result.row_offset: ";
+    // for(int i = 0; i < result.row_offset.size(); i++){
+    //     printf("%d ",result.row_offset[i]);
+    // }
+    // cout << "\n----------------------------------------------\n";
+    // for(int i = 0; i < result.length; i++){
+    //     printf("%02X ",(u_char)result.data[i]);
+    // }
+    // cout << "\n------------------------------------------------\n";
+
     //데이터가 있는지 확인
     if(result.length != 0){
-        int col_type, col_offset, col_len = 0;
+        int col_type, col_offset, col_len, origin_row_len, new_row_len, col_count = 0;
         string col_name;
-        vector<int> temp_offset;//테스트용
-        temp_offset.assign(result.row_offset.begin(), result.row_offset.end());
-        temp_offset.push_back(result.length);
+        vector<int> new_row_offset;
+        new_row_offset.assign( result.row_offset.begin(), result.row_offset.end() );
+        new_row_offset.push_back(result.length);
 
         //한 row씩 읽기
         for(int i=0; i<result.row_count; i++){
-            col_offset = result.row_offset[i];
-            int temp_test = col_offset + temp_offset[i+1] - temp_offset[i];//테스트용
+            origin_row_len = new_row_offset[i+1] - new_row_offset[i];
+            char row_data[origin_row_len];
+            memcpy(row_data,result.data+result.row_offset[i],origin_row_len);
+
+            new_row_len = 0;
+            col_count = myWorkBuffer->table_column.size();
+            int col_offset_list[col_count + 1];//각 row별 컬럼 오프셋 획득
+            getColOffset(row_data, col_offset_list, myWorkBuffer->return_datatype, myWorkBuffer->table_offlen);
+            col_offset_list[col_count] = origin_row_len;
+
+            // //테스트 출력
+            // cout << "row_col_offset:[";
+            // for(int j = 0; j < col_count + 1; j++){
+            //     printf("%d ",col_offset_list[j]);
+            // }
+            // cout << "]" << endl;
 
             //한 column씩 읽으며 vector에 저장
-            for(int j=0; j<myWorkBuffer->table_datatype.size(); j++){
+            for(int j=0; j<myWorkBuffer->table_column.size(); j++){
                 col_name = myWorkBuffer->table_column[j];
-                col_type = myWorkBuffer->table_datatype[j];
+                col_offset = col_offset_list[j];
+                col_len = col_offset_list[j+1] - col_offset_list[j];
+                col_type = myWorkBuffer->return_datatype[j];
 
-                //가변 길이 데이터인 경우 길이 확인
-                if(col_type == MySQL_VARSTRING){ 
-                    col_len = myWorkBuffer->table_offlen[j];
-                    char tempbuf[4]; 
-                    memset(tempbuf,0,4);
-                    if(col_len < 255){
-                        tempbuf[0] = result.data[col_offset];
-                        col_len = *((int *)tempbuf);
-                        col_offset += 1;
-                    }else{
-                        tempbuf[0] = result.data[col_offset];
-                        tempbuf[1] = result.data[col_offset+1];
-                        col_len = *((int *)tempbuf);
-                        col_offset += 2;
-                    }
-                }else{
-                    col_len = myWorkBuffer->table_offlen[j];   
-                }
                 vectortype tmpvect;
                 switch (col_type){
                     case MySQL_BYTE:{
                         char tempbuf[col_len];//col_len = 1
-                        memcpy(tempbuf,result.data+col_offset,col_len);
-                        int8_t my_value = *((int8_t *)tempbuf);
+                        memcpy(tempbuf,row_data+col_offset,col_len);
+                        int64_t my_value = *((int8_t *)tempbuf);
                         tmpvect.type = 1;
                         tmpvect.intvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
+                        // //테스트출력
+                        // cout << "col_data: ";
+                        // for(int k = 0; k < col_len; k++){
+                        //     printf("%02X ",(u_char)tempbuf[k]);
+                        // }
+                        // cout << endl;
+                        // cout << "vec_data: " << my_value << endl;
                         break;
                     }case MySQL_INT16:{
                         char tempbuf[col_len];//col_len = 2
-                        memcpy(tempbuf,result.data+col_offset,col_len);
-                        int16_t my_value = *((int16_t *)tempbuf);
+                        memcpy(tempbuf,row_data+col_offset,col_len);
+                        int64_t my_value = *((int16_t *)tempbuf);
                         tmpvect.type = 1;
                         tmpvect.intvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
+                        // //테스트출력
+                        // cout << "col_data: ";
+                        // for(int k = 0; k < col_len; k++){
+                        //     printf("%02X ",(u_char)tempbuf[k]);
+                        // }
+                        // cout << endl;
+                        // cout << "vec_data: " << my_value << endl;                        
                         break;
                     }case MySQL_INT32:{
-                        char tempbuf[col_len];//col_len = 3
-                        memcpy(tempbuf,result.data+col_offset,col_len);
-                        int32_t my_value = *((int32_t *)tempbuf);
+                        char tempbuf[col_len];//col_len = 4
+                        memcpy(tempbuf,row_data+col_offset,col_len);
+                        int64_t my_value = *((int32_t *)tempbuf);
                         tmpvect.type = 1;
                         tmpvect.intvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
+                        // //테스트출력
+                        // cout << "col_data: ";
+                        // for(int k = 0; k < col_len; k++){
+                        //     printf("%02X ",(u_char)tempbuf[k]);
+                        // }
+                        // cout << endl;
+                        // cout << "vec_data: " << my_value << endl;  
                         break;
                     }case MySQL_INT64:{
-                        char tempbuf[col_len];//col_len = 4
-                        memcpy(tempbuf,result.data+col_offset,col_len);
+                        char tempbuf[col_len];//col_len = 8
+                        memcpy(tempbuf,row_data+col_offset,col_len);
                         int64_t my_value = *((int64_t *)tempbuf);
                         tmpvect.type = 1;
                         tmpvect.intvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
+                        // //테스트출력
+                        // cout << "col_data: ";
+                        // for(int k = 0; k < col_len; k++){
+                        //     printf("%02X ",(u_char)tempbuf[k]);
+                        // }
+                        // cout << endl;
+                        // cout << "vec_data: " << my_value << endl;  
                         break;
                     }case MySQL_FLOAT32:{
+                        //아직 처리X
                         char tempbuf[col_len];//col_len = 4
-                        memcpy(tempbuf,result.data+col_offset,col_len);
-                        float my_value = *((float *)tempbuf);
+                        memcpy(tempbuf,row_data+col_offset,col_len);
+                        double my_value = *((float *)tempbuf);
                         tmpvect.type = 2;
                         tmpvect.floatvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
                         break;
                     }case MySQL_DOUBLE:{
+                        //아직 처리X
                         char tempbuf[col_len];//col_len = 8
-                        memcpy(tempbuf,result.data+col_offset,col_len);
+                        memcpy(tempbuf,row_data+col_offset,col_len);
                         double my_value = *((double *)tempbuf);
                         tmpvect.type = 2;
                         tmpvect.floatvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
                         break;
                     }case MySQL_NEWDECIMAL:{
-                        char tempbuf[col_len];
-                        for(int k=0; k<col_len; k++){
-                            tempbuf[col_len-k-1] = result.data[col_offset+k];
+                        //decimal(15,2)만 고려한 상황 -> col_len = 7 (integer:6/real:1)
+                        char tempbuf[col_len];//col_len = 7
+                        memcpy(tempbuf,row_data+col_offset,col_len);
+                        bool is_negative = false;
+                        if(std::bitset<8>(tempbuf[0])[7] == 0){//음수일때 not +1
+                            is_negative = true;
+                            for(int i = 0; i<7; i++){
+                                tempbuf[i] = ~tempbuf[i];//not연산
+                            }
+                            // tempbuf[6] = tempbuf[6] +1;//+1
+                        }   
+                        char integer[8];
+                        char real[1];
+                        for(int k=0; k<4; k++){
+                            integer[k] = tempbuf[5-k];
                         }
-                        tempbuf[col_len-1] = 0x00;
-                        int my_value = *((int *)tempbuf);
-                        tmpvect.type = 1;
-                        tmpvect.intvec = my_value;
+                        real[0] = tempbuf[6];
+                        int64_t ivalue = *((int64_t *)integer); 
+                        double rvalue = *((int8_t *)real); 
+                        rvalue *= 0.01;
+                        double my_value = ivalue + rvalue;
+                        if(is_negative){
+                            my_value *= -1;
+                        }
+                        tmpvect.type = 2;
+                        tmpvect.floatvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
+                        // //테스트출력
+                        // cout << "col_data: ";
+                        // for(int k = 0; k < col_len; k++){
+                        //     printf("%02X ",(u_char)tempbuf[k]);
+                        // }
+                        // cout << endl;
+                        // cout << "vec_data: " << my_value << endl;  
                         break;
                     }case MySQL_DATE:{
                         char tempbuf[col_len+1];//col_len = 3
-                        memcpy(tempbuf,result.data+col_offset,col_len);
+                        memcpy(tempbuf,row_data+col_offset,col_len);
                         tempbuf[3] = 0x00;
-                        int my_value = *((int *)tempbuf);
+                        int64_t my_value = *((int *)tempbuf);
                         tmpvect.type = 1;
                         tmpvect.intvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
+                        // //테스트출력
+                        // cout << "col_data: ";
+                        // for(int k = 0; k < col_len; k++){
+                        //     printf("%02X ",(u_char)tempbuf[k]);
+                        // }
+                        // cout << endl;
+                        // cout << "vec_data: " << my_value << endl;  
                         break;
                     }case MySQL_TIMESTAMP:{
+                        //아직 처리X
                         char tempbuf[col_len];//col_len = 4
-                        memcpy(tempbuf,result.data+col_offset,col_len);
+                        memcpy(tempbuf,row_data+col_offset,col_len);
                         int my_value = *((int *)tempbuf);
                         tmpvect.type = 1;
                         tmpvect.intvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
                         break;
                     }case MySQL_STRING:
                      case MySQL_VARSTRING:{
-                        char tempbuf[col_len];
-                        memcpy(tempbuf,result.data+col_offset,col_len);
+                        char tempbuf[col_len+1];
+                        memcpy(tempbuf,row_data+col_offset,col_len);
+                        tempbuf[col_len] = '\0';
                         string my_value(tempbuf);
                         tmpvect.type = 0;
                         tmpvect.strvec = my_value;
                         myWorkBuffer->table_data[col_name].push_back(tmpvect);
-                        // myWorkBuffer->table_data[col_name].push_back(my_value);
+                        // //테스트출력
+                        // cout << "col_data: ";
+                        // for(int k = 0; k < col_len; k++){
+                        //     printf("%02X ",(u_char)tempbuf[k]);
+                        // }
+                        // cout << endl;
+                        // cout << "vec_data: " << my_value << endl;  
                         break;
                     }default:{
                         cout << "<error> Type:" << col_type << " Is Not Defined!!" << endl;
                     }
                 }
-                
-                col_offset += col_len;
-            }
-
-            if(temp_test != col_offset){//테스트용
-                cout << "<error> offset different! " << temp_test << "/" << col_offset << endl;
             }
         }
     }
 
-    //-------test----------------------
-    sleep(2);
-    return;
-    //---------------------------------
-
     //남은 블록 수 조정
-    cout << "(before left/result cnt/after left)|(" << myWorkBuffer->left_block_count << "/" << result.result_block_count << "/" << myWorkBuffer->left_block_count-result.result_block_count << ")" << endl;
+    // cout << "(before left/result cnt/after left)|(" << myWorkBuffer->left_block_count << "/" << result.result_block_count << "/" << myWorkBuffer->left_block_count-result.result_block_count << ")" << endl;
     scheduler.csdworkdec(result.csd_name, result.result_block_count);
     myWorkBuffer->left_block_count -= result.result_block_count;
+    printf("[Buffer Manager] Merging Data ... (Left Block : %d)\n",myWorkBuffer->left_block_count);
 
     //블록을 다 처리했는지 개수 확인
     if(myWorkBuffer->left_block_count == 0){
-        // cout << "#Work(" << qid << "-" << wid << ") Is Done!" << endl;
-        //로그
-        char log_char[100];
-        sprintf(log_char, "<log> Storage Engine Instance:Buffer Manager finish the work ID(%d:%d)",qid,wid);
-        string log_str(log_char);
-        cout << log_str << endl;// log(log_str);
-
+        // cout << "Storage Engine Instance:Buffer Manager finish the work ID(" << result.query_id << ":" << result.work_id << ")" << endl;
+        printf("[Buffer Manager] Merging Data {ID : %d-%d} Done (Table : %s)\n\n",qid,wid,myWorkBuffer->table_alias);
         myWorkBuffer->is_done = true;
         m_BufferManager[qid]->table_status[myWorkBuffer->table_alias].second = true;
-        myWorkBuffer->cond.notify_all();      
-    }else if(myWorkBuffer->left_block_count < 0){
-        cout << "<error> Work(" << qid << "-" << wid << ") Block Count = " << myWorkBuffer->left_block_count << endl;
+        myWorkBuffer->cond.notify_all();
     }
 }
 
@@ -316,11 +370,6 @@ int BufferManager::InitWork(int qid, int wid, string table_alias,
                             vector<string> table_column_, vector<int> return_datatype,
                             vector<int> table_offlen_, int total_block_cnt_){
     // cout << "#Init Work! [" << qid << "-" << wid << "] (BufferManager)" << endl;
-    //로그
-    char log_char[100];
-    // sprintf(log_char, "<log> Storage Engine Instance:Buffer Manager init work buffer ID(%d:%d)",qid,wid);
-    string log_str(log_char);
-    // cout << log_str << endl;// log(log_str);
 
     if(m_BufferManager.find(qid) == m_BufferManager.end()){
         InitQuery(qid);
@@ -361,17 +410,21 @@ int BufferManager::CheckTableStatus(int qid, string tname){
 
 TableInfo BufferManager::GetTableInfo(int qid, string tname){
     int status = CheckTableStatus(qid,tname);
+    cout << "[Buffer Manager] Get Table Info  Tname : " << tname << endl;
     TableInfo tableInfo;
-    if(status!=1){
-        return tableInfo;
+
+    if(status!=WorkDone){
+        int wid = m_BufferManager[qid]->table_status[tname].first;
+        Work_Buffer* workBuffer = m_BufferManager[qid]->work_buffer_list[wid];
+        unique_lock<mutex> lock(workBuffer->mu);
+        workBuffer->cond.wait(lock);
     }
 
     int wid = m_BufferManager[qid]->table_status[tname].first;
-    Work_Buffer* workBuffer = m_BufferManager[qid]->work_buffer_list[wid];
-    tableInfo.table_column = workBuffer->table_column;
-    tableInfo.table_datatype = workBuffer->table_datatype;
-    tableInfo.table_offlen = workBuffer->table_offlen;
-   
+    tableInfo.table_column = m_BufferManager[qid]->work_buffer_list[wid]->table_column;
+    tableInfo.table_datatype = m_BufferManager[qid]->work_buffer_list[wid]->table_datatype;
+    tableInfo.table_offlen = m_BufferManager[qid]->work_buffer_list[wid]->table_offlen;
+    cout << "[Buffer Manager] Return Table Info  Tname : " << tname << endl;
     return tableInfo;
 }
 
@@ -388,10 +441,8 @@ TableData BufferManager::GetTableData(int qid, string tname){
         }case NotFinished:{
             int wid = m_BufferManager[qid]->table_status[tname].first;
             Work_Buffer* workBuffer = m_BufferManager[qid]->work_buffer_list[wid];
-            
             unique_lock<mutex> lock(workBuffer->mu);
             workBuffer->cond.wait(lock);
-
             tableData.table_data = workBuffer->table_data;
             break;
         }case WorkDone:{
@@ -408,15 +459,14 @@ TableData BufferManager::GetTableData(int qid, string tname){
 
 //이건 MQM에서 연산한 결과 테이블 전체 저장할 때
 int BufferManager::SaveTableData(int qid, string tname, unordered_map<string,vector<vectortype>> table_data_){
-    // int status = CheckTableStatus(qid,tname);
-    // if(status!=WorkDone){
-    //     return 0;
-    // }
-    //wal에서 save하는거 따로 구현해야함!!!
-    // auto a = table_data_.begin();
-    // pair<string,vector<vectortype>> tt = *a;
-    // cout << "size : " << tt.second.size() << endl;
     cout << "[Buffer Manager] Saved Table, Table Name : "  << tname << endl;
+    // cout << table_data_.size() << endl;
+    for(auto it = table_data_.begin(); it != table_data_.end(); it++){
+    pair<string,vector<vectortype>> pair;
+    pair = *it;
+    cout << pair.first << " " << pair.second.size()<< endl;
+    // tablelist.insert(pair);
+    }
     int wid = m_BufferManager[qid]->table_status[tname].first;
     Work_Buffer* workBuffer = m_BufferManager[qid]->work_buffer_list[wid];
     unique_lock<mutex> lock(workBuffer->mu);
@@ -430,7 +480,6 @@ int BufferManager::SaveTableData(int qid, string tname, unordered_map<string,vec
 
 int BufferManager::DeleteTableData(int qid, string tname){
     int status = CheckTableStatus(qid,tname);
-    // cout << "delete table" << endl;
     switch(status){
         case QueryIDError:
         case NonInitTable:{
@@ -459,4 +508,33 @@ int BufferManager::DeleteTableData(int qid, string tname){
     }
 
     return 1;
+}
+
+void getColOffset(const char* row_data, int* col_offset_list, vector<int> return_datatype, vector<int> table_offlen){
+    int col_type = 0, col_len = 0, col_offset = 0, new_col_offset = 0, tune = 0;
+    int col_count = return_datatype.size();
+
+    for(int i=0; i<col_count; i++){
+        col_type = return_datatype[i];
+        col_len = table_offlen[i];
+        new_col_offset = col_offset + tune;
+        col_offset += col_len;
+        if(col_type == MySQL_VARSTRING){
+            if(col_len < 256){//0~255
+                char var_len[1];
+                var_len[0] = row_data[new_col_offset];
+                uint8_t var_len_ = *((uint8_t *)var_len);
+                tune += var_len_ + 1 - col_len;
+            }else{//0~65535
+                char var_len[2];
+                var_len[0] = row_data[new_col_offset];
+                int new_col_offset_ = new_col_offset + 1;
+                var_len[1] = row_data[new_col_offset_];
+                uint16_t var_len_ = *((uint16_t *)var_len);
+                tune += var_len_ + 2 - col_len;
+            }
+        }
+
+        col_offset_list[i] = new_col_offset;
+    }
 }

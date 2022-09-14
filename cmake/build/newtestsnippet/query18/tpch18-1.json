@@ -1,0 +1,41 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 17,
+    "workID": 1,
+    "tableName": [
+      "orders"
+    ],
+    "tableCol": [],
+    "tableFilter": [],
+    "tableOffset": [],
+    "tableOfflen": [],
+    "tableDatatype": [],
+    "tableAlias": "snippet17-1",
+    "columnAlias": [
+      "o_orderkey",
+      "o_orderdate",
+      "o_totalprice"
+    ],
+    "columnProjection": [
+      {
+          "selectType": 0,
+          "value": ["o_orderkey"],
+          "valueType": [10]
+      },
+      {
+          "selectType": 0,
+          "value": ["o_orderdate"],
+          "valueType": [10]
+      },
+      {
+          "selectType": 0,
+          "value": ["o_totalprice"],
+          "valueType": [10]
+      }
+    ],
+    "columnFiltering": [],
+    "groupBy": [],
+    "orderBy": []
+  }
+}

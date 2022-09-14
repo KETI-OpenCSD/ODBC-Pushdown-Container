@@ -1,0 +1,35 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 17,
+    "workID": 2,
+    "tableName": [
+      "lineitem"
+    ],
+    "tableCol": [],
+    "tableFilter": [],
+    "tableOffset": [],
+    "tableOfflen": [],
+    "tableDatatype": [],
+    "tableAlias": "snippet17-2",
+    "columnAlias": [
+      "l_orderkey",
+      "l_quantity"
+    ],
+    "columnProjection": [
+      {
+          "selectType": 0,
+          "value": ["l_orderkey"],
+          "valueType": [10]
+      },
+      {
+          "selectType": 0,
+          "value": ["l_quantity"],
+          "valueType": [10]
+      }
+    ],
+    "columnFiltering": [],
+    "groupBy": [],
+    "orderBy": []
+  }
+}

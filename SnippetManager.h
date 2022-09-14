@@ -97,3 +97,5 @@ class SnippetManager{
 };
 
 int my_LBA2PBA(std::string &req_json,std::string &res_json);
+
+void sendToSnippetScheduler(SnippetStruct &snippet, BufferManager &buff, Scheduler &scheduler_, TableManager &tableManager_, CSDManager &csdManager);

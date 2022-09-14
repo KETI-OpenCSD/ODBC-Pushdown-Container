@@ -1,0 +1,35 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 17,
+    "workID": 0,
+    "tableName": [
+      "customer"
+    ],
+    "tableCol": [],
+    "tableFilter": [],
+    "tableOffset": [],
+    "tableOfflen": [],
+    "tableDatatype": [],
+    "tableAlias": "snippet17-0",
+    "columnAlias": [
+      "c_name",
+      "c_custkey"
+    ],
+    "columnProjection": [
+      {
+          "selectType": 0,
+          "value": ["c_name"],
+          "valueType": [10]
+      },
+      {
+          "selectType": 0,
+          "value": ["c_custkey"],
+          "valueType": [10]
+      }
+    ],
+    "columnFiltering": [],
+    "groupBy": [],
+    "orderBy": []
+  }
+}

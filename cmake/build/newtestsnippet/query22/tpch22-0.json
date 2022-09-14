@@ -1,0 +1,66 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :21,
+      "workID":0,
+      "tableName": ["odbcdata.customer"],
+      "tableCol":[
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [10],
+            "value": ["c_acctbal"]
+        },
+        "Operator" : 2,
+        "RV" : {
+            "type": [10],
+            "value": ["0.00"]
+          }
+        },
+        {
+        "Operator" : 12
+        },
+        {
+          "LV": {
+            "type": [10],
+            "value": ["c_phone"]
+          },
+          "Operator" : 14,
+          "RV" : {
+              "type": [14],
+              "value": ["1","2"]
+          }
+        },
+        {
+        "Operator" : 8,
+        "RV" : {
+            "type": [7,7,7,7,7,7,7],
+            "value": ["20","40","22","30","39","42","21"]
+          }
+        }
+      ],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet21-0",
+      "columnAlias": [
+          "c_acctbal"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["c_acctbal"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [
+          "c_acctbal"
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

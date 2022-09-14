@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/storage_engine_instance.dir/StorageEngineInputInterface.cc.o.d"
   "CMakeFiles/storage_engine_instance.dir/TableManager.cc.o"
   "CMakeFiles/storage_engine_instance.dir/TableManager.cc.o.d"
+  "CMakeFiles/storage_engine_instance.dir/WalManager.cc.o"
+  "CMakeFiles/storage_engine_instance.dir/WalManager.cc.o.d"
   "CMakeFiles/storage_engine_instance.dir/buffer_manager.cc.o"
   "CMakeFiles/storage_engine_instance.dir/buffer_manager.cc.o.d"
   "CMakeFiles/storage_engine_instance.dir/mergequerykmc.cc.o"

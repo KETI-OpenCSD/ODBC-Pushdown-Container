@@ -1,0 +1,104 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :9,
+      "workID":0,
+      "tableName": ["customer"],
+      "tableCol":[
+        ****채우기
+      ],
+      "tableFilter":[],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet9-0",
+      "columnAlias": [
+          "c_custkey",
+          "c_name",
+          "c_acctbal",
+          "c_address",
+          "c_phone",
+          "c_comment",
+          "c_nationkey"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": [
+            "c_custkey"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "c_name"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "c_acctbal"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "c_address"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "c_phone"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "c_comment"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "c_nationkey"
+          ],
+          "valueType": [
+            10
+          ]
+        }
+      ],
+      "columnFiltering": [
+        "c_custkey",
+        "c_name",
+        "c_acctbal",
+        "c_address",
+        "c_phone",
+        "c_comment",
+        "c_nationkey"
+      ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

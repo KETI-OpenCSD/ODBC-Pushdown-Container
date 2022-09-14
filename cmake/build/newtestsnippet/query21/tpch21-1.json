@@ -1,0 +1,51 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :20,
+    "workID":1,
+    "tableName": ["odbcdata.lineitem"],
+    "tableCol":[
+
+    ],
+    "tableFilter":[
+      {
+        "LV": {
+          "type": [10],
+          "value": ["l_receiptdate"]
+      },
+      "Operator" : 8, 
+      "RV" : {
+          "type": [10],
+          "value": ["l_commitdate"]
+        }
+      }
+    ],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "l1",
+    "columnAlias": [
+        "l_suppkey",
+        "l_orderkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["l_suppkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["l_orderkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [
+      ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}

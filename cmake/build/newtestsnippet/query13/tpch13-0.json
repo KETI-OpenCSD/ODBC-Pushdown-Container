@@ -1,0 +1,58 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 12,
+    "workID": 0,
+    "tableName": [
+      "orders"
+    ],
+    "tableCol": [ ],
+    "tableFilter": [
+      {
+        "Operator": 12
+      },
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "o_comment"
+          ]
+        },
+        "Operator": 7, 
+        "RV": {
+          "type": [
+            9
+          ],
+          "value": [
+            "%pending%deposits%"
+          ]
+       }
+      }
+    ],
+    "tableOffset": [ ],
+    "tableOfflen": [ ],
+    "tableDatatype": [ ],
+    "tableAlias": "snippet12-0",
+    "columnAlias": [
+      "o_custkey",
+      "o_orderkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": ["o_custkey"],
+        "valueType": [10]
+      },
+      {
+        "selectType": 0,
+        "value": ["o_orderkey"],
+        "valueType": [10]
+      }
+    ],
+    "columnFiltering": [ ],
+    "groupBy": [ ],
+    "orderBy": [ ]
+  }
+}

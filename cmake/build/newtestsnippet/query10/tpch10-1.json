@@ -1,0 +1,105 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :9,
+      "workID":1,
+      "tableName": ["orders"],
+      "tableCol":[
+        ****채우기
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [
+              10
+            ],
+            "value": [
+              "o_orderdate"
+            ]
+          },
+          "Operator": 1,
+          "RV": {
+            "type": [
+              7
+            ],
+            "value": [
+              "1020673"
+            ]
+          },
+          "EXTRA": []
+        },
+        {
+          "Operator" : 13,
+          "EXTRA": []
+        },
+        {
+          "LV": {
+            "type": [
+              10
+            ],
+            "value": [
+              "o_orderdate"
+            ]
+          },
+          "Operator": 4,
+          "RV": {
+            "type": [
+              7
+            ],
+            "value": [
+              "1020769"
+            ]
+          },
+          "EXTRA": []
+        }
+      ],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet9-1",
+      "columnAlias": [
+        "o_custkey",
+        "o_orderkey",
+        "o_orderdate"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": [
+            "o_custkey"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "o_orderkey"
+          ],
+          "valueType": [
+            10
+          ]
+        },
+        {
+          "selectType": 0,
+          "value": [
+            "o_orderdate"
+          ],
+          "valueType": [
+            10
+          ]
+        }
+      ],
+      "columnFiltering": [
+          "o_custkey",
+          "o_orderkey",
+          "o_orderdate"
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

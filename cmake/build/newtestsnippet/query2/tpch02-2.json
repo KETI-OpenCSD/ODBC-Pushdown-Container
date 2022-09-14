@@ -1,0 +1,66 @@
+{
+    "type" : 0,
+    "snippet":
+    {
+      "queryID " :1,
+      "workID":2,
+      "tableName": ["odbcdata.part"],
+      "tableCol":[
+      ],
+      "tableFilter":[
+        {
+          "LV": {
+            "type": [10],
+            "value": ["p_size"]
+        },
+        "Operator" : 4, 
+        "RV" : {
+            "type": [7],
+            "value": ["30"]
+          }
+        },
+        {
+        "Operator" : 12
+        },
+        {
+          "LV": {
+            "type": [10],
+            "value": ["p_type"]
+        },
+        "Operator" : 6, 
+        "RV" : {
+            "type": [7],
+            "value": ["%steel"]
+          }
+        }
+      ],
+      "tableOffset":[],
+      "tableOfflen":[],
+      "tableDatatype":[],
+      "blockList":[],
+      "tableAlias": "snippet1-2",
+      "columnAlias": [
+          "p_partkey", 
+          "p_mfgr"
+      ],
+      "columnProjection": [
+        {
+          "selectType": 0,
+          "value": ["p_partkey"],
+          "valueType": [10]
+        },
+        {
+          "selectType": 0,
+          "value": ["p_mfgr"],
+          "valueType": [10]
+        }
+      ],
+      "columnFiltering": [
+          "p_partkey", 
+          "p_mfgr"
+        ],
+      "groupBy": [],
+      "orderBy": []
+    }
+
+}

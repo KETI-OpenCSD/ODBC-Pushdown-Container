@@ -1,0 +1,151 @@
+{
+  "type": 0,
+  "snippet": {
+    "queryID": 11,
+    "workID": 1,
+    "tableName": [
+      "lineitem"
+    ],
+    "tableCol": [ ],
+    "tableFilter": [
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "l_shipmode"
+          ]
+        },
+        "Operator": 9, 
+        "RV": {
+          "type": [
+            9,9
+          ],
+          "value": [
+            "rail","fob"
+          ]
+        }
+      },
+      {
+        "Operator" : 13
+      },
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "l_commitdate"
+          ]
+        },
+        "Operator": 3,
+        "RV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "l_receiptdate"
+          ]
+        }
+      },
+      {
+        "Operator" : 13
+      },
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "l_shipdate"
+          ]
+        },
+        "Operator": 3,
+        "RV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "l_commitdate"
+          ]
+        }
+      },
+      {
+        "Operator" : 13
+      },
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "l_receiptdate"
+          ]
+        },
+        "Operator": 0, 
+        "RV": {
+          "type": [
+            7
+          ],
+          "value": [
+            "1022497"
+          ]
+        }
+      },
+      {
+        "Operator" : 13
+      },
+      {
+        "LV": {
+          "type": [
+            10
+          ],
+          "value": [
+            "l_receiptdate"
+          ]
+        },
+        "Operator": 3,
+        "RV": {
+          "type": [
+            7
+          ],
+          "value": [
+            "1023009"
+          ]
+        }
+      }
+    ],
+    "tableOffset": [ ],
+    "tableOfflen": [ ],
+    "tableDatatype": [ ],
+    "tableAlias": "snippet11-1",
+    "columnAlias": [
+      "l_orderkey",
+      "l_shipmode"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "l_orderkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "l_shipmode"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [ ],
+    "groupBy": [ ],
+    "orderBy": [ ]
+  }
+}

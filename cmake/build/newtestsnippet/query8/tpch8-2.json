@@ -1,0 +1,80 @@
+{
+  "type" : 0,
+  "snippet":
+  {
+    "queryID " :7,
+    "workID":2,
+    "tableName": ["lineitem"],
+    "tableCol":[
+      ****채우기
+    ],
+    "tableFilter":[],
+    "tableOffset":[],
+    "tableOfflen":[],
+    "tableDatatype":[],
+    "blockList":[],
+    "tableAlias": "snippet7-2",
+    "columnAlias": [
+      "volume",
+      "l_partkey",
+      "l_suppkey",
+      "l_orderkey"
+    ],
+    "columnProjection": [
+      {
+        "selectType": 0,
+        "value": [
+          "l_extendedprice",
+          "1",
+          "l_discount",
+          "-",
+          "*"
+        ],
+        "valueType": [
+          10,
+          2,
+          10,
+          11,
+          11
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "l_partkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "l_suppkey"
+        ],
+        "valueType": [
+          10
+        ]
+      },
+      {
+        "selectType": 0,
+        "value": [
+          "l_orderkey"
+        ],
+        "valueType": [
+          10
+        ]
+      }
+    ],
+    "columnFiltering": [
+      "l_extendedprice",
+      "l_discount",
+      "l_partkey",
+      "l_suppkey",
+      "l_orderkey"
+    ],
+    "groupBy": [],
+    "orderBy": []
+  }
+
+}
